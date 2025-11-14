@@ -1,14 +1,12 @@
 package com.hades.hadescoffee.infrastructure.entities;
 
-import com.hades.hadescoffee.infrastructure.enums.InvoiceStatusEnum;
-import com.hades.hadescoffee.infrastructure.enums.PaymentMethodEnum;
+import com.hades.hadescoffee.infrastructure.enums.InvoiceStatusEntity;
+import com.hades.hadescoffee.infrastructure.enums.PaymentMethodEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
-
-import java.math.BigDecimal;
 
 @Entity
 @Getter
@@ -25,11 +23,11 @@ public class InvoiceEntity extends BaseEntity {
 
     @Column(length = 20, nullable = false)
     @Enumerated(EnumType.STRING)
-    InvoiceStatusEnum status;
+    InvoiceStatusEntity status;
 
     @Column(length = 20, nullable = false)
     @Enumerated(EnumType.STRING)
-    PaymentMethodEnum paymentMethod;
+    PaymentMethodEntity paymentMethod;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false, unique = true)

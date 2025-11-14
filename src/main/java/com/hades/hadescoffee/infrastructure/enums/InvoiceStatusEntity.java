@@ -1,6 +1,6 @@
 package com.hades.hadescoffee.infrastructure.enums;
 
-public enum InvoiceStatusEnum {
+public enum InvoiceStatusEntity {
     PAID,
     UNPAID,
     VOIDED,

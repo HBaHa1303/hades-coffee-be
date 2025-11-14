@@ -1,14 +1,11 @@
 package com.hades.hadescoffee.infrastructure.entities;
 
-import com.hades.hadescoffee.infrastructure.enums.RoleStatusEnum;
+import com.hades.hadescoffee.infrastructure.enums.RoleStatusEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
-
-import java.time.LocalDate;
-import java.util.Set;
 
 @Entity
 @Table(name = "user_role")
@@ -31,6 +28,6 @@ public class UserRoleEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false,  length = 20)
-    RoleStatusEnum status;
+    RoleStatusEntity status;
 }
 

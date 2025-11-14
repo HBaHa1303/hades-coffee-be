@@ -1,0 +1,7 @@
+server:
+  port: 8123
+
+spring:
+  messages:
+    basename: i18n/messages
+    cache-duration: -1

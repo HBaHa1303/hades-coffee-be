@@ -1,6 +1,6 @@
 package com.hades.hadescoffee.infrastructure.enums;
 
-public enum TableStatusEnum {
+public enum TableStatusEntity {
     CLOSED,
     AVAILABLE,
     OCCUPIED,

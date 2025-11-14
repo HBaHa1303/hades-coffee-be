@@ -1,6 +1,6 @@
 package com.hades.hadescoffee.infrastructure.entities;
 
-import com.hades.hadescoffee.infrastructure.enums.MenuItemStatusEnum;
+import com.hades.hadescoffee.infrastructure.enums.MenuItemStatusEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -27,7 +27,7 @@ public class MenuItemEntity extends BaseEntity{
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    MenuItemStatusEnum status;
+    MenuItemStatusEntity status;
 
     @Column(nullable = false)
     Long price;

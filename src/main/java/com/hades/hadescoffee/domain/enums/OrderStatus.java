@@ -1,6 +1,6 @@
-package com.hades.hadescoffee.infrastructure.enums;
+package com.hades.hadescoffee.domain.enums;
 
-public enum OrderStatusEnum {
+public enum OrderStatus {
     PENDING,
     CONFIRMED,
     IN_PROGRESS,
