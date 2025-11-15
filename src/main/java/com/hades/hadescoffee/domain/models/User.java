@@ -1,33 +1,33 @@
 package com.hades.hadescoffee.domain.models;
 
 import com.hades.hadescoffee.domain.enums.RoleStatus;
+import com.hades.hadescoffee.domain.exceptions.DomainException;
 import com.hades.hadescoffee.domain.exceptions.DomainValidationException;
 import com.hades.hadescoffee.domain.valueObjects.Email;
-import com.hades.hadescoffee.infrastructure.entities.UserRoleEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
-    Long id;
+    final Long id;
     final Email email;
     String password;
     final String firstName;
     final String lastName;
     final LocalDate dateOfBirth;
-    RoleStatus status;
-    List<UserRoleEntity> userRoles;
+    final List<UserRole> userRoles;
 
-    public User(Long id, Email email, String password, String firstName, String lastName, LocalDate dateOfBirth,
-                RoleStatus status, List<UserRoleEntity> userRoles) {
-        if (Objects.isNull(email)) {
+    public User(Long id, String email, String password, String firstName, String lastName,
+                LocalDate dateOfBirth, List<UserRole> userRoles) {
+        if (StringUtils.isBlank(email)) {
             throw new DomainValidationException("common.invalid_input", "email");
         }
         if (StringUtils.isBlank(password)) {
@@ -42,20 +42,48 @@ public class User {
         if (Objects.isNull(dateOfBirth)) {
             throw new DomainValidationException("common.invalid_input", "date_of_birth");
         }
-        if (Objects.isNull(status)) {
-            throw new DomainValidationException("common.invalid_input", "status");
-        }
-        if (Objects.isNull(userRoles)) {
-            throw new DomainValidationException("common.invalid_input", "user_roles");
-        }
 
         this.id = id;
-        this.email = email;
+        this.email = new Email(email);
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
-        this.status = status;
-        this.userRoles = userRoles;
+        this.userRoles = Objects.isNull(userRoles) ? new ArrayList<>() : userRoles;
+    }
+
+    public void assignRole(Role role) {
+        var existing = userRoles.stream()
+                .filter(r -> r.getRoleCode().equals(role.getCode()))
+                .findFirst();
+
+        if (existing.isPresent()) {
+            UserRole ur = existing.get();
+            if (ur.getStatus() == RoleStatus.INACTIVE) {
+                ur.activate();
+            }
+        } else {
+            UserRole userRole = new UserRole(null, role.getCode(), RoleStatus.ACTIVE);
+            userRoles.add(userRole);
+        }
+    }
+
+
+    public void revokeRole(String roleCode) {
+        var ur = userRoles.stream()
+                .filter(r -> r.getRoleCode().equals(roleCode))
+                .findFirst()
+                .orElseThrow(() -> new DomainException("user.role_not_found", id, roleCode));
+        ur.revoke();
+    }
+
+    public void changePassword(String raw) {
+        if (raw == null || raw.length() < 6)
+            throw new DomainValidationException("user.password_invalid", 6);
+        this.password = hashPassword(raw);
+    }
+
+    private String hashPassword(String raw) {
+        return raw;
     }
 }

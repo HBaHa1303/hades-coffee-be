@@ -2,6 +2,7 @@ package com.hades.hadescoffee.domain.models;
 
 import com.hades.hadescoffee.domain.enums.MenuItemStatus;
 import com.hades.hadescoffee.domain.exceptions.DomainValidationException;
+import com.hades.hadescoffee.domain.valueObjects.Money;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
@@ -17,11 +18,14 @@ public class MenuItem {
     String description;
     String imageUrl;
     MenuItemStatus status;
-    Long price;
-    final Category category;
+    Money price;
+    final String categoryCode;
 
     public MenuItem(String code, String name, String description, String imageUrl,
-                    MenuItemStatus status, Long price, Category category) {
+                    MenuItemStatus status, Money price, String categoryCode) {
+        if (StringUtils.isBlank(code)) {
+            throw new DomainValidationException("common.invalid_input", "code");
+        }
         if (StringUtils.isBlank(name)) {
             throw new DomainValidationException("common.invalid_input", "name");
         }
@@ -34,12 +38,12 @@ public class MenuItem {
             throw new DomainValidationException("common.invalid_input", "image url");
         }
 
-        if (Objects.isNull(price) || price <= 0) {
-            throw new DomainValidationException("common.invalid_input", "price");
+        if (Objects.isNull(status)) {
+            throw new DomainValidationException("common.invalid_input", "status");
         }
 
-        if (category == null) {
-            throw new DomainValidationException("common.invalid_input", "category");
+        if (StringUtils.isBlank(categoryCode)) {
+            throw new DomainValidationException("common.invalid_input", "category code");
         }
 
         this.code = code;
@@ -48,7 +52,7 @@ public class MenuItem {
         this.imageUrl = imageUrl;
         this.status = status;
         this.price = price;
-        this.category = category;
+        this.categoryCode = categoryCode;
     }
 
     public void activate() {
@@ -62,4 +66,32 @@ public class MenuItem {
     public boolean isActive() {
         return status == MenuItemStatus.AVAILABLE;
     }
+
+    public void changeName (String newName) {
+        if (StringUtils.isBlank(newName)) {
+            throw new DomainValidationException("common.invalid_input", "name");
+        }
+        this.name = newName;
+    }
+
+    public void changeDescription (String newDescription) {
+        if (StringUtils.isBlank(newDescription)) {
+            throw new DomainValidationException("common.invalid_input", "description");
+        }
+        this.description = newDescription;
+    }
+    public void changeImageUrl (String newImageUrl) {
+        if (StringUtils.isBlank(newImageUrl)) {
+            throw new DomainValidationException("common.invalid_input", "image url");
+        }
+        this.imageUrl = newImageUrl;
+    }
+
+    public void changePrice(Money newPrice) {
+        if (newPrice == null || newPrice.isZero()) {
+            throw new DomainValidationException("common.invalid_input", "price");
+        }
+        this.price = newPrice;
+    }
+
 }

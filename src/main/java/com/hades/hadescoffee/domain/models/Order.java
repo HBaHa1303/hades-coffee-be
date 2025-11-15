@@ -7,6 +7,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,20 +16,16 @@ import java.util.Objects;
 public class Order {
     final Long id;
     OrderStatusEntity status;
-    List<OrderItem> orderItems;
+    final List<OrderItem> orderItems;
 
     public Order(Long id, OrderStatusEntity status, List<OrderItem> orderItems) {
         if (Objects.isNull(status)) {
             throw new DomainValidationException("common.invalid_input", "status");
         }
 
-        if (Objects.isNull(orderItems)) {
-            throw new DomainValidationException("common.invalid_input", "orderItems");
-        }
-
         this.id = id;
         this.status = status;
-        this.orderItems = orderItems;
+        this.orderItems = Objects.isNull(orderItems) ? new ArrayList<>() : orderItems;
     }
 
     public void addOrderItem(OrderItem orderItem) {

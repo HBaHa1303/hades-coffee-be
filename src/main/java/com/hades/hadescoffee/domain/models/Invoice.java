@@ -4,6 +4,7 @@ import com.hades.hadescoffee.domain.enums.InvoiceStatus;
 import com.hades.hadescoffee.domain.enums.PaymentMethod;
 import com.hades.hadescoffee.domain.exceptions.DomainException;
 import com.hades.hadescoffee.domain.exceptions.DomainValidationException;
+import com.hades.hadescoffee.domain.valueObjects.Money;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
@@ -14,13 +15,13 @@ import java.util.Objects;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Invoice {
     final Long id;
-    final Long amount;
+    final Money amount;
     InvoiceStatus status;
     final PaymentMethod paymentMethod;
     final Order order;
 
-    public Invoice(Long id, Long amount, InvoiceStatus status, PaymentMethod paymentMethod, Order order) {
-        if (Objects.isNull(amount) || amount <= 0) {
+    public Invoice(Long id, Money amount, InvoiceStatus status, PaymentMethod paymentMethod, Order order) {
+        if (Objects.isNull(amount) || amount.isLessOrEqual(Money.ZERO)) {
             throw new DomainValidationException("common.invalid_input", "amount");
         }
 

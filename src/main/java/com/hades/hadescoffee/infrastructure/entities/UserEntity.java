@@ -34,10 +34,6 @@ public class UserEntity extends BaseEntity {
     @Column(nullable = false)
     LocalDate dateOfBirth;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
-    RoleStatusEntity status;
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     List<UserRoleEntity> userRoles = List.of();
 }

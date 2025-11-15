@@ -9,8 +9,8 @@ import org.apache.commons.lang3.StringUtils;
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Role {
-    String code;
-    String name;
+    final String code;
+    final String name;
 
     public Role(String code, String name) {
         if (StringUtils.isBlank(code)) {

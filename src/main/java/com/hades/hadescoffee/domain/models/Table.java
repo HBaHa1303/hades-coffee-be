@@ -100,11 +100,7 @@ public class Table {
 
     public void seatCustomer() {
         status = switch (status) {
-            case AVAILABLE -> TableStatus.RESERVED;
-            case RESERVED -> {
-                alreadyInState("reserved");
-                yield status;
-            }
+            case AVAILABLE, RESERVED -> TableStatus.OCCUPIED;
             case OUT_OF_SERVICE, OCCUPIED -> {
                 invalidTransition("reserved");
                 yield status;

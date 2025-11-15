@@ -8,7 +8,6 @@ import lombok.experimental.FieldDefaults;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
-import java.util.Objects;
 
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -16,9 +15,8 @@ public class Category {
     final String code;
     String name;
     CategoryStatus status;
-    List<MenuItem> menuItems;
 
-    public Category (String code, String name, CategoryStatus status, List<MenuItem> menuItems){
+    public Category (String code, String name, CategoryStatus status){
         if (StringUtils.isBlank(code)) {
             throw new DomainValidationException("common.invalid_input", "code");
         }
@@ -30,7 +28,6 @@ public class Category {
         this.code = code;
         this.name = name;
         this.status = status;
-        this.menuItems = Objects.isNull(menuItems) ? List.of() : menuItems;
     }
 
     public void rename(String newName) {
@@ -42,22 +39,13 @@ public class Category {
 
     public void activate() {
         this.status = CategoryStatus.ACTIVE;
-        menuItems.forEach(MenuItem::activate);
     }
 
     public void deactivate() {
         this.status = CategoryStatus.INACTIVE;
-        menuItems.forEach(MenuItem::deactivate);
     }
 
     public boolean isActive() {
         return this.status == CategoryStatus.ACTIVE;
-    }
-
-    public void addMenuItem(MenuItem item) {
-        if (Objects.isNull(item)) {
-            throw new DomainValidationException("common.invalid_input", "menuItem");
-        }
-        menuItems.add(item);
     }
 }
