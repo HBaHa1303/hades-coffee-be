@@ -2,12 +2,15 @@ package com.hades.hadescoffee.domain.models;
 
 import com.hades.hadescoffee.domain.enums.MenuItemStatus;
 import com.hades.hadescoffee.domain.exceptions.DomainValidationException;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.experimental.FieldDefaults;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Objects;
 
 @Getter
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class MenuItem {
     final String code;
     String name;

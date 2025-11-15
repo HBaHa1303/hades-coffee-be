@@ -3,12 +3,15 @@ package com.hades.hadescoffee.domain.models;
 import com.hades.hadescoffee.domain.exceptions.DomainException;
 import com.hades.hadescoffee.domain.exceptions.DomainValidationException;
 import com.hades.hadescoffee.infrastructure.enums.OrderStatusEntity;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.experimental.FieldDefaults;
 
 import java.util.List;
 import java.util.Objects;
 
 @Getter
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Order {
     final Long id;
     OrderStatusEntity status;

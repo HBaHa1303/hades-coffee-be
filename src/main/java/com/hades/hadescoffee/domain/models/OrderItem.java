@@ -1,11 +1,14 @@
 package com.hades.hadescoffee.domain.models;
 
 import com.hades.hadescoffee.domain.exceptions.DomainValidationException;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.experimental.FieldDefaults;
 
 import java.util.Objects;
 
 @Getter
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class OrderItem {
     Long id;
     MenuItem menuItem;
