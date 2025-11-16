@@ -3,7 +3,7 @@ package com.hades.hadescoffee.domain.models;
 import com.hades.hadescoffee.domain.enums.InvoiceStatus;
 import com.hades.hadescoffee.domain.enums.PaymentMethod;
 import com.hades.hadescoffee.domain.exceptions.DomainException;
-import com.hades.hadescoffee.domain.exceptions.DomainValidationException;
+import com.hades.hadescoffee.domain.exceptions.DValidationException;
 import com.hades.hadescoffee.domain.valueObjects.Money;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -22,7 +22,7 @@ public class Invoice {
 
     public Invoice(Long id, Money amount, InvoiceStatus status, PaymentMethod paymentMethod, Order order) {
         if (Objects.isNull(amount) || amount.isLessOrEqual(Money.ZERO)) {
-            throw new DomainValidationException("common.invalid_input", "amount");
+            throw new DValidationException("common.invalid_input", "amount");
         }
 
         this.id = id;

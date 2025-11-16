@@ -2,7 +2,7 @@ package com.hades.hadescoffee.domain.models;
 
 import com.hades.hadescoffee.domain.enums.TableStatus;
 import com.hades.hadescoffee.domain.exceptions.DomainException;
-import com.hades.hadescoffee.domain.exceptions.DomainValidationException;
+import com.hades.hadescoffee.domain.exceptions.DValidationException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
@@ -13,19 +13,19 @@ import java.util.Objects;
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Table {
-    final String code;
+    final Long id;
     String name;
     TableStatus status;
 
-    public Table(String code, String name, TableStatus status) {
+    public Table(Long id, String name, TableStatus status) {
         if (StringUtils.isBlank(name)) {
-            throw new DomainValidationException("common.invalid_input", "name");
+            throw new DValidationException("common.invalid_input", "name");
         }
         if (Objects.isNull(status)) {
-            throw new DomainValidationException("common.invalid_input", "table status");
+            throw new DValidationException("common.invalid_input", "table status");
         }
 
-        this.code = code;
+        this.id = id;
         this.name = name;
         this.status = status;
     }
@@ -35,11 +35,11 @@ public class Table {
     }
 
     private void alreadyInState(String action) {
-        throw new DomainException("table.already_in_state", code, status, action);
+        throw new DomainException("table.already_in_state", id, status, action);
     }
 
     private void invalidTransition(String action) {
-        throw new DomainException("table.invalid_transition", code, status, action);
+        throw new DomainException("table.invalid_transition", id, status, action);
     }
 
     public void reserve() {

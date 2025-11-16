@@ -2,7 +2,7 @@ package com.hades.hadescoffee.domain.models;
 
 import com.hades.hadescoffee.domain.enums.RoleStatus;
 import com.hades.hadescoffee.domain.exceptions.DomainException;
-import com.hades.hadescoffee.domain.exceptions.DomainValidationException;
+import com.hades.hadescoffee.domain.exceptions.DValidationException;
 import com.hades.hadescoffee.domain.valueObjects.Email;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -28,19 +28,19 @@ public class User {
     public User(Long id, String email, String password, String firstName, String lastName,
                 LocalDate dateOfBirth, List<UserRole> userRoles) {
         if (StringUtils.isBlank(email)) {
-            throw new DomainValidationException("common.invalid_input", "email");
+            throw new DValidationException("common.invalid_input", "email");
         }
         if (StringUtils.isBlank(password)) {
-            throw new DomainValidationException("common.invalid_input", "password");
+            throw new DValidationException("common.invalid_input", "password");
         }
         if (StringUtils.isBlank(firstName)) {
-            throw new DomainValidationException("common.invalid_input", "first_name");
+            throw new DValidationException("common.invalid_input", "first_name");
         }
         if (StringUtils.isBlank(lastName)) {
-            throw new DomainValidationException("common.invalid_input", "last_name");
+            throw new DValidationException("common.invalid_input", "last_name");
         }
         if (Objects.isNull(dateOfBirth)) {
-            throw new DomainValidationException("common.invalid_input", "date_of_birth");
+            throw new DValidationException("common.invalid_input", "date_of_birth");
         }
 
         this.id = id;
@@ -79,7 +79,7 @@ public class User {
 
     public void changePassword(String raw) {
         if (raw == null || raw.length() < 6)
-            throw new DomainValidationException("user.password_invalid", 6);
+            throw new DValidationException("user.password_invalid", 6);
         this.password = hashPassword(raw);
     }
 

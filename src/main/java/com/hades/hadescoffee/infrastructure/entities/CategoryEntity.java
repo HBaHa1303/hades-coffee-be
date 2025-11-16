@@ -16,7 +16,7 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CategoryEntity extends BaseEntity {
     @Id
-    String code;
+    Long id;
 
     @Column(nullable = false, length = 100)
     String name;

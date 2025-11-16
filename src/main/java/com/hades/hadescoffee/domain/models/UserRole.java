@@ -2,7 +2,7 @@ package com.hades.hadescoffee.domain.models;
 
 import com.hades.hadescoffee.domain.enums.RoleStatus;
 import com.hades.hadescoffee.domain.exceptions.DomainException;
-import com.hades.hadescoffee.domain.exceptions.DomainValidationException;
+import com.hades.hadescoffee.domain.exceptions.DValidationException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
@@ -18,10 +18,10 @@ public class UserRole {
 
     public UserRole(Long id, String roleCode, RoleStatus status) {
         if (Objects.isNull(roleCode)) {
-            throw new DomainValidationException("common.invalid_input", "role code");
+            throw new DValidationException("common.invalid_input", "role code");
         }
         if (Objects.isNull(status)) {
-            throw new DomainValidationException("common.invalid_input", "role status");
+            throw new DValidationException("common.invalid_input", "role status");
         }
 
         this.id = id;

@@ -1,7 +1,7 @@
 package com.hades.hadescoffee.domain.models;
 
 import com.hades.hadescoffee.domain.exceptions.DomainException;
-import com.hades.hadescoffee.domain.exceptions.DomainValidationException;
+import com.hades.hadescoffee.domain.exceptions.DValidationException;
 import com.hades.hadescoffee.infrastructure.enums.OrderStatusEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -20,7 +20,7 @@ public class Order {
 
     public Order(Long id, OrderStatusEntity status, List<OrderItem> orderItems) {
         if (Objects.isNull(status)) {
-            throw new DomainValidationException("common.invalid_input", "status");
+            throw new DValidationException("common.invalid_input", "status");
         }
 
         this.id = id;
@@ -30,7 +30,7 @@ public class Order {
 
     public void addOrderItem(OrderItem orderItem) {
         if (Objects.isNull(orderItem)) {
-            throw new DomainValidationException("common.invalid_input", "orderItem");
+            throw new DValidationException("common.invalid_input", "orderItem");
         }
 
         orderItems.add(orderItem);

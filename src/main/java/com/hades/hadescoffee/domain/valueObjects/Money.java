@@ -1,7 +1,7 @@
 package com.hades.hadescoffee.domain.valueObjects;
 
 import com.hades.hadescoffee.domain.exceptions.DomainException;
-import com.hades.hadescoffee.domain.exceptions.DomainValidationException;
+import com.hades.hadescoffee.domain.exceptions.DValidationException;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -23,10 +23,10 @@ public final class Money {
 
     public Money(BigDecimal amount) {
         if (Objects.isNull(amount)) {
-            throw new DomainValidationException("common.invalid_input", "money");
+            throw new DValidationException("common.invalid_input", "money");
         }
         if (amount.compareTo(BigDecimal.ZERO) < 0) {
-            throw new DomainValidationException("common.invalid_input", "money");
+            throw new DValidationException("common.invalid_input", "money");
         }
 
         this.amount = amount.setScale(SCALE, RoundingMode.HALF_UP);

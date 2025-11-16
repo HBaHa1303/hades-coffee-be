@@ -1,6 +1,6 @@
 package com.hades.hadescoffee.domain.valueObjects;
 
-import com.hades.hadescoffee.domain.exceptions.DomainValidationException;
+import com.hades.hadescoffee.domain.exceptions.DValidationException;
 import groovy.transform.EqualsAndHashCode;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -22,10 +22,10 @@ public class Email {
 
     public Email(String value) {
         if (StringUtils.isBlank(value)) {
-            throw new DomainValidationException("common.invalid_input", "email");
+            throw new DValidationException("common.invalid_input", "email");
         }
         if (!EMAIL_PATTERN.matcher(value).matches()) {
-            throw new DomainValidationException("common.invalid_input_format", "email");
+            throw new DValidationException("common.invalid_input_format", "email");
         }
         this.value = value.toLowerCase();
     }

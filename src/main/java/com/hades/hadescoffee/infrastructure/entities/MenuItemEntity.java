@@ -14,7 +14,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class MenuItemEntity extends BaseEntity{
     @Id
-    String code;
+    Long id;
 
     @Column(nullable = false, length = 100)
     String name;
