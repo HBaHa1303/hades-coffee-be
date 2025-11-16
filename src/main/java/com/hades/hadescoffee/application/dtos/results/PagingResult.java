@@ -1,11 +1,11 @@
-package com.hades.hadescoffee.presentation.dto.response;
+package com.hades.hadescoffee.application.dtos.results;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
-public class PagingResponse {
+@AllArgsConstructor
+public class PagingResult {
     int page;
     int size;
     long totalElements;

@@ -1,5 +1,6 @@
 package com.hades.hadescoffee.presentation.dto.response;
 
+import com.hades.hadescoffee.application.dtos.results.PagingResult;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,6 +16,6 @@ import java.util.Map;
 public class BaseResponse<T> {
     String message;
     Map<String, String> errors;
-
+    PagingResult paging;
     T data;
 }
