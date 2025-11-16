@@ -1,4 +1,17 @@
 package com.hades.hadescoffee.presentation.dto.response;
 
+import com.hades.hadescoffee.domain.enums.MenuItemStatus;
+import com.hades.hadescoffee.domain.valueObjects.Money;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class MenuItemResponse {
+    Long id;
+    String name;
+    String description;
+    String imageUrl;
+    MenuItemStatus status;
+    Money price;
 }

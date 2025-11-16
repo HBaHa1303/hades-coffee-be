@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
+import java.math.BigDecimal;
+
 @Entity
 @Getter
 @Setter
@@ -18,8 +20,8 @@ public class InvoiceEntity extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(nullable = false)
-    Long amount;
+    @Column(nullable = false, precision = 19, scale = 2)
+    BigDecimal amount;
 
     @Column(length = 20, nullable = false)
     @Enumerated(EnumType.STRING)

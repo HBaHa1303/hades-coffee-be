@@ -1,5 +1,6 @@
-package com.hades.hadescoffee.presentation.dto.requests;
+package com.hades.hadescoffee.presentation.dto.requests.categories;
 
+import com.hades.hadescoffee.domain.enums.CategoryStatus;
 import com.hades.hadescoffee.domain.enums.MenuItemStatus;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -9,6 +10,6 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ChangeMenuItemStatusRequest {
-    MenuItemStatus status;
+public class ChangeCategoryStatusRequest {
+    CategoryStatus status;
 }

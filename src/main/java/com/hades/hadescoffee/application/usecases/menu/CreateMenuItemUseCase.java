@@ -1,16 +1,18 @@
 package com.hades.hadescoffee.application.usecases.menu;
 
-import com.hades.hadescoffee.application.mappers.MenuItemMapper;
+import com.hades.hadescoffee.application.mappers.AMenuItemMapper;
 import com.hades.hadescoffee.domain.repositories.MenuItemsRepository;
-import com.hades.hadescoffee.presentation.dto.requests.CreateMenuItemRequest;
+import com.hades.hadescoffee.presentation.dto.requests.menuItems.CreateMenuItemRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
+@Transactional
 @RequiredArgsConstructor
 public class CreateMenuItemUseCase {
     private final MenuItemsRepository menuItemsRepository;
-    private final MenuItemMapper menuItemMapper;
+    private final AMenuItemMapper AMenuItemMapper;
 
     public void execute(CreateMenuItemRequest createMenuCommand) {
-        menuItemsRepository.save(menuItemMapper.createReqestToDomain(createMenuCommand));
+        menuItemsRepository.save(AMenuItemMapper.createRequestToDomain(createMenuCommand));
     }
 }

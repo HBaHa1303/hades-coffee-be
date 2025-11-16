@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
+import java.math.BigDecimal;
+
 @Entity
 @Getter
 @Setter
@@ -29,8 +31,8 @@ public class MenuItemEntity extends BaseEntity{
     @Column(nullable = false)
     MenuItemStatusEntity status;
 
-    @Column(nullable = false)
-    Long price;
+    @Column(nullable = false, precision = 19, scale = 2)
+    BigDecimal price;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)

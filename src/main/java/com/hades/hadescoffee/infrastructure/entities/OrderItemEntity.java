@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
+import java.math.BigDecimal;
+
 @Entity
 @Getter
 @Setter
@@ -20,8 +22,8 @@ public class OrderItemEntity extends BaseEntity {
     @JoinColumn(name = "menu_item_id",  nullable = false)
     MenuItemEntity menuItem;
 
-    @Column(nullable = false)
-    Long price;
+    @Column(nullable = false, precision = 19, scale = 2)
+    BigDecimal price;
 
     @Column(nullable = false)
     Integer quantity;

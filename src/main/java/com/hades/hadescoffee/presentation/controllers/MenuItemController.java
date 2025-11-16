@@ -1,9 +1,9 @@
 package com.hades.hadescoffee.presentation.controllers;
 
 import com.hades.hadescoffee.application.usecases.menu.*;
-import com.hades.hadescoffee.presentation.dto.requests.ChangeMenuItemStatusRequest;
-import com.hades.hadescoffee.presentation.dto.requests.CreateMenuItemRequest;
-import com.hades.hadescoffee.presentation.dto.requests.UpdateMenuItemRequest;
+import com.hades.hadescoffee.presentation.dto.requests.menuItems.ChangeMenuItemStatusRequest;
+import com.hades.hadescoffee.presentation.dto.requests.menuItems.CreateMenuItemRequest;
+import com.hades.hadescoffee.presentation.dto.requests.menuItems.UpdateMenuItemRequest;
 import com.hades.hadescoffee.presentation.dto.response.BaseResponse;
 import com.hades.hadescoffee.presentation.dto.response.MenuItemResponse;
 import lombok.RequiredArgsConstructor;
@@ -92,10 +92,7 @@ public class MenuItemController {
     }
 
     @GetMapping
-    public BaseResponse<List<MenuItemResponse>> list(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            Locale locale) {
+    public BaseResponse<List<MenuItemResponse>> list(Locale locale) {
 
         var data = getUseCase.execute();
 
