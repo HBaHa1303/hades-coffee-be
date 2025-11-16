@@ -4,6 +4,7 @@ import com.hades.hadescoffee.domain.enums.RoleStatus;
 import com.hades.hadescoffee.domain.exceptions.DomainException;
 import com.hades.hadescoffee.domain.exceptions.DValidationException;
 import com.hades.hadescoffee.domain.valueObjects.Email;
+import com.hades.hadescoffee.domain.valueObjects.Password;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
@@ -19,7 +20,7 @@ import java.util.Objects;
 public class User {
     final Long id;
     final Email email;
-    String password;
+    Password password;
     final String firstName;
     final String lastName;
     final LocalDate dateOfBirth;
@@ -45,7 +46,7 @@ public class User {
 
         this.id = id;
         this.email = new Email(email);
-        this.password = password;
+        this.password = new Password(password);
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
@@ -77,13 +78,8 @@ public class User {
         ur.revoke();
     }
 
-    public void changePassword(String raw) {
-        if (raw == null || raw.length() < 6)
-            throw new DValidationException("user.password_invalid", 6);
-        this.password = hashPassword(raw);
-    }
-
-    private String hashPassword(String raw) {
-        return raw;
+    public void changePassword(Password newPassword) {
+        if (newPassword == null) throw new DValidationException("user.password_invalid", 6);
+        this.password = newPassword;
     }
 }
