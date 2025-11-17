@@ -9,11 +9,12 @@ import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 import org.apache.commons.lang3.StringUtils;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class MenuItem {
+public class MenuItem extends BaseDomain {
     final Long id;
     String name;
     String description;
@@ -85,7 +86,7 @@ public class MenuItem {
     }
 
     public void changePrice(Money newPrice) {
-        if (newPrice == null || newPrice.isZero()) {
+        if (newPrice == null || newPrice.isLessOrEqual(Money.of(BigDecimal.ZERO))) {
             throw new DValidationException("common.invalid_input", "price");
         }
         this.price = newPrice;

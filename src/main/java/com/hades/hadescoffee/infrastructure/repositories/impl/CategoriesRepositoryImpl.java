@@ -33,7 +33,7 @@ public class CategoriesRepositoryImpl implements CategoriesRepository {
 
     @Override
     public void delete(Category category) {
-        repository.delete(mapper.modelToEntity(category));
+        repository.deleteById(category.getId());
     }
 
     @Override

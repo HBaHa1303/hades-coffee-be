@@ -9,6 +9,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Getter
@@ -21,7 +22,7 @@ public class Invoice {
     final Order order;
 
     public Invoice(Long id, Money amount, InvoiceStatus status, PaymentMethod paymentMethod, Order order) {
-        if (Objects.isNull(amount) || amount.isLessOrEqual(Money.ZERO)) {
+        if (Objects.isNull(amount) || amount.isLessOrEqual(Money.of(BigDecimal.ZERO))) {
             throw new DValidationException("common.invalid_input", "amount");
         }
 

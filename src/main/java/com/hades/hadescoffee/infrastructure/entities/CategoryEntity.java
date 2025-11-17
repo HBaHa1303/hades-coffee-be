@@ -6,12 +6,14 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
+@DynamicUpdate
 @Table(name = "categories")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CategoryEntity extends BaseEntity {

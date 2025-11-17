@@ -6,6 +6,7 @@ import com.hades.hadescoffee.domain.valueObjects.Money;
 import com.hades.hadescoffee.infrastructure.entities.CategoryEntity;
 import com.hades.hadescoffee.infrastructure.entities.MenuItemEntity;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 
 import java.math.BigDecimal;
@@ -19,6 +20,16 @@ public interface IMenuItemMapper {
         return money == null ? null : money.getAmount();
     }
 
+    @Mapping(target = "categoryId", source = "category.id")
     MenuItem entityToModel(MenuItemEntity entity);
-    MenuItemEntity modelToEntity(MenuItem model);
+
+    @Mapping(target = "id", source = "menuItem.id")
+    @Mapping(target = "name", source = "menuItem.name")
+    @Mapping(target = "status", source = "menuItem.status")
+    @Mapping(target = "category", source = "category")
+    @Mapping(target = "createdBy", source = "menuItem.createdBy")
+    @Mapping(target = "createdTime", source = "menuItem.createdTime")
+    @Mapping(target = "lastModifiedBy", source = "menuItem.lastModifiedBy")
+    @Mapping(target = "lastModifiedTime", source = "menuItem.lastModifiedTime")
+    MenuItemEntity modelToEntity(MenuItem menuItem, CategoryEntity category);
 }

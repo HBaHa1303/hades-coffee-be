@@ -6,12 +6,14 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.math.BigDecimal;
 
 @Entity
 @Getter
 @Setter
+@DynamicUpdate
 @Table(name = "menu_items")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class MenuItemEntity extends BaseEntity{

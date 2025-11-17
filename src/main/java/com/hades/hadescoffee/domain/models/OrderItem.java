@@ -6,6 +6,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Getter
@@ -21,7 +22,7 @@ public class OrderItem {
         if (Objects.isNull(menuItemId)) {
             throw new DValidationException("common.invalid_input", "menu item");
         }
-        if (Objects.isNull(price) || price.isLessOrEqual(Money.ZERO)) {
+        if (Objects.isNull(price) || price.isLessOrEqual(Money.of(BigDecimal.ZERO))) {
             throw new DValidationException("common.invalid_input", "price");
         }
 

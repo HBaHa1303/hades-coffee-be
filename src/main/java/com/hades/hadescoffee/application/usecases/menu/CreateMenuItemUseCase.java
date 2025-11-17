@@ -10,9 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class CreateMenuItemUseCase {
     private final MenuItemsRepository menuItemsRepository;
-    private final AMenuItemMapper AMenuItemMapper;
+    private final AMenuItemMapper mapper;
 
     public void execute(CreateMenuItemRequest createMenuCommand) {
-        menuItemsRepository.save(AMenuItemMapper.createRequestToDomain(createMenuCommand));
+        menuItemsRepository.save(mapper.createRequestToDomain(createMenuCommand));
     }
 }

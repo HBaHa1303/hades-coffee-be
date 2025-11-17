@@ -19,7 +19,6 @@ import java.util.Objects;
 public final class Money {
     final BigDecimal amount;
     static final int SCALE = 2;
-    public static final Money ZERO = new Money(BigDecimal.ZERO);
 
     public Money(BigDecimal amount) {
         if (Objects.isNull(amount)) {
@@ -63,10 +62,6 @@ public final class Money {
 
     public BigDecimal toBigDecimal() {
         return this.amount;
-    }
-
-    public boolean isZero() {
-        return this.amount.compareTo(BigDecimal.ZERO) == 0;
     }
 
     public boolean isGreaterThan(Money other) {

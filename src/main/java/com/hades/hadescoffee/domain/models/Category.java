@@ -2,6 +2,7 @@ package com.hades.hadescoffee.domain.models;
 
 import com.hades.hadescoffee.domain.enums.CategoryStatus;
 import com.hades.hadescoffee.domain.exceptions.DValidationException;
+import com.hades.hadescoffee.infrastructure.entities.BaseEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
@@ -11,7 +12,7 @@ import java.util.Objects;
 
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Category {
+public class Category extends BaseDomain {
     final Long id;
     String name;
     CategoryStatus status;
