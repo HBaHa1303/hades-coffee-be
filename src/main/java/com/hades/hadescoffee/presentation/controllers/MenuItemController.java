@@ -3,6 +3,7 @@ package com.hades.hadescoffee.presentation.controllers;
 import com.hades.hadescoffee.application.usecases.menu.*;
 import com.hades.hadescoffee.presentation.dto.requests.menuItems.ChangeMenuItemStatusRequest;
 import com.hades.hadescoffee.presentation.dto.requests.menuItems.CreateMenuItemRequest;
+import com.hades.hadescoffee.presentation.dto.requests.menuItems.FilterMenuItemsRequest;
 import com.hades.hadescoffee.presentation.dto.requests.menuItems.UpdateMenuItemRequest;
 import com.hades.hadescoffee.presentation.dto.responses.BaseResponse;
 import com.hades.hadescoffee.presentation.dto.responses.MenuItemResponse;
@@ -92,9 +93,9 @@ public class MenuItemController {
     }
 
     @GetMapping
-    public BaseResponse<List<MenuItemResponse>> list(Locale locale) {
+    public BaseResponse<List<MenuItemResponse>> list(FilterMenuItemsRequest request, Locale locale) {
 
-        var data = getUseCase.execute();
+        var data = getUseCase.execute(request);
 
         return BaseResponse.<List<MenuItemResponse>>builder()
                 .data(data.getData())

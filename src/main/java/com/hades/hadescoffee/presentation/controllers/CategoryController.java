@@ -1,6 +1,7 @@
 package com.hades.hadescoffee.presentation.controllers;
 
 import com.hades.hadescoffee.application.usecases.category.*;
+import com.hades.hadescoffee.presentation.dto.requests.categories.FilterCategoriesRequest;
 import com.hades.hadescoffee.presentation.dto.requests.categories.CreateCategoryRequest;
 import com.hades.hadescoffee.presentation.dto.requests.categories.ChangeCategoryStatusRequest;
 import com.hades.hadescoffee.presentation.dto.requests.categories.UpdateCategoryRequest;
@@ -92,9 +93,9 @@ public class CategoryController {
     }
 
     @GetMapping
-    public BaseResponse<List<CategoryResponse>> list(Locale locale) {
+    public BaseResponse<List<CategoryResponse>> list(FilterCategoriesRequest request, Locale locale) {
 
-        var data = getUseCase.execute();
+        var data = getUseCase.execute(request);
 
         return BaseResponse.<List<CategoryResponse>>builder()
                 .data(data.getData())

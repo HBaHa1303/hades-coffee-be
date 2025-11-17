@@ -2,6 +2,7 @@ package com.hades.hadescoffee.infrastructure.repositories.impl;
 
 import com.hades.hadescoffee.application.dtos.results.Paginated;
 import com.hades.hadescoffee.application.dtos.results.PagingResult;
+import com.hades.hadescoffee.domain.enums.CategoryStatus;
 import com.hades.hadescoffee.domain.models.Category;
 import com.hades.hadescoffee.domain.models.MenuItem;
 import com.hades.hadescoffee.domain.repositories.CategoriesRepository;
@@ -39,6 +40,44 @@ public class CategoriesRepositoryImpl implements CategoriesRepository {
     @Override
     public Paginated<Category> findAll(Pageable pageable) {
         Page<Category> dbResponse = repository.findAll(pageable)
+                .map(mapper::entityToModel);
+        return Paginated.<Category>builder()
+                .data(dbResponse.getContent())
+                .paging(PagingResult.builder()
+                        .size(dbResponse.getSize())
+                        .page(dbResponse.getNumber())
+                        .hasNext(dbResponse.hasNext())
+                        .hasPrevious(dbResponse.hasPrevious())
+                        .isFirst(dbResponse.isFirst())
+                        .isLast(dbResponse.isLast())
+                        .totalElements(dbResponse.getTotalElements())
+                        .totalPages(dbResponse.getTotalPages())
+                        .build())
+                .build();
+    }
+
+    @Override
+    public Paginated<Category> findAllByKeyWord(String keyword, Pageable pageable) {
+        Page<Category> dbResponse = repository.findByKeyword(keyword, pageable)
+                .map(mapper::entityToModel);
+        return Paginated.<Category>builder()
+                .data(dbResponse.getContent())
+                .paging(PagingResult.builder()
+                        .size(dbResponse.getSize())
+                        .page(dbResponse.getNumber())
+                        .hasNext(dbResponse.hasNext())
+                        .hasPrevious(dbResponse.hasPrevious())
+                        .isFirst(dbResponse.isFirst())
+                        .isLast(dbResponse.isLast())
+                        .totalElements(dbResponse.getTotalElements())
+                        .totalPages(dbResponse.getTotalPages())
+                        .build())
+                .build();
+    }
+
+    @Override
+    public Paginated<Category> findAllByKeyWordAndStatus(String keyword, CategoryStatus status, Pageable pageable) {
+        Page<Category> dbResponse = repository.findByKeywordAndStatus(keyword, status, pageable)
                 .map(mapper::entityToModel);
         return Paginated.<Category>builder()
                 .data(dbResponse.getContent())
