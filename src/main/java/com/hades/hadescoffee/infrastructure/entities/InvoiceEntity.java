@@ -1,7 +1,7 @@
 package com.hades.hadescoffee.infrastructure.entities;
 
-import com.hades.hadescoffee.infrastructure.enums.InvoiceStatusEntity;
-import com.hades.hadescoffee.infrastructure.enums.PaymentMethodEntity;
+import com.hades.hadescoffee.domain.enums.InvoiceStatus;
+import com.hades.hadescoffee.domain.enums.PaymentMethod;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -25,11 +25,11 @@ public class InvoiceEntity extends BaseEntity {
 
     @Column(length = 20, nullable = false)
     @Enumerated(EnumType.STRING)
-    InvoiceStatusEntity status;
+    InvoiceStatus status;
 
     @Column(length = 20, nullable = false)
     @Enumerated(EnumType.STRING)
-    PaymentMethodEntity paymentMethod;
+    PaymentMethod paymentMethod;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false, unique = true)

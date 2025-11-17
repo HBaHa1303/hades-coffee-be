@@ -19,18 +19,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class AuthBeanConfig {
     private final UsersRepository repository;
     private final AUserMapper mapper;
-    private final PasswordEncoder passwordEncoder;
-    private final AuthenticationManager authenticationManager;
     private final RolesRepository rolesRepository;
 
     @Bean
-    public SignUpUseCase signUpUseCase() {
+    public SignUpUseCase signUpUseCase(PasswordEncoder passwordEncoder) {
         return new SignUpUseCase(repository, mapper, passwordEncoder, rolesRepository);
     }
 
     @Bean
-    public SignInUseCase signInUseCase() {
-        return new SignInUseCase(authenticationManager, jwtService());
+    public SignInUseCase signInUseCase(AuthenticationManager authenticationManager,
+                                       JwtService jwtService) {
+        return new SignInUseCase(authenticationManager, jwtService);
     }
 
     @Bean
@@ -38,12 +37,4 @@ public class AuthBeanConfig {
         return new JwtService();
     }
 
-    @Bean
-    public MessageSource messageSource() {
-        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasenames("i18n/messages");
-        messageSource.setDefaultEncoding("UTF-8");
-        messageSource.setCacheSeconds(-1);
-        return messageSource;
-    }
 }

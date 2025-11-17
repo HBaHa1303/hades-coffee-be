@@ -1,6 +1,5 @@
 package com.hades.hadescoffee.infrastructure.entities;
 
-import com.hades.hadescoffee.infrastructure.enums.RoleStatusEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;

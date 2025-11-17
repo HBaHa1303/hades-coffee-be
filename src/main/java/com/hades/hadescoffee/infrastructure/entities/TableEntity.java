@@ -1,6 +1,6 @@
 package com.hades.hadescoffee.infrastructure.entities;
 
-import com.hades.hadescoffee.infrastructure.enums.TableStatusEntity;
+import com.hades.hadescoffee.domain.enums.TableStatus;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -22,5 +22,5 @@ public class TableEntity extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    TableStatusEntity status;
+    TableStatus status;
 }

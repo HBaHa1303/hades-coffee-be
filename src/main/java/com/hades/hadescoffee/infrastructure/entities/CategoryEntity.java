@@ -1,6 +1,6 @@
 package com.hades.hadescoffee.infrastructure.entities;
 
-import com.hades.hadescoffee.infrastructure.enums.CategoryStatusEntity;
+import com.hades.hadescoffee.domain.enums.CategoryStatus;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -24,7 +24,7 @@ public class CategoryEntity extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    CategoryStatusEntity status;
+    CategoryStatus status;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     List<MenuItemEntity> menuItems = List.of();

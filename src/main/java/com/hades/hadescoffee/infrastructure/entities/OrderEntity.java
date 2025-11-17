@@ -1,6 +1,6 @@
 package com.hades.hadescoffee.infrastructure.entities;
 
-import com.hades.hadescoffee.infrastructure.enums.OrderStatusEntity;
+import com.hades.hadescoffee.domain.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -21,7 +21,7 @@ public class OrderEntity extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    OrderStatusEntity status;
+    OrderStatus status;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     List<OrderItemEntity> orderItems = List.of();

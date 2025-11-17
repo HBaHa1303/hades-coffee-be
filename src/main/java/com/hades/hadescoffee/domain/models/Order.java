@@ -1,8 +1,8 @@
 package com.hades.hadescoffee.domain.models;
 
+import com.hades.hadescoffee.domain.enums.OrderStatus;
 import com.hades.hadescoffee.domain.exceptions.DomainException;
 import com.hades.hadescoffee.domain.exceptions.DValidationException;
-import com.hades.hadescoffee.infrastructure.enums.OrderStatusEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
@@ -15,10 +15,10 @@ import java.util.Objects;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Order {
     final Long id;
-    OrderStatusEntity status;
+    OrderStatus status;
     final List<OrderItem> orderItems;
 
-    public Order(Long id, OrderStatusEntity status, List<OrderItem> orderItems) {
+    public Order(Long id, OrderStatus status, List<OrderItem> orderItems) {
         if (Objects.isNull(status)) {
             throw new DValidationException("common.invalid_input", "status");
         }
@@ -46,7 +46,7 @@ public class Order {
 
     public void confirm() {
         status = switch (status) {
-            case PENDING -> OrderStatusEntity.CONFIRMED;
+            case PENDING -> OrderStatus.CONFIRMED;
             case CONFIRMED -> { alreadyInState("confirm"); yield status; }
             case CANCELLED, IN_PROGRESS, READY, SERVED -> { invalidTransition("confirm"); yield status; }
         };
@@ -54,7 +54,7 @@ public class Order {
 
     public void start() {
         status = switch (status) {
-            case CONFIRMED -> OrderStatusEntity.IN_PROGRESS;
+            case CONFIRMED -> OrderStatus.IN_PROGRESS;
             case IN_PROGRESS -> { alreadyInState("start"); yield status; }
             case PENDING, CANCELLED, READY, SERVED -> { invalidTransition("start"); yield status; }
         };
@@ -62,7 +62,7 @@ public class Order {
 
     public void ready() {
         status = switch (status) {
-            case IN_PROGRESS -> OrderStatusEntity.READY;
+            case IN_PROGRESS -> OrderStatus.READY;
             case READY -> { alreadyInState("ready"); yield status; }
             case PENDING, CONFIRMED, CANCELLED, SERVED -> { invalidTransition("ready"); yield status; }
         };
@@ -70,7 +70,7 @@ public class Order {
 
     public void serve() {
         status = switch (status) {
-            case READY -> OrderStatusEntity.SERVED;
+            case READY -> OrderStatus.SERVED;
             case SERVED -> { alreadyInState("serve"); yield status; }
             case PENDING, CONFIRMED, IN_PROGRESS, CANCELLED -> { invalidTransition("serve"); yield status; }
         };
@@ -78,7 +78,7 @@ public class Order {
 
     public void cancel() {
         status = switch (status) {
-            case PENDING, CONFIRMED -> OrderStatusEntity.CANCELLED;
+            case PENDING, CONFIRMED -> OrderStatus.CANCELLED;
             case CANCELLED -> { alreadyInState("cancel"); yield status; }
             case IN_PROGRESS, READY, SERVED -> { invalidTransition("cancel"); yield status; }
         };

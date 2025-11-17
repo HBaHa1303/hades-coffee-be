@@ -1,6 +1,6 @@
 package com.hades.hadescoffee.infrastructure.entities;
 
-import com.hades.hadescoffee.infrastructure.enums.RoleStatusEntity;
+import com.hades.hadescoffee.domain.enums.RoleStatus;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -28,6 +28,6 @@ public class UserRoleEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false,  length = 20)
-    RoleStatusEntity status;
+    RoleStatus status;
 }
 

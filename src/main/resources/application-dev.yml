@@ -24,7 +24,7 @@ spring:
       enabled: true
 jwt:
   secretKey: u6J7f7MdE0wWQ2s9nQXwVnqR6d5tZgGzQXq42u+0Hpw=
-  expiration: 180000
+  expiration: 86400
 
 logging:
   level:

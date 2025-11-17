@@ -1,10 +1,12 @@
 package com.hades.hadescoffee.application.services;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.crypto.SecretKey;
 import java.security.Key;
@@ -23,10 +25,28 @@ public class JwtService {
     public String generateAccessToken(String username) {
         return Jwts.builder()
                 .subject(username)
-                .expiration(Date.from(Instant.now().plusMillis(expiration)))
+                .expiration(Date.from(Instant.now().plusSeconds(expiration)))
                 .signWith(getKey())
                 .compact();
     }
+
+    public Claims extractAllClaims(String token) {
+        return Jwts.parser()
+                .verifyWith(getKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
+    }
+
+    public String extractUsername(Claims claims) {
+        return claims.getSubject();
+    }
+
+    public boolean isTokenValid(Claims claims, UserDetails userDetails) {
+        return claims.getSubject().equals(userDetails.getUsername())
+                && !claims.getExpiration().before(new Date());
+    }
+
 
     private SecretKey getKey() {
         return Keys.hmacShaKeyFor(secret.getBytes());

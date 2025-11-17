@@ -4,12 +4,12 @@ import com.hades.hadescoffee.application.exceptions.AConflictException;
 import com.hades.hadescoffee.application.exceptions.ANotFoundException;
 import com.hades.hadescoffee.application.exceptions.AValidationException;
 import com.hades.hadescoffee.application.mappers.AUserMapper;
+import com.hades.hadescoffee.domain.enums.RoleStatus;
 import com.hades.hadescoffee.domain.models.Role;
 import com.hades.hadescoffee.domain.models.User;
+import com.hades.hadescoffee.domain.models.UserRole;
 import com.hades.hadescoffee.domain.repositories.RolesRepository;
 import com.hades.hadescoffee.domain.repositories.UsersRepository;
-import com.hades.hadescoffee.infrastructure.entities.RoleEntity;
-import com.hades.hadescoffee.infrastructure.entities.UserRoleEntity;
 import com.hades.hadescoffee.presentation.dto.requests.auth.SignUpRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -33,8 +33,9 @@ public class SignUpUseCase {
         Role role = rolesRepository.findByCode("USER")
                 .orElseThrow(() -> new ANotFoundException("role.not_found", "user"));
 
+        UserRole userRole = new UserRole(null,  role.getCode(), RoleStatus.ACTIVE);
         String hashedPassword = passwordEncoder.encode(request.getPassword());
-        User user = mapper.signUpRequestToDomain(request, hashedPassword, role);
+        User user = mapper.signUpRequestToDomain(request, hashedPassword, userRole);
 
         usersRepository.save(user);
     }
