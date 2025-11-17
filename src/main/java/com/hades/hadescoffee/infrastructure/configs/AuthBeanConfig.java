@@ -1,0 +1,49 @@
+package com.hades.hadescoffee.infrastructure.configs;
+
+import com.hades.hadescoffee.application.mappers.AUserMapper;
+import com.hades.hadescoffee.application.services.JwtService;
+import com.hades.hadescoffee.application.usecases.auth.SignInUseCase;
+import com.hades.hadescoffee.application.usecases.auth.SignUpUseCase;
+import com.hades.hadescoffee.domain.repositories.RolesRepository;
+import com.hades.hadescoffee.domain.repositories.UsersRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+@Configuration
+@RequiredArgsConstructor
+public class AuthBeanConfig {
+    private final UsersRepository repository;
+    private final AUserMapper mapper;
+    private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
+    private final RolesRepository rolesRepository;
+
+    @Bean
+    public SignUpUseCase signUpUseCase() {
+        return new SignUpUseCase(repository, mapper, passwordEncoder, rolesRepository);
+    }
+
+    @Bean
+    public SignInUseCase signInUseCase() {
+        return new SignInUseCase(authenticationManager, jwtService());
+    }
+
+    @Bean
+    public JwtService jwtService() {
+        return new JwtService();
+    }
+
+    @Bean
+    public MessageSource messageSource() {
+        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+        messageSource.setBasenames("i18n/messages");
+        messageSource.setDefaultEncoding("UTF-8");
+        messageSource.setCacheSeconds(-1);
+        return messageSource;
+    }
+}

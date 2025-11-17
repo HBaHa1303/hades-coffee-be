@@ -1,4 +1,4 @@
-package com.hades.hadescoffee.presentation.dto.response;
+package com.hades.hadescoffee.presentation.dto.responses;
 
 import com.hades.hadescoffee.domain.enums.MenuItemStatus;
 import com.hades.hadescoffee.domain.valueObjects.Money;

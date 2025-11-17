@@ -4,7 +4,7 @@ import com.hades.hadescoffee.application.exceptions.ANotFoundException;
 import com.hades.hadescoffee.application.mappers.ACategoryMapper;
 import com.hades.hadescoffee.domain.models.Category;
 import com.hades.hadescoffee.domain.repositories.CategoriesRepository;
-import com.hades.hadescoffee.presentation.dto.response.CategoryResponse;
+import com.hades.hadescoffee.presentation.dto.responses.CategoryResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 

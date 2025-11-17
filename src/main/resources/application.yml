@@ -1,26 +1,3 @@
-server:
-  port: 8123
-
 spring:
-  messages:
-    basename: i18n/messages
-    cache-duration: -1
-  datasource:
-    url: jdbc:h2:mem:testdb
-    username: sa
-    password:
-    hikari:
-      maximum-pool-size: 20
-      minimum-idle: 5
-      idle-timeout: 30000
-      max-lifetime: 180000
-    driver-class-name: org.h2.Driver
-  jpa:
-    hibernate:
-      ddl-auto: update
-  h2:
-    console:
-      enabled: true
-jwt:
-  secretKey:
-  expiration:
+  profiles:
+    active: dev

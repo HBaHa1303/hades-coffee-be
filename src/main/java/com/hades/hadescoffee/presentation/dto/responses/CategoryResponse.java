@@ -1,4 +1,4 @@
-package com.hades.hadescoffee.presentation.dto.response;
+package com.hades.hadescoffee.presentation.dto.responses;
 
 import com.hades.hadescoffee.domain.enums.CategoryStatus;
 import lombok.Getter;

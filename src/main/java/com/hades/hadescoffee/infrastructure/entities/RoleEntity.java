@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,5 +22,5 @@ public class RoleEntity extends BaseEntity {
     String name;
 
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<UserRoleEntity> userRoles = List.of();
+    List<UserRoleEntity> userRoles = new ArrayList<>();
 }

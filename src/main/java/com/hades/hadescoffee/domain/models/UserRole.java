@@ -4,12 +4,14 @@ import com.hades.hadescoffee.domain.enums.RoleStatus;
 import com.hades.hadescoffee.domain.exceptions.DomainException;
 import com.hades.hadescoffee.domain.exceptions.DValidationException;
 import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 
 import java.util.Objects;
 
 @Getter
+@EqualsAndHashCode
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserRole {
     final Long id;

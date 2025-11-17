@@ -11,9 +11,7 @@ import lombok.experimental.FieldDefaults;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -24,10 +22,10 @@ public class User {
     final String firstName;
     final String lastName;
     final LocalDate dateOfBirth;
-    final List<UserRole> userRoles;
+    final Set<UserRole> userRoles;
 
     public User(Long id, String email, String password, String firstName, String lastName,
-                LocalDate dateOfBirth, List<UserRole> userRoles) {
+                LocalDate dateOfBirth, Set<UserRole> userRoles) {
         if (StringUtils.isBlank(email)) {
             throw new DValidationException("common.invalid_input", "email");
         }
@@ -50,7 +48,7 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
-        this.userRoles = Objects.isNull(userRoles) ? new ArrayList<>() : userRoles;
+        this.userRoles = Objects.isNull(userRoles) ? new HashSet<>() : userRoles;
     }
 
     public void assignRole(Role role) {
