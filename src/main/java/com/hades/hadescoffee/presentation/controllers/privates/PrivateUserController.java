@@ -1,4 +1,4 @@
-package com.hades.hadescoffee.presentation.controllers;
+package com.hades.hadescoffee.presentation.controllers.privates;
 
 import com.hades.hadescoffee.application.usecases.user.*;
 import com.hades.hadescoffee.presentation.dto.requests.user.*;
@@ -14,8 +14,8 @@ import java.util.Locale;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/v1/users")
-public class UserController {
+@RequestMapping("private/api/v1/users")
+public class PrivateUserController {
 
     private final MessageSource messageSource;
 

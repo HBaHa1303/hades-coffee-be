@@ -24,7 +24,7 @@ public class MenuItemEntity extends BaseEntity{
     @Column(nullable = false, length = 100)
     String name;
 
-    @Column(nullable = false,  length = 500)
+    @Column(nullable = false, length = 500)
     String description;
 
     @Column(nullable = false)

@@ -11,6 +11,8 @@ import org.mapstruct.MappingConstants;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = IRoleMapper.class)
 public interface IUserRoleMapper {
+    @Mapping(target = "roleCode", source = "role.code")
     UserRole toDomain(UserRoleEntity entity);
+
 }
 

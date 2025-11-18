@@ -1,4 +1,4 @@
-package com.hades.hadescoffee.presentation.controllers;
+package com.hades.hadescoffee.presentation.controllers.privates;
 
 import com.hades.hadescoffee.application.usecases.category.*;
 import com.hades.hadescoffee.presentation.dto.requests.categories.FilterCategoriesRequest;
@@ -17,8 +17,8 @@ import java.util.Locale;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/v1/categories")
-public class CategoryController {
+@RequestMapping("private/api/v1/categories")
+public class PrivateCategoryController {
     private final MessageSource messageSource;
 
     private final CreateCategoryUseCase createUseCase;

@@ -8,6 +8,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 public interface CategoriesJpaRepository extends JpaRepository<CategoryEntity, Long> {
     @Query("""
         SELECT c FROM CategoryEntity c
@@ -21,4 +23,7 @@ public interface CategoriesJpaRepository extends JpaRepository<CategoryEntity, L
       AND (:status IS NULL OR c.status = :status)
     """)
     Page<CategoryEntity> findByKeywordAndStatus(String keyword, CategoryStatus status, Pageable pageable);
+
+    @Query("SELECT c FROM CategoryEntity c WHERE c.status = :status")
+    List<CategoryEntity> findAllActive(CategoryStatus status);
 }

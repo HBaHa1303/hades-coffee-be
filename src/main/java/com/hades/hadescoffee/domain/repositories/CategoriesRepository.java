@@ -5,6 +5,7 @@ import com.hades.hadescoffee.domain.enums.CategoryStatus;
 import com.hades.hadescoffee.domain.models.Category;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface CategoriesRepository {
@@ -15,4 +16,6 @@ public interface CategoriesRepository {
     Paginated<Category> findAllByKeyWord(String keyword, Pageable pageable);
 
     Paginated<Category> findAllByKeyWordAndStatus(String keyword, CategoryStatus status, Pageable pageable);
+
+    List<Category> findAllActive();
 }

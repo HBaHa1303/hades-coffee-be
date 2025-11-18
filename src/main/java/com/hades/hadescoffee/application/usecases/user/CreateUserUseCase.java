@@ -1,5 +1,6 @@
 package com.hades.hadescoffee.application.usecases.user;
 
+import com.hades.hadescoffee.application.exceptions.AConflictException;
 import com.hades.hadescoffee.application.mappers.AUserMapper;
 import com.hades.hadescoffee.domain.models.UserRole;
 import com.hades.hadescoffee.domain.repositories.UsersRepository;
@@ -19,6 +20,9 @@ public class CreateUserUseCase {
     private final PasswordEncoder passwordEncoder;
 
     public void execute(CreateUserRequest request) {
+        usersRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new AConflictException("user.email_exists", request.getEmail()));
+
         String hashedPassword = passwordEncoder.encode(request.getPassword());
         Set<UserRole> userRoles = request.getRoles().stream()
                 .map(role -> new UserRole(null, role))

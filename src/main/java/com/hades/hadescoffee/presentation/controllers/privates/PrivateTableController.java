@@ -1,4 +1,4 @@
-package com.hades.hadescoffee.presentation.controllers;
+package com.hades.hadescoffee.presentation.controllers.privates;
 
 import com.hades.hadescoffee.application.usecases.table.*;
 import com.hades.hadescoffee.presentation.dto.requests.tables.ChangeTableStatusRequest;
@@ -17,8 +17,8 @@ import java.util.Locale;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/v1/tables")
-public class TableController {
+@RequestMapping("private/api/v1/tables")
+public class PrivateTableController {
 
     private final MessageSource messageSource;
 

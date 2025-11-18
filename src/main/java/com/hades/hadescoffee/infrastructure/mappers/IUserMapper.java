@@ -14,6 +14,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -33,7 +34,6 @@ public interface IUserMapper {
         return password.getHashed();
     }
 
-    @Mapping(target = "userRoles", expression = "java(entity.userRoles.stream().map().collect(Collectors.toSet()))")
     User entityToModel(UserEntity entity);
 
     @Mapping(target = "userRoles", expression = "java(mapUserRoles(userEntity, user, roles))")

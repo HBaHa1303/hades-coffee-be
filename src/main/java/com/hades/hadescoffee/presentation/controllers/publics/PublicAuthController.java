@@ -1,4 +1,4 @@
-package com.hades.hadescoffee.presentation.controllers;
+package com.hades.hadescoffee.presentation.controllers.publics;
 
 import com.hades.hadescoffee.application.usecases.auth.SignInUseCase;
 import com.hades.hadescoffee.application.usecases.auth.SignUpUseCase;
@@ -10,17 +10,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Locale;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "api/v1/auth",
+@RequestMapping(value = "public/api/v1/auth",
         produces = MediaType.APPLICATION_JSON_VALUE,
         consumes = MediaType.APPLICATION_JSON_VALUE)
-public class AuthController {
+public class PublicAuthController {
     private final SignInUseCase signInUseCase;
     private final SignUpUseCase signUpUseCase;
     private final MessageSource messageSource;

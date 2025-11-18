@@ -1,4 +1,4 @@
-package com.hades.hadescoffee.presentation.controllers;
+package com.hades.hadescoffee.presentation.controllers.privates;
 
 import com.hades.hadescoffee.application.usecases.menu.*;
 import com.hades.hadescoffee.presentation.dto.requests.menuItems.ChangeMenuItemStatusRequest;
@@ -17,8 +17,8 @@ import java.util.Locale;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/v1/menu-items")
-public class MenuItemController {
+@RequestMapping("private/api/v1/menu-items")
+public class PrivateMenuItemController {
     private final MessageSource messageSource;
 
     private final CreateMenuItemUseCase createUseCase;

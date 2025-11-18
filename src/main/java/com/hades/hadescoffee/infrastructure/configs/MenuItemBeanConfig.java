@@ -2,6 +2,7 @@ package com.hades.hadescoffee.infrastructure.configs;
 
 import com.hades.hadescoffee.application.mappers.AMenuItemMapper;
 import com.hades.hadescoffee.application.usecases.menu.*;
+import com.hades.hadescoffee.domain.repositories.CategoriesRepository;
 import com.hades.hadescoffee.domain.repositories.MenuItemsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 public class MenuItemBeanConfig {
     private final MenuItemsRepository repository;
     private final AMenuItemMapper mapper;
+    private final CategoriesRepository categoriesRepository;
 
     @Bean
     public CreateMenuItemUseCase createMenuItemUseCase() {
@@ -41,5 +43,10 @@ public class MenuItemBeanConfig {
     @Bean
     public DeleteMenuItemUseCase deleteMenuItemUseCase() {
         return new DeleteMenuItemUseCase(repository);
+    }
+
+    @Bean
+    public GetMenuItemsByCategoryUseCase getMenuItemsByCategoryUseCase() {
+        return new GetMenuItemsByCategoryUseCase(categoriesRepository, repository, mapper);
     }
 }

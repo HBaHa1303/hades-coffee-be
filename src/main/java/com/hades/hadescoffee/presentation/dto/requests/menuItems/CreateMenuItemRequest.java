@@ -14,7 +14,6 @@ public class CreateMenuItemRequest {
     String name;
     String description;
     String imageUrl;
-    MenuItemStatus status;
     Money price;
     Long categoryId;
 }

@@ -36,17 +36,17 @@ public class SecurityConfig {
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers(
-                                "/api/v1/auth/**",
+                                "public/**",
                                 "/h2-console/**",
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
                                 ).permitAll()
                                 .requestMatchers(
-                                        "/api/v1/categories/**",
-                                        "/api/v1/menu-items/**",
-                                        "/api/v1/tables/**",
-                                        "/api/v1/users/**"
+                                        "/private/api/v1/categories/**",
+                                        "/private/api/v1/menu-items/**",
+                                        "/private/api/v1/tables/**",
+                                        "/private/api/v1/users/**"
                                 ).hasAuthority("ADMIN")
                                 .anyRequest().authenticated()
                 )

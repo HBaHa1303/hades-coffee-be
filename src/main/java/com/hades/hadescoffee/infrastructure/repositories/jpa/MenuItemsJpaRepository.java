@@ -9,6 +9,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.Collection;
+import java.util.List;
+
 public interface MenuItemsJpaRepository extends JpaRepository<MenuItemEntity, Long> {
     @Query("""
     SELECT mi FROM MenuItemEntity mi
@@ -16,4 +19,8 @@ public interface MenuItemsJpaRepository extends JpaRepository<MenuItemEntity, Lo
       AND (:status IS NULL OR mi.status = :status)
     """)
     Page<MenuItemEntity> findAllByKeyWordAndStatus(String keyword, MenuItemStatus status, Pageable pageable);
+
+
+    List<MenuItemEntity> findAllByCategoryId(Long categoryId);
+
 }

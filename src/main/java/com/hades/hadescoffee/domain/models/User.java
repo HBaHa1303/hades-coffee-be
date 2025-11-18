@@ -64,11 +64,7 @@ public class User extends BaseDomain {
             }
         });
 
-        userRoles.forEach(ur -> {
-            if (!newUserRoles.contains(ur.getRoleCode())) {
-                this.userRoles.remove(ur);
-            }
-        });
+        userRoles.removeIf(ur -> !newUserRoles.contains(ur.getRoleCode()));
     }
 
     public void changePassword(Password newPassword) {
