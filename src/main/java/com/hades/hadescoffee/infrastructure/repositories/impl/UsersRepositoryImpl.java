@@ -1,5 +1,7 @@
 package com.hades.hadescoffee.infrastructure.repositories.impl;
 
+import com.hades.hadescoffee.application.dtos.results.Paginated;
+import com.hades.hadescoffee.application.dtos.results.PagingResult;
 import com.hades.hadescoffee.domain.models.User;
 import com.hades.hadescoffee.domain.models.UserRole;
 import com.hades.hadescoffee.domain.repositories.UsersRepository;
@@ -9,6 +11,8 @@ import com.hades.hadescoffee.infrastructure.mappers.IUserMapper;
 import com.hades.hadescoffee.infrastructure.repositories.jpa.RolesJpaRepository;
 import com.hades.hadescoffee.infrastructure.repositories.jpa.UsersJpaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -46,6 +50,32 @@ public class UsersRepositoryImpl implements UsersRepository {
 
     @Override
     public Optional<User> findByEmailWithRoles(String email) {
-        return usersRepository.findByEmailWithRoles(email).map(mapper::entityToModel);
+        return usersRepository.findByEmailWithRoles(email)
+                .map(mapper::entityToModel);
+    }
+
+    @Override
+    public void delete(User user) {
+        usersRepository.deleteById(user.getId());
+    }
+
+    @Override
+    public Paginated<User> findAllByKeywordAndRole(String keyword, Pageable pageable) {
+        Page<User> dbResponse = usersRepository.findAllByKeywordAndRole(
+                keyword, pageable)
+                .map(mapper::entityToModel);
+        return Paginated.<User>builder()
+                .data(dbResponse.getContent())
+                .paging(PagingResult.builder()
+                        .size(dbResponse.getSize())
+                        .page(dbResponse.getNumber())
+                        .hasNext(dbResponse.hasNext())
+                        .hasPrevious(dbResponse.hasPrevious())
+                        .isFirst(dbResponse.isFirst())
+                        .isLast(dbResponse.isLast())
+                        .totalElements(dbResponse.getTotalElements())
+                        .totalPages(dbResponse.getTotalPages())
+                        .build())
+                .build();
     }
 }

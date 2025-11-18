@@ -11,7 +11,7 @@ import java.util.Objects;
 
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class OrderItem {
+public class OrderItem extends BaseDomain {
     final Long id;
     final Long menuItemId;
     final Money price;

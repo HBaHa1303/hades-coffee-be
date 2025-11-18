@@ -33,6 +33,7 @@ public interface IUserMapper {
         return password.getHashed();
     }
 
+    @Mapping(target = "userRoles", expression = "java(entity.userRoles.stream().map().collect(Collectors.toSet()))")
     User entityToModel(UserEntity entity);
 
     @Mapping(target = "userRoles", expression = "java(mapUserRoles(userEntity, user, roles))")
@@ -50,7 +51,6 @@ public interface IUserMapper {
                     UserRoleEntity e = new UserRoleEntity();
                     e.setId(ur.getId());
                     e.setUser(userEntity);
-                    e.setStatus(ur.getStatus());
                     e.setRole(roleMap.get(ur.getRoleCode()));
                     return e;
                 })

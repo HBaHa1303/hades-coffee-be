@@ -1,7 +1,5 @@
 package com.hades.hadescoffee.domain.models;
 
-import com.hades.hadescoffee.domain.enums.RoleStatus;
-import com.hades.hadescoffee.domain.exceptions.DomainException;
 import com.hades.hadescoffee.domain.exceptions.DValidationException;
 import com.hades.hadescoffee.domain.valueObjects.Email;
 import com.hades.hadescoffee.domain.valueObjects.Password;
@@ -15,7 +13,7 @@ import java.util.*;
 
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class User {
+public class User extends BaseDomain {
     final Long id;
     final Email email;
     Password password;
@@ -51,29 +49,26 @@ public class User {
         this.userRoles = Objects.isNull(userRoles) ? new HashSet<>() : userRoles;
     }
 
-    public void assignRole(Role role) {
-        var existing = userRoles.stream()
-                .filter(r -> r.getRoleCode().equals(role.getCode()))
-                .findFirst();
-
-        if (existing.isPresent()) {
-            UserRole ur = existing.get();
-            if (ur.getStatus() == RoleStatus.INACTIVE) {
-                ur.activate();
-            }
-        } else {
-            UserRole userRole = new UserRole(null, role.getCode(), RoleStatus.ACTIVE);
-            userRoles.add(userRole);
+    public void changeRoles(Set<String> newUserRoles) {
+        if (Objects.isNull(userRoles)) {
+            throw new DValidationException("common.invalid_input", "user role");
         }
-    }
 
+        newUserRoles.forEach(nur -> {
+            Optional<UserRole> existing = this.userRoles.stream()
+                    .filter(r -> r.getRoleCode().equals(nur))
+                    .findFirst();
 
-    public void revokeRole(String roleCode) {
-        var ur = userRoles.stream()
-                .filter(r -> r.getRoleCode().equals(roleCode))
-                .findFirst()
-                .orElseThrow(() -> new DomainException("user.role_not_found", id, roleCode));
-        ur.revoke();
+            if (existing.isEmpty()) {
+                this.userRoles.add(new UserRole(null, nur));
+            }
+        });
+
+        userRoles.forEach(ur -> {
+            if (!newUserRoles.contains(ur.getRoleCode())) {
+                this.userRoles.remove(ur);
+            }
+        });
     }
 
     public void changePassword(Password newPassword) {

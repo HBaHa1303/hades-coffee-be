@@ -4,7 +4,6 @@ import com.hades.hadescoffee.application.exceptions.AConflictException;
 import com.hades.hadescoffee.application.exceptions.ANotFoundException;
 import com.hades.hadescoffee.application.exceptions.AValidationException;
 import com.hades.hadescoffee.application.mappers.AUserMapper;
-import com.hades.hadescoffee.domain.enums.RoleStatus;
 import com.hades.hadescoffee.domain.models.Role;
 import com.hades.hadescoffee.domain.models.User;
 import com.hades.hadescoffee.domain.models.UserRole;
@@ -33,7 +32,7 @@ public class SignUpUseCase {
         Role role = rolesRepository.findByCode("USER")
                 .orElseThrow(() -> new ANotFoundException("role.not_found", "user"));
 
-        UserRole userRole = new UserRole(null,  role.getCode(), RoleStatus.ACTIVE);
+        UserRole userRole = new UserRole(null,  role.getCode());
         String hashedPassword = passwordEncoder.encode(request.getPassword());
         User user = mapper.signUpRequestToDomain(request, hashedPassword, userRole);
 

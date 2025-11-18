@@ -44,7 +44,9 @@ public class SecurityConfig {
                                 ).permitAll()
                                 .requestMatchers(
                                         "/api/v1/categories/**",
-                                        "/api/v1/menu-items/**"
+                                        "/api/v1/menu-items/**",
+                                        "/api/v1/tables/**",
+                                        "/api/v1/users/**"
                                 ).hasAuthority("ADMIN")
                                 .anyRequest().authenticated()
                 )

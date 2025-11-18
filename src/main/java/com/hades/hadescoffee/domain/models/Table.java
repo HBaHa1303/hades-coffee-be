@@ -12,7 +12,7 @@ import java.util.Objects;
 
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Table {
+public class Table extends BaseDomain {
     final Long id;
     String name;
     TableStatus status;

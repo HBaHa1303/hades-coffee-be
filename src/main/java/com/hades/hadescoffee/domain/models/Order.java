@@ -13,7 +13,7 @@ import java.util.Objects;
 
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Order {
+public class Order extends BaseDomain {
     final Long id;
     OrderStatus status;
     final List<OrderItem> orderItems;

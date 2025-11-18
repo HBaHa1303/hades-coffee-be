@@ -14,7 +14,7 @@ import java.util.Objects;
 
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Invoice {
+public class Invoice extends BaseDomain {
     final Long id;
     final Money amount;
     InvoiceStatus status;

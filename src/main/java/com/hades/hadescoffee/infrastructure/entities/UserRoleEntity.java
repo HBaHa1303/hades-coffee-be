@@ -1,6 +1,5 @@
 package com.hades.hadescoffee.infrastructure.entities;
 
-import com.hades.hadescoffee.domain.enums.RoleStatus;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -25,9 +24,5 @@ public class UserRoleEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id", nullable = false)
     RoleEntity role;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false,  length = 20)
-    RoleStatus status;
 }
 
