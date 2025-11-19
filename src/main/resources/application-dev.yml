@@ -28,4 +28,9 @@ jwt:
 
 logging:
   level:
-    web: debug
+    root: info
+    com.hades.hadescoffee: debug
+
+#  file: #Just open this code in production
+#    name: ./logs/hades-coffee-log  file:
+#    name: ./logs/hades-coffee-log
