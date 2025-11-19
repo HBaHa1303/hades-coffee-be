@@ -19,7 +19,7 @@ public class GlobalControllerAdvice {
 
     @ExceptionHandler(value = Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public BaseResponse<Object> handleException(Locale locale) {
+    public BaseResponse<Object> handleException(Exception ex, Locale locale) {
         return BaseResponse.builder()
                 .message(messageSource.getMessage("system.error", null, locale))
                 .build();

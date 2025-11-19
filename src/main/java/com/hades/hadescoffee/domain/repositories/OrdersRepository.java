@@ -6,5 +6,5 @@ import java.util.Optional;
 
 public interface OrdersRepository {
     Optional<Order> findById(Long id);
-    void save(Order order);
+    Order save(Order order);
 }

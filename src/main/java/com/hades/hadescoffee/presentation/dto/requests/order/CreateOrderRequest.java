@@ -1,6 +1,7 @@
 package com.hades.hadescoffee.presentation.dto.requests.order;
 
 import com.hades.hadescoffee.domain.enums.OrderStatus;
+import com.hades.hadescoffee.domain.enums.PaymentMethod;
 import com.hades.hadescoffee.domain.models.OrderItem;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -14,4 +15,5 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CreateOrderRequest {
     List<CreateOrderItemRequest> orderItems;
+    PaymentMethod paymentMethod;
 }

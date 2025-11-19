@@ -19,18 +19,27 @@ public class Invoice extends BaseDomain {
     final Money amount;
     InvoiceStatus status;
     final PaymentMethod paymentMethod;
-    final Order order;
+    final Long orderId;
 
-    public Invoice(Long id, Money amount, InvoiceStatus status, PaymentMethod paymentMethod, Order order) {
+    public Invoice(Long id, Money amount, InvoiceStatus status, PaymentMethod paymentMethod, Long orderId) {
         if (Objects.isNull(amount) || amount.isLessOrEqual(Money.of(BigDecimal.ZERO))) {
             throw new DValidationException("common.invalid_input", "amount");
+        }
+        if (Objects.isNull(status)) {
+            throw new DValidationException("common.invalid_input", "status");
+        }
+        if (Objects.isNull(paymentMethod)) {
+            throw new DValidationException("common.invalid_input", "payment method");
+        }
+        if (Objects.isNull(orderId)) {
+            throw new DValidationException("common.invalid_input", "order id");
         }
 
         this.id = id;
         this.amount = amount;
         this.status = status;
         this.paymentMethod = paymentMethod;
-        this.order = order;
+        this.orderId = orderId;
     }
 
     public void pay () {
