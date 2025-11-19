@@ -2,7 +2,6 @@ package com.hades.hadescoffee.application.usecases.user;
 
 import com.hades.hadescoffee.application.dtos.results.Paginated;
 import com.hades.hadescoffee.application.dtos.results.PagingResult;
-import com.hades.hadescoffee.application.exceptions.ANotFoundException;
 import com.hades.hadescoffee.application.mappers.AUserMapper;
 import com.hades.hadescoffee.application.utils.PageableUtil;
 import com.hades.hadescoffee.domain.models.User;

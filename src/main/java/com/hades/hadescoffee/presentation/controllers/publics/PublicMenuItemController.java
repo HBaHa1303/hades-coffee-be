@@ -1,11 +1,8 @@
 package com.hades.hadescoffee.presentation.controllers.publics;
 
-import com.hades.hadescoffee.application.usecases.menu.GetMenuItemUseCase;
 import com.hades.hadescoffee.application.usecases.menu.GetMenuItemsByCategoryUseCase;
 import com.hades.hadescoffee.presentation.dto.responses.BaseResponse;
 import com.hades.hadescoffee.presentation.dto.responses.MenuByCategoryResponse;
-import com.hades.hadescoffee.presentation.dto.responses.MenuItemResponse;
-import com.hades.hadescoffee.presentation.dto.responses.SignInResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.web.bind.annotation.GetMapping;

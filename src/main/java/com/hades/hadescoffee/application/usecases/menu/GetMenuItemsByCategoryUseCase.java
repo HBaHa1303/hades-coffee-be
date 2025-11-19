@@ -6,7 +6,6 @@ import com.hades.hadescoffee.domain.models.MenuItem;
 import com.hades.hadescoffee.domain.repositories.CategoriesRepository;
 import com.hades.hadescoffee.domain.repositories.MenuItemsRepository;
 import com.hades.hadescoffee.presentation.dto.responses.MenuByCategoryResponse;
-import com.hades.hadescoffee.presentation.dto.responses.MenuItemResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 

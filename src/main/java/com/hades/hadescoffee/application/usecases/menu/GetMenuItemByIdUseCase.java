@@ -12,12 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class GetMenuItemByIdUseCase {
     private final MenuItemsRepository menuItemsRepository;
-    private final AMenuItemMapper AMenuItemMapper;
+    private final AMenuItemMapper mapper;
 
     public MenuItemResponse execute(Long id) {
         MenuItem menuItem = menuItemsRepository.findById(id)
                 .orElseThrow(() -> new ANotFoundException("menu.not_found", id));
 
-        return AMenuItemMapper.domainToResponse(menuItem);
+        return mapper.domainToResponse(menuItem);
     }
 }

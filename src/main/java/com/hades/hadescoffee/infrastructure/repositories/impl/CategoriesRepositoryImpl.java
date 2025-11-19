@@ -4,7 +4,6 @@ import com.hades.hadescoffee.application.dtos.results.Paginated;
 import com.hades.hadescoffee.application.dtos.results.PagingResult;
 import com.hades.hadescoffee.domain.enums.CategoryStatus;
 import com.hades.hadescoffee.domain.models.Category;
-import com.hades.hadescoffee.domain.models.MenuItem;
 import com.hades.hadescoffee.domain.repositories.CategoriesRepository;
 import com.hades.hadescoffee.infrastructure.mappers.ICategoryMapper;
 import com.hades.hadescoffee.infrastructure.repositories.jpa.CategoriesJpaRepository;

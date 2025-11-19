@@ -1,7 +1,5 @@
 package com.hades.hadescoffee.presentation.dto.responses;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.hades.hadescoffee.application.dtos.results.PagingResult;
 import lombok.*;

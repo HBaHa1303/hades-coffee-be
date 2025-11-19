@@ -2,7 +2,6 @@ package com.hades.hadescoffee.infrastructure.repositories.jpa;
 
 import com.hades.hadescoffee.domain.enums.CategoryStatus;
 import com.hades.hadescoffee.infrastructure.entities.CategoryEntity;
-import com.hades.hadescoffee.infrastructure.mappers.IMenuItemMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

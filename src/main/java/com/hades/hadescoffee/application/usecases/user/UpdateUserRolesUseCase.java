@@ -2,15 +2,10 @@ package com.hades.hadescoffee.application.usecases.user;
 
 import com.hades.hadescoffee.application.exceptions.ANotFoundException;
 import com.hades.hadescoffee.domain.models.User;
-import com.hades.hadescoffee.domain.models.UserRole;
 import com.hades.hadescoffee.domain.repositories.UsersRepository;
 import com.hades.hadescoffee.presentation.dto.requests.user.UpdateUserRolesRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Transactional
 @RequiredArgsConstructor

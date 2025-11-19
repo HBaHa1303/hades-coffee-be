@@ -1,6 +1,5 @@
 package com.hades.hadescoffee.presentation.dto.requests.user;
 
-import com.hades.hadescoffee.domain.enums.TableStatus;
 import com.hades.hadescoffee.presentation.dto.requests.BaseFilterRequest;
 import lombok.AccessLevel;
 import lombok.Getter;

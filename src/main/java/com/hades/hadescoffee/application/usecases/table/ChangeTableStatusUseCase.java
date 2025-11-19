@@ -4,7 +4,6 @@ import com.hades.hadescoffee.application.exceptions.ANotFoundException;
 import com.hades.hadescoffee.domain.models.Table;
 import com.hades.hadescoffee.domain.repositories.TablesRepository;
 import com.hades.hadescoffee.presentation.dto.requests.tables.ChangeTableStatusRequest;
-import com.hades.hadescoffee.presentation.dto.requests.tables.CreateTableRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 

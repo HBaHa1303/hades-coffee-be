@@ -12,11 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class GetCategoryByIdUseCase {
     private final CategoriesRepository categoriesRepository;
-    private final ACategoryMapper ACategoryMapper;
+    private final ACategoryMapper mapper;
 
     public CategoryResponse execute(Long id) {
         Category category = categoriesRepository.findById(id)
                 .orElseThrow(() -> new ANotFoundException("category.not_found", id));
-        return ACategoryMapper.domainToResponse(category);
+        return mapper.domainToResponse(category);
     }
 }

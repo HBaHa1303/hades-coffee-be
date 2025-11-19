@@ -2,7 +2,6 @@ package com.hades.hadescoffee.domain.models;
 
 import com.hades.hadescoffee.domain.enums.CategoryStatus;
 import com.hades.hadescoffee.domain.exceptions.DValidationException;
-import com.hades.hadescoffee.infrastructure.entities.BaseEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;

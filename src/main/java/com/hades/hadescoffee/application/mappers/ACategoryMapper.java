@@ -12,5 +12,5 @@ import org.mapstruct.MappingConstants;
 public interface ACategoryMapper {
     @Mapping(target = "status", source = "status")
     Category createRequestToDomain(CreateCategoryRequest createCategoryRequest, CategoryStatus status);
-    CategoryResponse domainToResponse(Category Category);
+    CategoryResponse domainToResponse(Category category);
 }

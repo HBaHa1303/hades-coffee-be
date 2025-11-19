@@ -3,7 +3,6 @@ package com.hades.hadescoffee.infrastructure.configs;
 import com.hades.hadescoffee.application.mappers.AUserMapper;
 import com.hades.hadescoffee.application.usecases.user.*;
 import com.hades.hadescoffee.domain.repositories.UsersRepository;
-import com.hades.hadescoffee.infrastructure.repositories.jpa.RolesJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

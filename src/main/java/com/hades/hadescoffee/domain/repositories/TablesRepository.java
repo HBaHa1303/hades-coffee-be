@@ -2,9 +2,7 @@ package com.hades.hadescoffee.domain.repositories;
 
 import com.hades.hadescoffee.application.dtos.results.Paginated;
 import com.hades.hadescoffee.domain.enums.TableStatus;
-import com.hades.hadescoffee.domain.models.MenuItem;
 import com.hades.hadescoffee.domain.models.Table;
-import com.hades.hadescoffee.domain.models.User;
 import org.springframework.data.domain.Pageable;
 
 import java.util.Optional;
