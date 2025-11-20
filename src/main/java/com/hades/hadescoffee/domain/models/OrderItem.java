@@ -16,9 +16,8 @@ public class OrderItem extends BaseDomain {
     final Long menuItemId;
     final Money price;
     final Integer quantity;
-    final Long orderId;
 
-    public OrderItem(Long id, Long menuItemId, Money price, Integer quantity, Long orderId) {
+    public OrderItem(Long id, Long menuItemId, Money price, Integer quantity) {
         if (Objects.isNull(menuItemId)) {
             throw new DValidationException("common.invalid_input", "menu item");
         }
@@ -30,14 +29,9 @@ public class OrderItem extends BaseDomain {
             throw new DValidationException("common.invalid_input", "quantity");
         }
 
-        if (Objects.isNull(orderId)) {
-            throw new DValidationException("common.invalid_input", "order id");
-        }
-
         this.id = id;
         this.menuItemId = menuItemId;
         this.price = price;
         this.quantity = quantity;
-        this.orderId = orderId;
     }
 }

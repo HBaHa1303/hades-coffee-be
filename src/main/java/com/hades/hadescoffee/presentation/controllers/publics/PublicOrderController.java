@@ -5,6 +5,7 @@ import com.hades.hadescoffee.presentation.dto.requests.order.CreateOrderRequest;
 import com.hades.hadescoffee.presentation.dto.responses.BaseResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +15,9 @@ import java.util.Locale;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("public/api/v1/orders")
+@RequestMapping(value = "public/api/v1/orders",
+        produces = MediaType.APPLICATION_JSON_VALUE,
+        consumes = MediaType.APPLICATION_JSON_VALUE)
 public class PublicOrderController {
     private final CreateOrderUseCase createOrderUseCase;
     private final MessageSource messageSource;

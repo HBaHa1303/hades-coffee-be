@@ -30,8 +30,6 @@ public interface IOrderItemMapper {
     @Mapping(target = "price", expression = "java(menuItem.getPrice())")
     OrderItemEntity modelToEntity(OrderItem orderItem, MenuItemEntity menuItem);
 
-    @Mapping(target = "orderId", source = "id")
     @Mapping(target = "menuItemId", source = "menuItem.id")
-//    @Mapping(ta)
     OrderItem entityToModel(OrderItemEntity orderItem);
 }

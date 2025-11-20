@@ -10,6 +10,7 @@ import com.hades.hadescoffee.presentation.dto.responses.MenuItemResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +18,9 @@ import java.util.Locale;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("private/api/v1/menu-items")
+@RequestMapping(value = "private/api/v1/menu-items",
+        produces = MediaType.APPLICATION_JSON_VALUE,
+        consumes = MediaType.APPLICATION_JSON_VALUE)
 public class PrivateMenuItemController {
     private final MessageSource messageSource;
 

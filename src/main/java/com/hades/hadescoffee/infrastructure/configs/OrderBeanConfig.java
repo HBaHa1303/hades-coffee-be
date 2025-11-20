@@ -5,7 +5,7 @@ import com.hades.hadescoffee.application.mappers.AInvoiceMapper;
 import com.hades.hadescoffee.application.mappers.AOrderMapper;
 import com.hades.hadescoffee.application.usecases.order.CreateOrderUseCase;
 import com.hades.hadescoffee.domain.repositories.InvoicesRepository;
-import com.hades.hadescoffee.domain.repositories.OrderItemsRepository;
+import com.hades.hadescoffee.domain.repositories.MenuItemsRepository;
 import com.hades.hadescoffee.domain.repositories.OrdersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +18,9 @@ public class OrderBeanConfig {
     private final AOrderMapper mapper;
 
     @Bean
-    public CreateOrderUseCase createOrderUseCase(InvoicesRepository invoicesRepository, AInvoiceMapper invoiceMapper) {
-        return new CreateOrderUseCase(repository, mapper, invoicesRepository, invoiceMapper);
+    public CreateOrderUseCase createOrderUseCase(MenuItemsRepository menuItemsRepository,
+                                                 InvoicesRepository invoicesRepository,
+                                                 AInvoiceMapper invoiceMapper) {
+        return new CreateOrderUseCase(repository, mapper, menuItemsRepository, invoicesRepository, invoiceMapper);
     }
 }

@@ -9,7 +9,6 @@ import org.mapstruct.MappingConstants;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface AOrderItemMapper {
-    @Mapping(target = "orderId", ignore = true)
     @Mapping(target = "price", expression = "java(Money.of(orderItemEntity.getPrice()))")
     @Mapping(target = "quantity", source = "request.quantity")
     OrderItem requestToDomain(CreateOrderItemRequest request, OrderItemEntity orderItemEntity);

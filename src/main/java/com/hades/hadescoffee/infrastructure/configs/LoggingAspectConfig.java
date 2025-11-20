@@ -37,7 +37,7 @@ public class LoggingAspectConfig {
 
             return proceed;
         } catch (DomainException ex) {
-            log.error("{}::{} - DomainException - {} ms - key: {} - message: {}",
+            log.warn("{}::{} - DomainException - {} ms - key: {} - message: {}",
                     joinPoint.getSignature().getDeclaringTypeName(),
                     joinPoint.getSignature().getName(),
                     System.currentTimeMillis() - start,
@@ -45,7 +45,7 @@ public class LoggingAspectConfig {
                     Arrays.toString(ex.getMessageArgs()));
             throw ex;
         } catch (ApplicationException ex) {
-            log.error("{}::{} - ApplicationException - {} ms - key: {} - message: {}",
+            log.warn("{}::{} - ApplicationException - {} ms - key: {} - message: {}",
                     joinPoint.getSignature().getDeclaringTypeName(),
                     joinPoint.getSignature().getName(),
                     System.currentTimeMillis() - start,
@@ -81,6 +81,18 @@ public class LoggingAspectConfig {
                     objectMapper.writeValueAsString(proceed));
 
             return proceed;
+        } catch (DomainException throwable) {
+            log.warn("{}::{} - DomainException - {} ms",
+                    joinPoint.getSignature().getDeclaringTypeName(),
+                    joinPoint.getSignature().getName(),
+                    System.currentTimeMillis() - start);
+            throw throwable;
+        } catch (ApplicationException throwable) {
+            log.warn("{}::{} - ApplicationException - {} ms",
+                    joinPoint.getSignature().getDeclaringTypeName(),
+                    joinPoint.getSignature().getName(),
+                    System.currentTimeMillis() - start);
+            throw throwable;
         } catch (Throwable throwable) {
             log.error("{}::{} - Exception - {} ms",
                     joinPoint.getSignature().getDeclaringTypeName(),
