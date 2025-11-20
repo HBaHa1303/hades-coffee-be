@@ -19,6 +19,10 @@ public class OrderEntity extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "table_id", nullable = false)
+    TableEntity table;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     OrderStatus status;

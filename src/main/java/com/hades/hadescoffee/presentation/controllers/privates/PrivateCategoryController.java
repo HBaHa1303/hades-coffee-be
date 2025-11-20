@@ -19,8 +19,7 @@ import java.util.Locale;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "private/api/v1/categories",
-        produces = MediaType.APPLICATION_JSON_VALUE,
-        consumes = MediaType.APPLICATION_JSON_VALUE)
+        produces = MediaType.APPLICATION_JSON_VALUE)
 public class PrivateCategoryController {
     private final MessageSource messageSource;
 
@@ -32,7 +31,7 @@ public class PrivateCategoryController {
     private final ChangeCategoryStatusUseCase changeStatusUseCase;
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public BaseResponse<Object> createCategory(
             @RequestBody CreateCategoryRequest request,
             Locale locale) {
@@ -44,7 +43,7 @@ public class PrivateCategoryController {
                 .build();
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public BaseResponse<Object> updateMenu(
             @PathVariable Long id,
             @RequestBody UpdateCategoryRequest request,
@@ -57,7 +56,7 @@ public class PrivateCategoryController {
                 .build();
     }
 
-    @PatchMapping("/{id}/status")
+    @PatchMapping(value = "/{id}/status", consumes = MediaType.APPLICATION_JSON_VALUE)
     public BaseResponse<Object> changeStatus(
             @PathVariable Long id,
             @RequestBody ChangeCategoryStatusRequest request,

@@ -16,4 +16,5 @@ import java.util.List;
 public class CreateOrderRequest {
     List<CreateOrderItemRequest> orderItems;
     PaymentMethod paymentMethod;
+    Long tableId;
 }

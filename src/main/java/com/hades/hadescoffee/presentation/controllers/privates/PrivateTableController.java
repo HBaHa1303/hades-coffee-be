@@ -19,8 +19,7 @@ import java.util.Locale;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "private/api/v1/tables",
-        produces = MediaType.APPLICATION_JSON_VALUE,
-        consumes = MediaType.APPLICATION_JSON_VALUE)
+        produces = MediaType.APPLICATION_JSON_VALUE)
 public class PrivateTableController {
 
     private final MessageSource messageSource;
@@ -33,7 +32,7 @@ public class PrivateTableController {
     private final ChangeTableStatusUseCase changeStatusUseCase;
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public BaseResponse<Object> createTable(@RequestBody CreateTableRequest request, Locale locale) {
         createUseCase.execute(request);
         return BaseResponse.builder()
@@ -41,7 +40,7 @@ public class PrivateTableController {
                 .build();
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public BaseResponse<Object> updateTable(@PathVariable Long id, @RequestBody UpdateTableRequest request, Locale locale) {
         updateUseCase.execute(id, request);
         return BaseResponse.builder()
@@ -49,7 +48,7 @@ public class PrivateTableController {
                 .build();
     }
 
-    @PatchMapping("/{id}/status")
+    @PatchMapping(value = "/{id}/status", consumes = MediaType.APPLICATION_JSON_VALUE)
     public BaseResponse<Object> changeStatus(@PathVariable Long id, @RequestBody ChangeTableStatusRequest request, Locale locale) {
         changeStatusUseCase.execute(id, request);
         return BaseResponse.builder()

@@ -1,10 +1,13 @@
 package com.hades.hadescoffee.application.mappers;
 
 import com.hades.hadescoffee.domain.models.Order;
+import com.hades.hadescoffee.domain.models.OrderItem;
 import com.hades.hadescoffee.presentation.dto.requests.order.CreateOrderRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
+
+import java.util.List;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface AOrderMapper {
@@ -15,4 +18,9 @@ public interface AOrderMapper {
     @Mapping(target = "createdTime", ignore = true)
     @Mapping(target = "createdBy", ignore = true)
     Order createOrderToModel(CreateOrderRequest order);
+
+    @Mapping(target = "orderItems", source = "orderItems")
+    @Mapping(target = "status", expression = "java(OrderStatus.PENDING)")
+    @Mapping(target = "tableId", source = "tableId")
+    Order createOrderByOrderItemsAndTableIdRequest(List<OrderItem> orderItems, Long tableId);
 }

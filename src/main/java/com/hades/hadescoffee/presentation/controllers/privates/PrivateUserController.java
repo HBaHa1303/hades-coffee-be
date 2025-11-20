@@ -16,8 +16,7 @@ import java.util.Locale;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "private/api/v1/users",
-        produces = MediaType.APPLICATION_JSON_VALUE,
-        consumes = MediaType.APPLICATION_JSON_VALUE)
+        produces = MediaType.APPLICATION_JSON_VALUE)
 public class PrivateUserController {
 
     private final MessageSource messageSource;
@@ -30,7 +29,7 @@ public class PrivateUserController {
     private final ChangeUserRolesUseCase changeUserRolesUseCase;
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public BaseResponse<Object> createUser(@RequestBody CreateUserRequest request, Locale locale) {
         createUseCase.execute(request);
         return BaseResponse.builder()
@@ -38,7 +37,7 @@ public class PrivateUserController {
                 .build();
     }
 
-    @PatchMapping("/{id}/password")
+    @PatchMapping(value = "/{id}/password", consumes = MediaType.APPLICATION_JSON_VALUE)
     public BaseResponse<Object> changePassword(@PathVariable Long id, @RequestBody ChangeUserPasswordRequest request, Locale locale) {
         changePasswordUseCase.execute(id, request);
         return BaseResponse.builder()
@@ -46,7 +45,7 @@ public class PrivateUserController {
                 .build();
     }
 
-    @PatchMapping("/{id}/roles")
+    @PatchMapping(value = "/{id}/roles", consumes = MediaType.APPLICATION_JSON_VALUE)
     public BaseResponse<Object> changeRoles(@PathVariable Long id, @RequestBody ChangeUserRoleRequest request, Locale locale) {
         changeUserRolesUseCase.execute(id, request);
         return BaseResponse.builder()

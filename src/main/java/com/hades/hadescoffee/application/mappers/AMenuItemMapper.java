@@ -15,6 +15,7 @@ import java.util.List;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface AMenuItemMapper {
     @Mapping(target = "status", source = "status")
+    @Mapping(target = "price", expression = "java(new Money(createMenuItemRequest.getPrice()))")
     MenuItem createRequestToDomain(CreateMenuItemRequest createMenuItemRequest, MenuItemStatus status);
     MenuItemResponse domainToResponse(MenuItem menuItem);
 

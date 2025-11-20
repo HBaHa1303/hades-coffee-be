@@ -19,8 +19,7 @@ import java.util.Locale;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "private/api/v1/menu-items",
-        produces = MediaType.APPLICATION_JSON_VALUE,
-        consumes = MediaType.APPLICATION_JSON_VALUE)
+        produces = MediaType.APPLICATION_JSON_VALUE)
 public class PrivateMenuItemController {
     private final MessageSource messageSource;
 
@@ -32,7 +31,7 @@ public class PrivateMenuItemController {
     private final ChangeMenuItemStatusUseCase changeStatusUseCase;
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public BaseResponse<Object> createMenuItem(
             @RequestBody CreateMenuItemRequest request,
             Locale locale) {
@@ -44,7 +43,7 @@ public class PrivateMenuItemController {
                 .build();
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public BaseResponse<Object> updateMenu(
             @PathVariable Long id,
             @RequestBody UpdateMenuItemRequest request,
@@ -57,7 +56,7 @@ public class PrivateMenuItemController {
                 .build();
     }
 
-    @PatchMapping("/{id}/status")
+    @PatchMapping(value = "/{id}/status", consumes = MediaType.APPLICATION_JSON_VALUE)
     public BaseResponse<Object> changeStatus(
             @PathVariable Long id,
             @RequestBody ChangeMenuItemStatusRequest request,

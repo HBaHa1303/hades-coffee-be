@@ -16,15 +16,17 @@ import java.util.Objects;
 public class Order extends BaseDomain {
     final Long id;
     OrderStatus status;
+    final Long tableId;
     final List<OrderItem> orderItems;
 
-    public Order(Long id, OrderStatus status, List<OrderItem> orderItems) {
+    public Order(Long id, OrderStatus status, Long tableId, List<OrderItem> orderItems) {
         if (Objects.isNull(status)) {
             throw new DValidationException("common.invalid_input", "status");
         }
 
         this.id = id;
         this.status = status;
+        this.tableId = tableId;
         this.orderItems = Objects.isNull(orderItems) ? new ArrayList<>() : orderItems;
     }
 

@@ -50,7 +50,10 @@ public class SecurityConfig {
                                         "/private/api/v1/categories/**",
                                         "/private/api/v1/menu-items/**",
                                         "/private/api/v1/tables/**",
-                                        "/private/api/v1/users/**"
+                                        "/private/api/v1/users/**",
+                                        "/private/api/v1/table-statuses/**",
+                                        "/private/api/v1/category-statuses/**",
+                                        "/private/api/v1/menu-item-statuses/**"
                                 ).hasAuthority("ADMIN")
                                 .anyRequest().authenticated()
                 )

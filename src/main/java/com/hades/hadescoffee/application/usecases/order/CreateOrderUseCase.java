@@ -31,7 +31,8 @@ public class CreateOrderUseCase {
 
     public void execute(CreateOrderRequest request) {
         List<OrderItem> orderItems = request.getOrderItems().stream().map(this::createOrderToModel).toList();
-        Order order = new Order(null, OrderStatus.PENDING, orderItems);
+        Order order = mapper.createOrderByOrderItemsAndTableIdRequest(orderItems, request.getTableId());
+
         Order savedOrder = repository.save(order);
 
         Money amount = savedOrder.getOrderItems().stream()

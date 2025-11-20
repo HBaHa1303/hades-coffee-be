@@ -7,6 +7,7 @@ import com.hades.hadescoffee.infrastructure.repositories.jpa.RolesJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -23,5 +24,10 @@ public class RolesRepositoryImpl implements RolesRepository {
     @Override
     public void save(Role role) {
         repository.save(mapper.modelToEntity(role));
+    }
+
+    @Override
+    public List<Role> findAll() {
+        return repository.findAll().stream().map(mapper::entityToModel).toList();
     }
 }

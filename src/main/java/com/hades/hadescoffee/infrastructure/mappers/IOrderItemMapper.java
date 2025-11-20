@@ -3,6 +3,7 @@ package com.hades.hadescoffee.infrastructure.mappers;
 import com.hades.hadescoffee.domain.models.OrderItem;
 import com.hades.hadescoffee.domain.valueObjects.Money;
 import com.hades.hadescoffee.infrastructure.entities.MenuItemEntity;
+import com.hades.hadescoffee.infrastructure.entities.OrderEntity;
 import com.hades.hadescoffee.infrastructure.entities.OrderItemEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -20,7 +21,7 @@ public interface IOrderItemMapper {
         return new Money(value);
     }
 
-    @Mapping(target = "order", ignore = true)
+    @Mapping(target = "order", source = "order")
     @Mapping(target = "menuItem", source = "menuItem")
     @Mapping(target = "createdTime", ignore = true)
     @Mapping(target = "createdBy", ignore = true)
@@ -28,7 +29,7 @@ public interface IOrderItemMapper {
     @Mapping(target = "lastModifiedBy", ignore = true)
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "price", expression = "java(menuItem.getPrice())")
-    OrderItemEntity modelToEntity(OrderItem orderItem, MenuItemEntity menuItem);
+    OrderItemEntity modelToEntity(OrderItem orderItem, MenuItemEntity menuItem, OrderEntity order);
 
     @Mapping(target = "menuItemId", source = "menuItem.id")
     OrderItem entityToModel(OrderItemEntity orderItem);

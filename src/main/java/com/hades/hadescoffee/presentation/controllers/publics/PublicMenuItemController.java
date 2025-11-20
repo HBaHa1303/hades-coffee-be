@@ -16,8 +16,7 @@ import java.util.Locale;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "public/api/v1/menu-items",
-        produces = MediaType.APPLICATION_JSON_VALUE,
-        consumes = MediaType.APPLICATION_JSON_VALUE)
+        produces = MediaType.APPLICATION_JSON_VALUE)
 public class PublicMenuItemController {
     private final GetMenuItemsByCategoryUseCase getMenuItemsByCategoryUseCase;
     private final MessageSource messageSource;
