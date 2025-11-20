@@ -55,6 +55,8 @@ public class SecurityConfig {
                                         "/private/api/v1/category-statuses/**",
                                         "/private/api/v1/menu-item-statuses/**"
                                 ).hasAuthority("ADMIN")
+                                .requestMatchers("/private/api/v1/orders/**")
+                                .hasAnyRole("CASHER", "KITCHEN")
                                 .anyRequest().authenticated()
                 )
                 .addFilterBefore(new JwtAuthenticationFilter(jwtService, userDetailsService), UsernamePasswordAuthenticationFilter.class)

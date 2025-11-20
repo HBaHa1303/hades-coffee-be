@@ -8,7 +8,6 @@ import java.util.List;
 @Getter
 @Setter
 public class MenuByCategoryResponse {
-    private Long categoryId;
     private String categoryName;
     private List<MenuItemResponse> menuItems;
 }

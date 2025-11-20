@@ -62,6 +62,13 @@ public class Order extends BaseDomain {
         };
     }
 
+    public void pending() {
+        status = switch (status) {
+            case PENDING -> { alreadyInState("pending"); yield status; }
+            case CONFIRMED, IN_PROGRESS, CANCELLED, READY, SERVED -> { invalidTransition("start"); yield status; }
+        };
+    }
+
     public void ready() {
         status = switch (status) {
             case IN_PROGRESS -> OrderStatus.READY;

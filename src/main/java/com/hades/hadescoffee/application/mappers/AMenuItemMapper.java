@@ -19,7 +19,6 @@ public interface AMenuItemMapper {
     MenuItem createRequestToDomain(CreateMenuItemRequest createMenuItemRequest, MenuItemStatus status);
     MenuItemResponse domainToResponse(MenuItem menuItem);
 
-    @Mapping(target = "categoryId", source = "cat.id")
     @Mapping(target = "categoryName", source = "cat.name")
     @Mapping(target = "menuItems", source = "items")
     MenuByCategoryResponse mapMenuByCategory(Category cat, List<MenuItem> items);

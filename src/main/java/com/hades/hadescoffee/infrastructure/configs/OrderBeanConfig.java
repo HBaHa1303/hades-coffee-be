@@ -3,6 +3,7 @@ package com.hades.hadescoffee.infrastructure.configs;
 
 import com.hades.hadescoffee.application.mappers.AInvoiceMapper;
 import com.hades.hadescoffee.application.mappers.AOrderMapper;
+import com.hades.hadescoffee.application.usecases.order.ChangeOrderStatusUseCase;
 import com.hades.hadescoffee.application.usecases.order.CreateOrderUseCase;
 import com.hades.hadescoffee.domain.repositories.InvoicesRepository;
 import com.hades.hadescoffee.domain.repositories.MenuItemsRepository;
@@ -22,5 +23,10 @@ public class OrderBeanConfig {
                                                  InvoicesRepository invoicesRepository,
                                                  AInvoiceMapper invoiceMapper) {
         return new CreateOrderUseCase(repository, mapper, menuItemsRepository, invoicesRepository, invoiceMapper);
+    }
+
+    @Bean
+    public ChangeOrderStatusUseCase  changeOrderStatusUseCase() {
+        return new ChangeOrderStatusUseCase(repository, mapper);
     }
 }
