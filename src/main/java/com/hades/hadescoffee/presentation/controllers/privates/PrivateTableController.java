@@ -40,7 +40,7 @@ public class PrivateTableController {
                 .build();
     }
 
-    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PatchMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public BaseResponse<Object> updateTable(@PathVariable Long id, @RequestBody UpdateTableRequest request, Locale locale) {
         updateUseCase.execute(id, request);
         return BaseResponse.builder()

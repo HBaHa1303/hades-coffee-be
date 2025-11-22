@@ -43,7 +43,7 @@ public class PrivateMenuItemController {
                 .build();
     }
 
-    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PatchMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public BaseResponse<Object> updateMenu(
             @PathVariable Long id,
             @RequestBody UpdateMenuItemRequest request,
