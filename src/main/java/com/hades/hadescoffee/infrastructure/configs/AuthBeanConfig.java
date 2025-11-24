@@ -2,6 +2,8 @@ package com.hades.hadescoffee.infrastructure.configs;
 
 import com.hades.hadescoffee.application.mappers.AUserMapper;
 import com.hades.hadescoffee.application.services.JwtService;
+import com.hades.hadescoffee.application.services.OtpService;
+import com.hades.hadescoffee.application.services.SignupCacheService;
 import com.hades.hadescoffee.application.usecases.auth.SignInUseCase;
 import com.hades.hadescoffee.application.usecases.auth.SignUpUseCase;
 import com.hades.hadescoffee.domain.repositories.RolesRepository;
@@ -20,8 +22,8 @@ public class AuthBeanConfig {
     private final RolesRepository rolesRepository;
 
     @Bean
-    public SignUpUseCase signUpUseCase(PasswordEncoder passwordEncoder) {
-        return new SignUpUseCase(repository, mapper, passwordEncoder, rolesRepository);
+    public SignUpUseCase signUpUseCase(PasswordEncoder passwordEncoder, OtpService otpService, SignupCacheService signupCacheService) {
+        return new SignUpUseCase(repository, mapper, passwordEncoder, rolesRepository, otpService, signupCacheService);
     }
 
     @Bean

@@ -33,7 +33,6 @@ public class RedisSignupCacheService implements SignupCacheService{
         String key = "signup:" + email;
 
         String json = redis.opsForValue().get(key);
-        if (json == null) return null;
 
         return objectMapper.readValue(json, SignUpRequest.class);
     }

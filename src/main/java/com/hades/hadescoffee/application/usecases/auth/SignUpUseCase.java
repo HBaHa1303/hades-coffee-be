@@ -2,8 +2,9 @@ package com.hades.hadescoffee.application.usecases.auth;
 
 import com.hades.hadescoffee.application.exceptions.AConflictException;
 import com.hades.hadescoffee.application.exceptions.ANotFoundException;
-import com.hades.hadescoffee.application.exceptions.AValidationException;
 import com.hades.hadescoffee.application.mappers.AUserMapper;
+import com.hades.hadescoffee.application.services.OtpService;
+import com.hades.hadescoffee.application.services.SignupCacheService;
 import com.hades.hadescoffee.domain.models.Role;
 import com.hades.hadescoffee.domain.models.User;
 import com.hades.hadescoffee.domain.models.UserRole;
@@ -22,43 +23,28 @@ public class SignUpUseCase {
     private final AUserMapper mapper;
     private final PasswordEncoder passwordEncoder;
     private final RolesRepository rolesRepository;
+    private final OtpService otpService;
+    private final SignupCacheService signupCacheService;
 
     public void execute (ConfirmSignUpRequest request) {
-        validatePassword(request.getPassword());
+        String otp = otpService.getOtp(request.getEmail());
+        if (otp == null) {
+            throw new ANotFoundException("auth.otp_not_found");
+        }
+        if (!request.getOtp().equals(otp)) {
+            throw new AConflictException("auth.otp_wrong");
+        }
+        otpService.deleteOtp(request.getEmail());
 
-        usersRepository.findByEmail(request.getEmail())
-                .ifPresent(user -> {
-                    throw new AConflictException("user.email_exists", user.getEmail());
-                });
+        SignUpRequest signUpRequest = signupCacheService.getSignupData(request.getEmail());
         Role role = rolesRepository.findByCode("USER")
                 .orElseThrow(() -> new ANotFoundException("role.not_found", "user"));
 
         UserRole userRole = new UserRole(null,  role.getCode());
-        String hashedPassword = passwordEncoder.encode(request.getPassword());
-        User user = mapper.signUpRequestToDomain(request, hashedPassword, userRole);
+        String hashedPassword = passwordEncoder.encode(signUpRequest.getPassword());
+        User user = mapper.signUpRequestToDomain(signUpRequest, hashedPassword, userRole);
 
         usersRepository.save(user);
     }
 
-    public void validatePassword(String password) {
-        if (password == null || password.length() < 8) {
-            throw new AValidationException("user.password_too_short", 8);
-        }
-
-        if (!password.matches(".*[A-Z].*")) {
-            throw new AValidationException("user.password_missing_uppercase");
-        }
-
-        if (!password.matches(".*[a-z].*")) {
-            throw new AValidationException("user.password_missing_lowercase");
-        }
-
-        if (!password.matches(".*\\d.*")) {
-            throw new AValidationException("user.password_missing_digit");
-        }
-
-        if (!password.matches(".*[@#$%^&+=!].*")) {
-            throw new AValidationException("user.password_missing_special");
-        }
-    }
 }

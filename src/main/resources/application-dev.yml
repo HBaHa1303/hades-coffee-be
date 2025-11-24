@@ -19,6 +19,11 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: ""
 jwt:
   secretKey: u6J7f7MdE0wWQ2s9nQXwVnqR6d5tZgGzQXq42u+0Hpw=
   expiration: 86400

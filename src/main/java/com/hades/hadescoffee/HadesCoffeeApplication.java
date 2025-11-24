@@ -21,7 +21,7 @@ public class HadesCoffeeApplication {
     public static void main(String[] args) {
         SpringApplication.run(HadesCoffeeApplication.class, args);
     }
-
+//
 //    @Bean
 //    CommandLineRunner init(RolesRepository rolesRepository,
 //                           UsersRepository usersRepository) {

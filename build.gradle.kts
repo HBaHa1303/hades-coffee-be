@@ -41,6 +41,7 @@ dependencies {
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:${springDocVersion}")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
+    implementation("org.springframework.boot:spring-boot-starter-mail")
 
     compileOnly("org.projectlombok:lombok")
 
