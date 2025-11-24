@@ -12,9 +12,12 @@ import com.hades.hadescoffee.domain.repositories.InvoicesRepository;
 import com.hades.hadescoffee.domain.repositories.MenuItemsRepository;
 import com.hades.hadescoffee.domain.repositories.OrdersRepository;
 import com.hades.hadescoffee.domain.valueObjects.Money;
+import com.hades.hadescoffee.infrastructure.security.UserDetailsImpl;
 import com.hades.hadescoffee.presentation.dto.requests.order.CreateOrderItemRequest;
 import com.hades.hadescoffee.presentation.dto.requests.order.CreateOrderRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
@@ -28,10 +31,19 @@ public class CreateOrderUseCase {
     private final MenuItemsRepository menuItemsRepository;
     private final InvoicesRepository invoicesRepository;
     private final AInvoiceMapper invoiceMapper;
+    private static final String SYSTEM_USER_ID = "1";
 
     public void execute(CreateOrderRequest request) {
+        String userId;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetailsImpl) {
+            userId = ((UserDetailsImpl) principal).getUsername();
+        } else {
+            userId = SYSTEM_USER_ID;
+        }
+
         List<OrderItem> orderItems = request.getOrderItems().stream().map(this::createOrderToModel).toList();
-        Order order = mapper.createOrderByOrderItemsAndTableIdRequest(orderItems, request.getTableId());
+        Order order = mapper.createOrderByOrderItemsAndTableIdRequest(orderItems, request.getTableId(), userId);
 
         Order savedOrder = repository.save(order);
 

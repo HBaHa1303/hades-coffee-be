@@ -27,7 +27,7 @@ public class AuthBeanConfig {
     @Bean
     public SignInUseCase signInUseCase(AuthenticationManager authenticationManager,
                                        JwtService jwtService) {
-        return new SignInUseCase(authenticationManager, jwtService);
+        return new SignInUseCase(authenticationManager, jwtService, repository);
     }
 
     @Bean

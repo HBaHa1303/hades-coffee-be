@@ -19,6 +19,14 @@ public interface UsersJpaRepository extends JpaRepository<UserEntity, Long> {
     Optional<UserEntity> findByEmailWithRoles(String email);
 
     @Query("""
+        SELECT u FROM UserEntity u 
+        LEFT JOIN FETCH u.userRoles ur 
+        LEFT JOIN FETCH ur.role 
+        WHERE u.id = :id
+    """)
+    Optional<UserEntity> findByIdWithRoles(Long id);
+
+    @Query("""
         SELECT DISTINCT u FROM UserEntity u
         LEFT JOIN u.userRoles ur
         LEFT JOIN ur.role r

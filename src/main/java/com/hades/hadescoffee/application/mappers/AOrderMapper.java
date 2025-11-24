@@ -22,5 +22,6 @@ public interface AOrderMapper {
     @Mapping(target = "orderItems", source = "orderItems")
     @Mapping(target = "status", expression = "java(OrderStatus.PENDING)")
     @Mapping(target = "tableId", source = "tableId")
-    Order createOrderByOrderItemsAndTableIdRequest(List<OrderItem> orderItems, Long tableId);
+    @Mapping(target = "userId", expression = "java(Long.parseLong(userId))")
+    Order createOrderByOrderItemsAndTableIdRequest(List<OrderItem> orderItems, Long tableId, String userId);
 }

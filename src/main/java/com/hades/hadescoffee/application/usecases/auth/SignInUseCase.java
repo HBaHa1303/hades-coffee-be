@@ -1,6 +1,9 @@
 package com.hades.hadescoffee.application.usecases.auth;
 
+import com.hades.hadescoffee.application.exceptions.ANotFoundException;
 import com.hades.hadescoffee.application.services.JwtService;
+import com.hades.hadescoffee.domain.models.User;
+import com.hades.hadescoffee.domain.repositories.UsersRepository;
 import com.hades.hadescoffee.presentation.dto.requests.auth.SignInRequest;
 import com.hades.hadescoffee.presentation.dto.responses.SignInResponse;
 import io.jsonwebtoken.lang.Strings;
@@ -9,6 +12,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional(readOnly = true)
@@ -16,11 +20,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class SignInUseCase {
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
+    private final UsersRepository usersRepository;
 
     public SignInResponse execute(SignInRequest request) {
+        User user = usersRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new ANotFoundException("user.email.not_found", request.getEmail()));
         Authentication auth = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
+                        user.getId(),
                         request.getPassword()
                 )
         );
@@ -29,7 +36,7 @@ public class SignInUseCase {
         String refreshToken = Strings.EMPTY;
 
         return new SignInResponse(
-                auth.getName(), accessToken, refreshToken,
+                user.getEmail().getValue(), accessToken, refreshToken,
                 auth.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList()
         );
     }

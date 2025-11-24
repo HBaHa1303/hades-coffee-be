@@ -77,7 +77,7 @@ public class CategoriesRepositoryImpl implements CategoriesRepository {
 
     @Override
     public Paginated<Category> findAllByKeyWordAndStatus(String keyword, CategoryStatus status, Pageable pageable) {
-        Page<Category> dbResponse = repository.findByKeywordAndStatus(keyword, status, pageable)
+        Page<Category> dbResponse = repository.findByKeywordAndStatus(keyword == null ? "" : keyword, status, pageable)
                 .map(mapper::entityToModel);
         return Paginated.<Category>builder()
                 .data(dbResponse.getContent())

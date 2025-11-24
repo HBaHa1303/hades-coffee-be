@@ -55,6 +55,12 @@ public class UsersRepositoryImpl implements UsersRepository {
     }
 
     @Override
+    public Optional<User> findByIdWithRoles(Long id) {
+        return usersRepository.findByIdWithRoles(id)
+                .map(mapper::entityToModel);
+    }
+
+    @Override
     public void delete(User user) {
         usersRepository.deleteById(user.getId());
     }
@@ -62,7 +68,7 @@ public class UsersRepositoryImpl implements UsersRepository {
     @Override
     public Paginated<User> findAllByKeywordAndRole(String keyword, Pageable pageable) {
         Page<User> dbResponse = usersRepository.findAllByKeywordAndRole(
-                keyword, pageable)
+                        keyword == null ? "" : keyword, pageable)
                 .map(mapper::entityToModel);
         return Paginated.<User>builder()
                 .data(dbResponse.getContent())

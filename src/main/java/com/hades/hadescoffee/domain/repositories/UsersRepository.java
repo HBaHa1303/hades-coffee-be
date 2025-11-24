@@ -11,7 +11,7 @@ public interface UsersRepository {
     void save(User user);
     Optional<User> findByEmail(String email);
     Optional<User> findByEmailWithRoles(String email);
-
+    Optional<User> findByIdWithRoles(Long id);
     void delete(User user);
     Paginated<User> findAllByKeywordAndRole(String keyword, Pageable pageable);
 }

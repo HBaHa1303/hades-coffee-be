@@ -40,6 +40,7 @@ dependencies {
     implementation("io.jsonwebtoken:jjwt-api:${jjwtVersion}")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:${springDocVersion}")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
+    implementation("org.springframework.boot:spring-boot-starter-data-redis")
 
     compileOnly("org.projectlombok:lombok")
 

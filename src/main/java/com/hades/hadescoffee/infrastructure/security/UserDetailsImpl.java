@@ -15,12 +15,12 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserDetailsImpl implements UserDetails {
-    String email;
+    Long userId;
     String password;
     List<SimpleGrantedAuthority> grantedAuthorities;
 
-    public UserDetailsImpl(String email, String password, List<SimpleGrantedAuthority> grantedAuthorities) {
-        if (StringUtils.isBlank(email)) {
+    public UserDetailsImpl(Long userId, String password, List<SimpleGrantedAuthority> grantedAuthorities) {
+        if (Objects.isNull(userId)) {
             // todo: validate
         }
 
@@ -28,7 +28,7 @@ public class UserDetailsImpl implements UserDetails {
             //TODO: validate
         }
 
-        this.email = email;
+        this.userId = userId;
         this.password = password;
         this.grantedAuthorities = grantedAuthorities;
     }
@@ -45,6 +45,6 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.email;
+        return this.userId.toString();
     }
 }

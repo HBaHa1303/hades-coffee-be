@@ -18,11 +18,11 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = usersRepository.findByEmailWithRoles(username)
-                .orElseThrow(() -> new UsernameNotFoundException(username));
+        User user = usersRepository.findByIdWithRoles(Long.parseLong(username))
+                    .orElseThrow(() -> new UsernameNotFoundException(username));
 
         return new UserDetailsImpl(
-                user.getEmail().getValue(),
+                user.getId(),
                 user.getPassword().getHashed(),
                 getGrantedAuthorities(user)
                 );

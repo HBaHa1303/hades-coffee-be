@@ -9,6 +9,7 @@ import com.hades.hadescoffee.domain.models.User;
 import com.hades.hadescoffee.domain.models.UserRole;
 import com.hades.hadescoffee.domain.repositories.RolesRepository;
 import com.hades.hadescoffee.domain.repositories.UsersRepository;
+import com.hades.hadescoffee.presentation.dto.requests.auth.ConfirmSignUpRequest;
 import com.hades.hadescoffee.presentation.dto.requests.auth.SignUpRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,7 +23,7 @@ public class SignUpUseCase {
     private final PasswordEncoder passwordEncoder;
     private final RolesRepository rolesRepository;
 
-    public void execute (SignUpRequest request) {
+    public void execute (ConfirmSignUpRequest request) {
         validatePassword(request.getPassword());
 
         usersRepository.findByEmail(request.getEmail())

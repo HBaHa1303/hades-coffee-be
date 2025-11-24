@@ -64,7 +64,7 @@ public class MenuItemsRepositoryImpl implements MenuItemsRepository {
 
     @Override
     public Paginated<MenuItem> findAllByKeyWordAndStatus(String keyword, MenuItemStatus status, Pageable pageable) {
-        Page<MenuItem> dbResponse = repository.findAllByKeyWordAndStatus(keyword, status, pageable)
+        Page<MenuItem> dbResponse = repository.findAllByKeyWordAndStatus(keyword == null ? "" : keyword, status, pageable)
                 .map(mapper::entityToModel);
         return Paginated.<MenuItem>builder()
                 .data(dbResponse.getContent())

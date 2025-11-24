@@ -18,13 +18,13 @@ import java.util.Optional;
 @Configuration
 public class ApplicationBeanConfig {
     @Bean
-    public AuditorAware<String> auditorProvider() {
+    public AuditorAware<Long> auditorProvider() {
         return () -> {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             if (auth == null || !auth.isAuthenticated() || auth instanceof AnonymousAuthenticationToken) {
-                return Optional.of("system");
+                return Optional.of(1L);
             }
-            return Optional.of(auth.getName());
+            return Optional.of(Long.parseLong(auth.getName()));
         };
     }
 

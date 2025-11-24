@@ -11,8 +11,8 @@ import java.time.Instant;
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public abstract class BaseDomain {
-    String createdBy;
+    Long createdBy;
     Instant createdTime;
-    String lastModifiedBy;
+    Long lastModifiedBy;
     Instant lastModifiedTime;
 }

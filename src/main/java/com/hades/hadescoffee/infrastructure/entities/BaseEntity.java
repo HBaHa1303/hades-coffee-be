@@ -27,11 +27,11 @@ public class BaseEntity {
 
     @CreatedBy
     @Column(nullable = false)
-    String createdBy;
+    Long createdBy;
 
     @LastModifiedBy
     @Column(nullable = false)
-    String lastModifiedBy;
+    Long lastModifiedBy;
 
     @LastModifiedDate
     @Column(nullable = false)

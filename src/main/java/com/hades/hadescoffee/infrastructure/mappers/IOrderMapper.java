@@ -1,10 +1,7 @@
 package com.hades.hadescoffee.infrastructure.mappers;
 
 import com.hades.hadescoffee.domain.models.Order;
-import com.hades.hadescoffee.infrastructure.entities.MenuItemEntity;
-import com.hades.hadescoffee.infrastructure.entities.OrderEntity;
-import com.hades.hadescoffee.infrastructure.entities.OrderItemEntity;
-import com.hades.hadescoffee.infrastructure.entities.TableEntity;
+import com.hades.hadescoffee.infrastructure.entities.*;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -25,6 +22,7 @@ public interface IOrderMapper {
     @Mapping(target = "lastModifiedTime", source = "order.lastModifiedTime")
     @Mapping(target = "id", source = "order.id")
     @Mapping(target = "status", source = "order.status")
-    OrderEntity modelToEntity(Order order, TableEntity table, List<OrderItemEntity> orderItems);
+    @Mapping(target = "user", source = "user")
+    OrderEntity modelToEntity(Order order, TableEntity table, UserEntity user, List<OrderItemEntity> orderItems);
     Order entityToModel(OrderEntity entity);
 }
