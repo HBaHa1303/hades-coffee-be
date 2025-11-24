@@ -23,6 +23,10 @@ public class OrderEntity extends BaseEntity {
     @JoinColumn(name = "table_id", nullable = false)
     TableEntity table;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    UserEntity user;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     OrderStatus status;

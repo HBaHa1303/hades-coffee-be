@@ -17,9 +17,10 @@ public class Order extends BaseDomain {
     final Long id;
     OrderStatus status;
     final Long tableId;
+    final Long userId;
     final List<OrderItem> orderItems;
 
-    public Order(Long id, OrderStatus status, Long tableId, List<OrderItem> orderItems) {
+    public Order(Long id, OrderStatus status, Long tableId, Long userId,List<OrderItem> orderItems) {
         if (Objects.isNull(status)) {
             throw new DValidationException("common.invalid_input", "status");
         }
@@ -27,6 +28,7 @@ public class Order extends BaseDomain {
         this.id = id;
         this.status = status;
         this.tableId = tableId;
+        this.userId = userId;
         this.orderItems = Objects.isNull(orderItems) ? new ArrayList<>() : orderItems;
     }
 
