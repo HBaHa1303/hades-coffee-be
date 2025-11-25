@@ -26,6 +26,7 @@ public class PrivateUserController {
     private final GetUserByIdUseCase getByIdUseCase;
     private final GetUsersUseCase getUseCase;
     private final ChangeUserPasswordUseCase changePasswordUseCase;
+    private final UserSelfChangePasswordUseCase userSelfChangePasswordUseCase;
     private final ChangeUserRolesUseCase changeUserRolesUseCase;
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -77,6 +78,14 @@ public class PrivateUserController {
                 .data(data.getData())
                 .paging(data.getPaging())
                 .message(messageSource.getMessage("user.get_success", null, locale))
+                .build();
+    }
+
+    @PatchMapping(value = "/me/password", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public BaseResponse<Object> userSelfChangePassword(@RequestBody UserSelfChangePasswordRequest request, Locale locale) {
+        userSelfChangePasswordUseCase.execute(request);
+        return BaseResponse.builder()
+                .message(messageSource.getMessage("user.password_changed_success", null, locale))
                 .build();
     }
 }
