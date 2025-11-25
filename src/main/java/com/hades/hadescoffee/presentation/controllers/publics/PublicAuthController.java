@@ -50,7 +50,7 @@ public class PublicAuthController {
                 .message(messageSource.getMessage("auth.request_sign_up_success", null, locale))
                 .build();
     }
-    @ResponseStatus(HttpStatus.CREATED)
+
     @PostMapping("request-reset-password")
     public BaseResponse<Object> requestResetPassword(@RequestBody ResetPasswordRequest request, Locale locale) {
         resetPasswordUseCase.execute(request);
@@ -58,7 +58,7 @@ public class PublicAuthController {
                 .message(messageSource.getMessage("auth.request_reset_password_success", null, locale))
                 .build();
     }
-    @ResponseStatus(HttpStatus.CREATED)
+
     @PostMapping("reset-password")
     public BaseResponse<Object> signUp(@RequestBody ConfirmResetPasswordRequest request, Locale locale) {
         confirmResetPasswordUseCase.execute(request);
