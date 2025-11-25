@@ -10,10 +10,12 @@ import com.hades.hadescoffee.presentation.dto.requests.menuItems.FilterMenuItems
 import com.hades.hadescoffee.presentation.dto.responses.MenuItemResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class GetMenuItemUseCase {

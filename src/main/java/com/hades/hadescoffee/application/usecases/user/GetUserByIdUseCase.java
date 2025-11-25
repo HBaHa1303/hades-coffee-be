@@ -6,8 +6,10 @@ import com.hades.hadescoffee.domain.models.User;
 import com.hades.hadescoffee.domain.repositories.UsersRepository;
 import com.hades.hadescoffee.presentation.dto.responses.UserResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class GetUserByIdUseCase {

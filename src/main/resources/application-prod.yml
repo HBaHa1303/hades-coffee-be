@@ -5,6 +5,7 @@ spring:
   messages:
     basename: i18n/messages
     cache-duration: -1
+    use-code-as-default-message: true
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
@@ -28,10 +29,15 @@ jwt:
   secretKey: u6J7f7MdE0wWQ2s9nQXwVnqR6d5tZgGzQXq42u+0Hpw=
   expiration: 86400
 
+
 logging:
   level:
     root: info
     com.hades.hadescoffee: info
-
   file:
     name: ./logs/hades-coffee-log
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false

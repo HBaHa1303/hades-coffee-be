@@ -5,8 +5,10 @@ import com.hades.hadescoffee.domain.enums.MenuItemStatus;
 import com.hades.hadescoffee.domain.repositories.MenuItemsRepository;
 import com.hades.hadescoffee.presentation.dto.requests.menuItems.CreateMenuItemRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Service
 @Transactional
 @RequiredArgsConstructor
 public class CreateMenuItemUseCase {

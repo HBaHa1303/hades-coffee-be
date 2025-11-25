@@ -4,7 +4,7 @@ server:
 spring:
   messages:
     basename: i18n/messages
-    cache-duration: -1
+    cache-duration: 0
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres

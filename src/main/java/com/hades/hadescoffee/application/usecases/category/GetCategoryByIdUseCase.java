@@ -6,8 +6,10 @@ import com.hades.hadescoffee.domain.models.Category;
 import com.hades.hadescoffee.domain.repositories.CategoriesRepository;
 import com.hades.hadescoffee.presentation.dto.responses.CategoryResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class GetCategoryByIdUseCase {

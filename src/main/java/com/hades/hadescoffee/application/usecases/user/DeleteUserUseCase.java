@@ -5,7 +5,9 @@ import com.hades.hadescoffee.domain.models.User;
 import com.hades.hadescoffee.domain.repositories.UsersRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
+@Service
 @Transactional
 @RequiredArgsConstructor
 public class DeleteUserUseCase {

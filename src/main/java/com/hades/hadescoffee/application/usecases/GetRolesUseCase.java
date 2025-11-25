@@ -4,10 +4,12 @@ import com.hades.hadescoffee.application.mappers.ARoleMapper;
 import com.hades.hadescoffee.domain.repositories.RolesRepository;
 import com.hades.hadescoffee.presentation.dto.responses.RoleResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class GetRolesUseCase {

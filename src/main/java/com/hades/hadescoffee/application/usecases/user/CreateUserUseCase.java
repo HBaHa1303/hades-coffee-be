@@ -8,10 +8,12 @@ import com.hades.hadescoffee.presentation.dto.requests.user.CreateUserRequest;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Service
 @Transactional
 @RequiredArgsConstructor
 public class CreateUserUseCase {

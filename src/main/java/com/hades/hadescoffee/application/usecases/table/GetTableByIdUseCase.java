@@ -6,8 +6,10 @@ import com.hades.hadescoffee.domain.models.Table;
 import com.hades.hadescoffee.domain.repositories.TablesRepository;
 import com.hades.hadescoffee.presentation.dto.responses.TableResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class GetTableByIdUseCase {

@@ -4,8 +4,10 @@ import com.hades.hadescoffee.application.exceptions.ANotFoundException;
 import com.hades.hadescoffee.domain.models.Table;
 import com.hades.hadescoffee.domain.repositories.TablesRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Service
 @Transactional
 @RequiredArgsConstructor
 public class DeleteTableUseCase {

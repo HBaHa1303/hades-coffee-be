@@ -3,7 +3,6 @@ package com.hades.hadescoffee.application.usecases.order;
 import com.hades.hadescoffee.application.exceptions.ANotFoundException;
 import com.hades.hadescoffee.application.mappers.AInvoiceMapper;
 import com.hades.hadescoffee.application.mappers.AOrderMapper;
-import com.hades.hadescoffee.domain.enums.OrderStatus;
 import com.hades.hadescoffee.domain.models.Invoice;
 import com.hades.hadescoffee.domain.models.MenuItem;
 import com.hades.hadescoffee.domain.models.Order;
@@ -11,18 +10,19 @@ import com.hades.hadescoffee.domain.models.OrderItem;
 import com.hades.hadescoffee.domain.repositories.InvoicesRepository;
 import com.hades.hadescoffee.domain.repositories.MenuItemsRepository;
 import com.hades.hadescoffee.domain.repositories.OrdersRepository;
-import com.hades.hadescoffee.domain.valueObjects.Money;
+import com.hades.hadescoffee.domain.vo.Money;
 import com.hades.hadescoffee.infrastructure.security.UserDetailsImpl;
 import com.hades.hadescoffee.presentation.dto.requests.order.CreateOrderItemRequest;
 import com.hades.hadescoffee.presentation.dto.requests.order.CreateOrderRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
 
+@Service
 @Transactional
 @RequiredArgsConstructor
 public class CreateOrderUseCase {
@@ -36,8 +36,8 @@ public class CreateOrderUseCase {
     public void execute(CreateOrderRequest request) {
         String userId;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserDetailsImpl) {
-            userId = ((UserDetailsImpl) principal).getUsername();
+        if (principal instanceof UserDetailsImpl principalUser) {
+            userId = principalUser.getUsername();
         } else {
             userId = SYSTEM_USER_ID;
         }
