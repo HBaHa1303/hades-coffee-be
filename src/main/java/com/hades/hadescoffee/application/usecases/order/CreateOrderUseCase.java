@@ -55,9 +55,8 @@ public class CreateOrderUseCase {
     }
 
     public OrderItem createOrderToModel(CreateOrderItemRequest req) {
-        //TODO: custom exception
         MenuItem menu = menuItemsRepository.findById(req.getMenuItemId())
-                .orElseThrow(() -> new ANotFoundException(""));
+                .orElseThrow(() -> new ANotFoundException("menu.not_found", req.getMenuItemId()));
 
         return new OrderItem(null, menu.getId(), menu.getPrice(), req.getQuantity());
     }

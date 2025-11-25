@@ -2,7 +2,9 @@ package com.hades.hadescoffee.application.mappers;
 
 import com.hades.hadescoffee.domain.models.Order;
 import com.hades.hadescoffee.domain.models.OrderItem;
+import com.hades.hadescoffee.domain.valueObjects.Money;
 import com.hades.hadescoffee.presentation.dto.requests.order.CreateOrderRequest;
+import com.hades.hadescoffee.presentation.dto.responses.OrderResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
@@ -24,4 +26,11 @@ public interface AOrderMapper {
     @Mapping(target = "tableId", source = "tableId")
     @Mapping(target = "userId", expression = "java(Long.parseLong(userId))")
     Order createOrderByOrderItemsAndTableIdRequest(List<OrderItem> orderItems, Long tableId, String userId);
+
+
+    OrderResponse modelToResponse(Order order);
+
+    default Long mapMoney(Money money) {
+        return money.getAmount().longValue();
+    }
 }

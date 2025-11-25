@@ -22,19 +22,19 @@ public class HadesCoffeeApplication {
         SpringApplication.run(HadesCoffeeApplication.class, args);
     }
 //
-//    @Bean
-//    CommandLineRunner init(RolesRepository rolesRepository,
-//                           UsersRepository usersRepository) {
-//        return args -> {
-//            User user = new User(null, "system@gmail.com", "Ha@123456789", "system", "system", LocalDate.now(), Set.of());
-//            user.setCreatedBy(1L);
-//            user.setLastModifiedBy(1L);
-//            usersRepository.save(user);
-//
-//            rolesRepository.save(new Role("USER", "User"));
-//            rolesRepository.save(new Role("ADMIN", "Administrator"));
-//            rolesRepository.save(new Role("CASHER", "Casher"));
-//            rolesRepository.save(new Role("KITCHEN", "Kitchen"));
-//        };
-//    }
+    @Bean
+    CommandLineRunner init(RolesRepository rolesRepository,
+                           UsersRepository usersRepository) {
+        return args -> {
+            User user = new User(null, "system@gmail.com", "Ha@123456789", "system", "system", LocalDate.now(), Set.of());
+            user.setCreatedBy(1L);
+            user.setLastModifiedBy(1L);
+            usersRepository.save(user);
+
+            rolesRepository.save(new Role("USER", "User"));
+            rolesRepository.save(new Role("ADMIN", "Administrator"));
+            rolesRepository.save(new Role("CASHER", "Casher"));
+            rolesRepository.save(new Role("KITCHEN", "Kitchen"));
+        };
+    }
 }

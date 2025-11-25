@@ -24,5 +24,8 @@ public interface IOrderMapper {
     @Mapping(target = "status", source = "order.status")
     @Mapping(target = "user", source = "user")
     OrderEntity modelToEntity(Order order, TableEntity table, UserEntity user, List<OrderItemEntity> orderItems);
+
+    @Mapping(target = "tableId", source = "table.id")
+    @Mapping(target = "userId", source = "user.id")
     Order entityToModel(OrderEntity entity);
 }

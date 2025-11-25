@@ -23,7 +23,7 @@ public class OrderEntity extends BaseEntity {
     @JoinColumn(name = "table_id", nullable = false)
     TableEntity table;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     UserEntity user;
 

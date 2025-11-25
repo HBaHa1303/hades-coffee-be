@@ -21,7 +21,7 @@ public class CreateUserUseCase {
 
     public void execute(CreateUserRequest request) {
         usersRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new AConflictException("user.email_exists", request.getEmail()));
+                .ifPresent(user -> {throw new AConflictException("user.email_exists", request.getEmail());});
 
         String hashedPassword = passwordEncoder.encode(request.getPassword());
         Set<UserRole> userRoles = request.getRoles().stream()

@@ -31,7 +31,7 @@ public class OrdersRepositoryImpl implements OrdersRepository {
 
     @Override
     public Optional<Order> findById(Long id) {
-        return Optional.empty();
+        return repository.findById(id).map(mapper::entityToModel);
     }
 
     @Override
@@ -54,5 +54,10 @@ public class OrdersRepositoryImpl implements OrdersRepository {
         OrderEntity savedOrder = repository.save(orderEntity);
 
         return mapper.entityToModel(savedOrder);
+    }
+
+    @Override
+    public List<Order> findAll() {
+        return repository.findAll().stream().map(mapper::entityToModel).toList();
     }
 }

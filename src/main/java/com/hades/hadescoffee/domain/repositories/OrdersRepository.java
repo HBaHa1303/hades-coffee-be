@@ -1,10 +1,14 @@
 package com.hades.hadescoffee.domain.repositories;
 
 import com.hades.hadescoffee.domain.models.Order;
+import com.hades.hadescoffee.presentation.dto.responses.OrderResponse;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface OrdersRepository {
     Optional<Order> findById(Long id);
     Order save(Order order);
+
+    List<Order> findAll();
 }
