@@ -24,6 +24,7 @@ public class HadesCoffeeApplication {
 
     //TODO: add api change password
     //TODO: add api cancel order for user
+    //TODO: add api report
 //
 //    @Bean
 //    CommandLineRunner init(RolesRepository rolesRepository,
