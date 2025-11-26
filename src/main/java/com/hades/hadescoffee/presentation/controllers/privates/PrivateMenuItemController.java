@@ -1,10 +1,10 @@
 package com.hades.hadescoffee.presentation.controllers.privates;
 
 import com.hades.hadescoffee.application.usecases.menu.*;
-import com.hades.hadescoffee.presentation.dto.requests.menuItems.ChangeMenuItemStatusRequest;
-import com.hades.hadescoffee.presentation.dto.requests.menuItems.CreateMenuItemRequest;
-import com.hades.hadescoffee.presentation.dto.requests.menuItems.FilterMenuItemsRequest;
-import com.hades.hadescoffee.presentation.dto.requests.menuItems.UpdateMenuItemRequest;
+import com.hades.hadescoffee.presentation.dto.requests.menuitem.ChangeMenuItemStatusRequest;
+import com.hades.hadescoffee.presentation.dto.requests.menuitem.CreateMenuItemRequest;
+import com.hades.hadescoffee.presentation.dto.requests.menuitem.FilterMenuItemsRequest;
+import com.hades.hadescoffee.presentation.dto.requests.menuitem.UpdateMenuItemRequest;
 import com.hades.hadescoffee.presentation.dto.responses.BaseResponse;
 import com.hades.hadescoffee.presentation.dto.responses.MenuItemResponse;
 import lombok.RequiredArgsConstructor;

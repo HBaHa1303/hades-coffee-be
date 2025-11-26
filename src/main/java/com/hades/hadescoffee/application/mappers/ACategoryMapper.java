@@ -2,7 +2,7 @@ package com.hades.hadescoffee.application.mappers;
 
 import com.hades.hadescoffee.domain.enums.CategoryStatus;
 import com.hades.hadescoffee.domain.models.Category;
-import com.hades.hadescoffee.presentation.dto.requests.categories.CreateCategoryRequest;
+import com.hades.hadescoffee.presentation.dto.requests.category.CreateCategoryRequest;
 import com.hades.hadescoffee.presentation.dto.responses.CategoryResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

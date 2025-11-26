@@ -3,7 +3,7 @@ package com.hades.hadescoffee.application.usecases.menu;
 import com.hades.hadescoffee.application.mappers.AMenuItemMapper;
 import com.hades.hadescoffee.domain.enums.MenuItemStatus;
 import com.hades.hadescoffee.domain.repositories.MenuItemsRepository;
-import com.hades.hadescoffee.presentation.dto.requests.menuItems.CreateMenuItemRequest;
+import com.hades.hadescoffee.presentation.dto.requests.menuitem.CreateMenuItemRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

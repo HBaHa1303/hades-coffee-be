@@ -1,7 +1,7 @@
 package com.hades.hadescoffee.infrastructure.mappers;
 
 import com.hades.hadescoffee.domain.models.OrderItem;
-import com.hades.hadescoffee.domain.valueObjects.Money;
+import com.hades.hadescoffee.domain.vo.Money;
 import com.hades.hadescoffee.infrastructure.entities.MenuItemEntity;
 import com.hades.hadescoffee.infrastructure.entities.OrderEntity;
 import com.hades.hadescoffee.infrastructure.entities.OrderItemEntity;
@@ -10,7 +10,6 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface IOrderItemMapper {

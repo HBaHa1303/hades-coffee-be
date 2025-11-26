@@ -1,10 +1,10 @@
 package com.hades.hadescoffee.presentation.controllers.privates;
 
 import com.hades.hadescoffee.application.usecases.table.*;
-import com.hades.hadescoffee.presentation.dto.requests.tables.ChangeTableStatusRequest;
-import com.hades.hadescoffee.presentation.dto.requests.tables.CreateTableRequest;
-import com.hades.hadescoffee.presentation.dto.requests.tables.UpdateTableRequest;
-import com.hades.hadescoffee.presentation.dto.requests.tables.FilterTablesRequest;
+import com.hades.hadescoffee.presentation.dto.requests.table.ChangeTableStatusRequest;
+import com.hades.hadescoffee.presentation.dto.requests.table.CreateTableRequest;
+import com.hades.hadescoffee.presentation.dto.requests.table.UpdateTableRequest;
+import com.hades.hadescoffee.presentation.dto.requests.table.FilterTablesRequest;
 import com.hades.hadescoffee.presentation.dto.responses.BaseResponse;
 import com.hades.hadescoffee.presentation.dto.responses.TableResponse;
 import lombok.RequiredArgsConstructor;

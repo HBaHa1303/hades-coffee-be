@@ -1,4 +1,4 @@
-package com.hades.hadescoffee.domain.valueObjects;
+package com.hades.hadescoffee.domain.vo;
 
 import com.hades.hadescoffee.domain.exceptions.DValidationException;
 import groovy.transform.EqualsAndHashCode;

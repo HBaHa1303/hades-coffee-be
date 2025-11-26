@@ -6,7 +6,7 @@ import com.hades.hadescoffee.application.mappers.ACategoryMapper;
 import com.hades.hadescoffee.application.utils.PageableUtil;
 import com.hades.hadescoffee.domain.models.Category;
 import com.hades.hadescoffee.domain.repositories.CategoriesRepository;
-import com.hades.hadescoffee.presentation.dto.requests.categories.FilterCategoriesRequest;
+import com.hades.hadescoffee.presentation.dto.requests.category.FilterCategoriesRequest;
 import com.hades.hadescoffee.presentation.dto.responses.CategoryResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;

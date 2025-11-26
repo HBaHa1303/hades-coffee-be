@@ -3,7 +3,7 @@ package com.hades.hadescoffee.application.mappers;
 import com.hades.hadescoffee.domain.enums.MenuItemStatus;
 import com.hades.hadescoffee.domain.models.Category;
 import com.hades.hadescoffee.domain.models.MenuItem;
-import com.hades.hadescoffee.presentation.dto.requests.menuItems.CreateMenuItemRequest;
+import com.hades.hadescoffee.presentation.dto.requests.menuitem.CreateMenuItemRequest;
 import com.hades.hadescoffee.presentation.dto.responses.MenuByCategoryResponse;
 import com.hades.hadescoffee.presentation.dto.responses.MenuItemResponse;
 import org.mapstruct.Mapper;

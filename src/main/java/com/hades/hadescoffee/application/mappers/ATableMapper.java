@@ -2,7 +2,7 @@ package com.hades.hadescoffee.application.mappers;
 
 import com.hades.hadescoffee.domain.enums.TableStatus;
 import com.hades.hadescoffee.domain.models.Table;
-import com.hades.hadescoffee.presentation.dto.requests.tables.CreateTableRequest;
+import com.hades.hadescoffee.presentation.dto.requests.table.CreateTableRequest;
 import com.hades.hadescoffee.presentation.dto.responses.TableResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

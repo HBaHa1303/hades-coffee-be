@@ -1,7 +1,7 @@
 package com.hades.hadescoffee.presentation.dto.responses;
 
 import com.hades.hadescoffee.domain.enums.MenuItemStatus;
-import com.hades.hadescoffee.domain.valueObjects.Money;
+import com.hades.hadescoffee.domain.vo.Money;
 import lombok.Getter;
 import lombok.Setter;
 

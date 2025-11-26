@@ -1,6 +1,6 @@
-package com.hades.hadescoffee.presentation.dto.requests.menuItems;
+package com.hades.hadescoffee.presentation.dto.requests.menuitem;
 
-import com.hades.hadescoffee.domain.valueObjects.Money;
+import com.hades.hadescoffee.domain.vo.Money;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;

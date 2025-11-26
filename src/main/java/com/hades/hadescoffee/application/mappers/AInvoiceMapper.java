@@ -1,7 +1,7 @@
 package com.hades.hadescoffee.application.mappers;
 
 import com.hades.hadescoffee.domain.models.Invoice;
-import com.hades.hadescoffee.domain.valueObjects.Money;
+import com.hades.hadescoffee.domain.vo.Money;
 import com.hades.hadescoffee.presentation.dto.requests.order.CreateOrderRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

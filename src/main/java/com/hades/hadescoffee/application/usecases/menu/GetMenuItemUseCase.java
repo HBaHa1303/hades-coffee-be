@@ -6,7 +6,7 @@ import com.hades.hadescoffee.application.mappers.AMenuItemMapper;
 import com.hades.hadescoffee.application.utils.PageableUtil;
 import com.hades.hadescoffee.domain.models.MenuItem;
 import com.hades.hadescoffee.domain.repositories.MenuItemsRepository;
-import com.hades.hadescoffee.presentation.dto.requests.menuItems.FilterMenuItemsRequest;
+import com.hades.hadescoffee.presentation.dto.requests.menuitem.FilterMenuItemsRequest;
 import com.hades.hadescoffee.presentation.dto.responses.MenuItemResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;

@@ -4,7 +4,7 @@ import com.hades.hadescoffee.domain.enums.InvoiceStatus;
 import com.hades.hadescoffee.domain.enums.PaymentMethod;
 import com.hades.hadescoffee.domain.exceptions.DomainException;
 import com.hades.hadescoffee.domain.exceptions.DValidationException;
-import com.hades.hadescoffee.domain.valueObjects.Money;
+import com.hades.hadescoffee.domain.vo.Money;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;

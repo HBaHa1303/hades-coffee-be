@@ -6,7 +6,7 @@ import com.hades.hadescoffee.application.mappers.ATableMapper;
 import com.hades.hadescoffee.application.utils.PageableUtil;
 import com.hades.hadescoffee.domain.models.Table;
 import com.hades.hadescoffee.domain.repositories.TablesRepository;
-import com.hades.hadescoffee.presentation.dto.requests.tables.FilterTablesRequest;
+import com.hades.hadescoffee.presentation.dto.requests.table.FilterTablesRequest;
 import com.hades.hadescoffee.presentation.dto.responses.TableResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;

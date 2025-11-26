@@ -1,7 +1,7 @@
 package com.hades.hadescoffee.infrastructure.mappers;
 
 import com.hades.hadescoffee.domain.models.MenuItem;
-import com.hades.hadescoffee.domain.valueObjects.Money;
+import com.hades.hadescoffee.domain.vo.Money;
 import com.hades.hadescoffee.infrastructure.entities.CategoryEntity;
 import com.hades.hadescoffee.infrastructure.entities.MenuItemEntity;
 import org.mapstruct.Mapper;

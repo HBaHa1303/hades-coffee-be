@@ -1,4 +1,4 @@
-package com.hades.hadescoffee.presentation.dto.requests.categories;
+package com.hades.hadescoffee.presentation.dto.requests.table;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -8,6 +8,6 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UpdateCategoryRequest {
+public class CreateTableRequest {
     String name;
 }

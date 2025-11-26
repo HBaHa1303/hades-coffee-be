@@ -1,8 +1,8 @@
 package com.hades.hadescoffee.infrastructure.mappers;
 
 import com.hades.hadescoffee.domain.models.User;
-import com.hades.hadescoffee.domain.valueObjects.Email;
-import com.hades.hadescoffee.domain.valueObjects.Password;
+import com.hades.hadescoffee.domain.vo.Email;
+import com.hades.hadescoffee.domain.vo.Password;
 import com.hades.hadescoffee.infrastructure.entities.RoleEntity;
 import com.hades.hadescoffee.infrastructure.entities.UserEntity;
 import com.hades.hadescoffee.infrastructure.entities.UserRoleEntity;

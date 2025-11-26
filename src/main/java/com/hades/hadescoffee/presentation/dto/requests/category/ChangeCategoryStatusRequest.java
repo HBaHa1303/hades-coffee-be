@@ -1,4 +1,4 @@
-package com.hades.hadescoffee.presentation.dto.requests.categories;
+package com.hades.hadescoffee.presentation.dto.requests.category;
 
 import com.hades.hadescoffee.domain.enums.CategoryStatus;
 import lombok.AccessLevel;

@@ -1,10 +1,10 @@
 package com.hades.hadescoffee.presentation.controllers.privates;
 
 import com.hades.hadescoffee.application.usecases.category.*;
-import com.hades.hadescoffee.presentation.dto.requests.categories.FilterCategoriesRequest;
-import com.hades.hadescoffee.presentation.dto.requests.categories.CreateCategoryRequest;
-import com.hades.hadescoffee.presentation.dto.requests.categories.ChangeCategoryStatusRequest;
-import com.hades.hadescoffee.presentation.dto.requests.categories.UpdateCategoryRequest;
+import com.hades.hadescoffee.presentation.dto.requests.category.FilterCategoriesRequest;
+import com.hades.hadescoffee.presentation.dto.requests.category.CreateCategoryRequest;
+import com.hades.hadescoffee.presentation.dto.requests.category.ChangeCategoryStatusRequest;
+import com.hades.hadescoffee.presentation.dto.requests.category.UpdateCategoryRequest;
 import com.hades.hadescoffee.presentation.dto.responses.BaseResponse;
 import com.hades.hadescoffee.presentation.dto.responses.CategoryResponse;
 import lombok.RequiredArgsConstructor;

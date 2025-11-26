@@ -1,6 +1,6 @@
-package com.hades.hadescoffee.presentation.dto.requests.categories;
+package com.hades.hadescoffee.presentation.dto.requests.menuitem;
 
-import com.hades.hadescoffee.domain.enums.CategoryStatus;
+import com.hades.hadescoffee.domain.enums.MenuItemStatus;
 import com.hades.hadescoffee.presentation.dto.requests.BaseFilterRequest;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -10,6 +10,6 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class FilterCategoriesRequest extends BaseFilterRequest {
-    private CategoryStatus status;
+public class FilterMenuItemsRequest extends BaseFilterRequest {
+    MenuItemStatus status;
 }

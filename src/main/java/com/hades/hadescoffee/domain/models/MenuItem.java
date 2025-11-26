@@ -3,7 +3,7 @@ package com.hades.hadescoffee.domain.models;
 import com.hades.hadescoffee.domain.enums.MenuItemStatus;
 import com.hades.hadescoffee.domain.exceptions.DBusinessRuleViolationException;
 import com.hades.hadescoffee.domain.exceptions.DValidationException;
-import com.hades.hadescoffee.domain.valueObjects.Money;
+import com.hades.hadescoffee.domain.vo.Money;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;

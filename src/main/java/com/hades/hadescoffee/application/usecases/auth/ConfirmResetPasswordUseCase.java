@@ -7,7 +7,7 @@ import com.hades.hadescoffee.application.services.EmailService;
 import com.hades.hadescoffee.application.services.OtpService;
 import com.hades.hadescoffee.domain.models.User;
 import com.hades.hadescoffee.domain.repositories.UsersRepository;
-import com.hades.hadescoffee.domain.valueObjects.Password;
+import com.hades.hadescoffee.domain.vo.Password;
 import com.hades.hadescoffee.presentation.dto.requests.auth.ConfirmResetPasswordRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;

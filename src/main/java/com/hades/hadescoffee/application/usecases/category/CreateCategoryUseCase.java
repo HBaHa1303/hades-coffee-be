@@ -3,7 +3,7 @@ package com.hades.hadescoffee.application.usecases.category;
 import com.hades.hadescoffee.application.mappers.ACategoryMapper;
 import com.hades.hadescoffee.domain.enums.CategoryStatus;
 import com.hades.hadescoffee.domain.repositories.CategoriesRepository;
-import com.hades.hadescoffee.presentation.dto.requests.categories.CreateCategoryRequest;
+import com.hades.hadescoffee.presentation.dto.requests.category.CreateCategoryRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

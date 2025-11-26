@@ -2,7 +2,7 @@ package com.hades.hadescoffee.application.mappers;
 
 import com.hades.hadescoffee.domain.models.User;
 import com.hades.hadescoffee.domain.models.UserRole;
-import com.hades.hadescoffee.domain.valueObjects.Email;
+import com.hades.hadescoffee.domain.vo.Email;
 import com.hades.hadescoffee.presentation.dto.requests.auth.SignUpRequest;
 import com.hades.hadescoffee.presentation.dto.requests.user.CreateUserRequest;
 import com.hades.hadescoffee.presentation.dto.responses.UserResponse;

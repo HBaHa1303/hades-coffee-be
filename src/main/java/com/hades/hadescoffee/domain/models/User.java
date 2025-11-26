@@ -1,8 +1,8 @@
 package com.hades.hadescoffee.domain.models;
 
 import com.hades.hadescoffee.domain.exceptions.DValidationException;
-import com.hades.hadescoffee.domain.valueObjects.Email;
-import com.hades.hadescoffee.domain.valueObjects.Password;
+import com.hades.hadescoffee.domain.vo.Email;
+import com.hades.hadescoffee.domain.vo.Password;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;

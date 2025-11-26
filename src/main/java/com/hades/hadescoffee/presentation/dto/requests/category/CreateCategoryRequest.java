@@ -1,4 +1,4 @@
-package com.hades.hadescoffee.presentation.dto.requests.categories;
+package com.hades.hadescoffee.presentation.dto.requests.category;
 
 import lombok.AccessLevel;
 import lombok.Getter;

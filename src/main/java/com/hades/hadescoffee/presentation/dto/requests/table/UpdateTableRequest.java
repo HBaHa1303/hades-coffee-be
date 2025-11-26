@@ -1,4 +1,4 @@
-package com.hades.hadescoffee.presentation.dto.requests.tables;
+package com.hades.hadescoffee.presentation.dto.requests.table;
 
 import lombok.Getter;
 import lombok.Setter;
