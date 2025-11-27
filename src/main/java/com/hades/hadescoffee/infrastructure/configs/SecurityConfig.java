@@ -3,7 +3,6 @@ package com.hades.hadescoffee.infrastructure.configs;
 import com.hades.hadescoffee.application.services.JwtService;
 import com.hades.hadescoffee.infrastructure.security.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,6 +21,8 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
@@ -44,10 +45,11 @@ public class SecurityConfig {
                                 "/h2-console/**",
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
+                                        "/private/api/v1/categories/**",
                                 "/swagger-ui.html"
                                 ).permitAll()
                                 .requestMatchers(
-                                        "/private/api/v1/categories/**",
+
                                         "/private/api/v1/menu-items/**",
                                         "/private/api/v1/tables/**",
                                         "/private/api/v1/users/**",
@@ -79,4 +81,15 @@ public class SecurityConfig {
         return new ProviderManager(providerManager);
     }
 
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**")
+                        .allowedOrigins("http://localhost:3000")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
+            }
+        };
+    }
 }
