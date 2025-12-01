@@ -37,7 +37,7 @@ public class TablesRepositoryImpl implements TablesRepository {
 
     @Override
     public Paginated<Table> findAllByKeywordAndStatus(String keyword, TableStatus status, Pageable pageable) {
-        Page<Table> dbResponse = repository.findAllByKeywordAndStatus(keyword == null ? "" : keyword, status, pageable)
+                Page<Table> dbResponse = repository.findAllByKeywordAndStatus(keyword == null ? "" : keyword, status, pageable)
                 .map(mapper::entityToModel);
 
         return Paginated.<Table>builder()

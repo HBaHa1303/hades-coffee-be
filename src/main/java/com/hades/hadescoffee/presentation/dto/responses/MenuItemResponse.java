@@ -5,6 +5,8 @@ import com.hades.hadescoffee.domain.vo.Money;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 public class MenuItemResponse {
@@ -13,5 +15,5 @@ public class MenuItemResponse {
     String description;
     String imageUrl;
     MenuItemStatus status;
-    Money price;
+    BigDecimal price;
 }
