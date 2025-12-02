@@ -58,10 +58,6 @@ public class MenuItem extends BaseDomain {
         if (Objects.isNull(status)) {
             throw new DValidationException("common.invalid_input", "status");
         }
-        if (status == MenuItemStatus.DISCONTINUED && newStatus == MenuItemStatus.AVAILABLE) {
-            throw new DBusinessRuleViolationException("menu.invalid_transition", id, status, "available");
-        }
-
         this.status = newStatus;
     }
 
