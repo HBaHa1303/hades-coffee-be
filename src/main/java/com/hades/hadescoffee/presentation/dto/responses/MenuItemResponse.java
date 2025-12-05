@@ -16,4 +16,5 @@ public class MenuItemResponse {
     String imageUrl;
     MenuItemStatus status;
     BigDecimal price;
+    Long categoryId;
 }
