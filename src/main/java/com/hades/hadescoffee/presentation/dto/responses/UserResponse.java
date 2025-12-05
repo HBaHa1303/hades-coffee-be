@@ -1,5 +1,6 @@
 package com.hades.hadescoffee.presentation.dto.responses;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +17,7 @@ public class UserResponse {
     String email;
     String firstName;
     String lastName;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     LocalDate dateOfBirth;
     Set<String> roles;
 }
