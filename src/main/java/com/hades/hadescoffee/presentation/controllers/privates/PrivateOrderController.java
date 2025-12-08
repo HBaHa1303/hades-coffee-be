@@ -2,10 +2,12 @@ package com.hades.hadescoffee.presentation.controllers.privates;
 
 import com.hades.hadescoffee.application.usecases.order.ChangeOrderStatusUseCase;
 import com.hades.hadescoffee.application.usecases.order.GetOrdersUseCase;
+import com.hades.hadescoffee.domain.enums.OrderStatus;
 import com.hades.hadescoffee.presentation.dto.requests.order.ChangeOrderStatusRequest;
 import com.hades.hadescoffee.presentation.dto.responses.BaseResponse;
 import com.hades.hadescoffee.presentation.dto.responses.OrderResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.context.MessageSource;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -35,8 +37,8 @@ public class PrivateOrderController {
     }
 
     @GetMapping
-    public BaseResponse<List<OrderResponse>> getOrders(Locale locale) {
-        var data = getOrdersUseCase.execute();
+    public BaseResponse<List<OrderResponse>> getOrders(@RequestParam @DefaultValue("") List<OrderStatus> statuses, Locale locale) {
+        var data = getOrdersUseCase.execute(statuses);
 
         return BaseResponse.<List<OrderResponse>>builder()
                 .data(data)

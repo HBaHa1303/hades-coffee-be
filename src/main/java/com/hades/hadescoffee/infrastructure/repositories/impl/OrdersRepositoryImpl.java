@@ -1,6 +1,7 @@
 package com.hades.hadescoffee.infrastructure.repositories.impl;
 
 import com.hades.hadescoffee.application.exceptions.ANotFoundException;
+import com.hades.hadescoffee.domain.enums.OrderStatus;
 import com.hades.hadescoffee.domain.models.Order;
 import com.hades.hadescoffee.domain.models.OrderItem;
 import com.hades.hadescoffee.domain.repositories.OrdersRepository;
@@ -59,5 +60,10 @@ public class OrdersRepositoryImpl implements OrdersRepository {
     @Override
     public List<Order> findAll() {
         return repository.findAll().stream().map(mapper::entityToModel).toList();
+    }
+
+    @Override
+    public List<Order> findByStatuses(List<OrderStatus> statuses) {
+        return repository.findByStatusIsIn(statuses).stream().map(mapper::entityToModel).toList();
     }
 }

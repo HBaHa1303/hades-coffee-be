@@ -38,6 +38,7 @@ public class SignInUseCase {
 
         return new SignInResponse(
                 user.getEmail().getValue(), accessToken, refreshToken,
+                user.getLastName(), user.getFirstName(), user.getDateOfBirth(),
                 auth.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList()
         );
     }

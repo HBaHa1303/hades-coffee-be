@@ -32,14 +32,6 @@ public class Order extends BaseDomain {
         this.orderItems = Objects.isNull(orderItems) ? new ArrayList<>() : orderItems;
     }
 
-    public void addOrderItem(OrderItem orderItem) {
-        if (Objects.isNull(orderItem)) {
-            throw new DValidationException("common.invalid_input", "orderItem");
-        }
-
-        orderItems.add(orderItem);
-    }
-
     private void alreadyInState(String action) {
         throw new DomainException("order.already_in_state", id, status, action);
     }
@@ -51,23 +43,26 @@ public class Order extends BaseDomain {
     public void confirm() {
         status = switch (status) {
             case PENDING -> OrderStatus.CONFIRMED;
+            case CANCELLED -> OrderStatus.CANCELLED;
             case CONFIRMED -> { alreadyInState("confirm"); yield status; }
-            case CANCELLED, IN_PROGRESS, READY, SERVED -> { invalidTransition("confirm"); yield status; }
+            case IN_PROGRESS, READY, SERVED -> { invalidTransition("confirm"); yield status; }
         };
     }
 
     public void start() {
         status = switch (status) {
             case CONFIRMED -> OrderStatus.IN_PROGRESS;
+            case CANCELLED -> OrderStatus.CANCELLED;
             case IN_PROGRESS -> { alreadyInState("start"); yield status; }
-            case PENDING, CANCELLED, READY, SERVED -> { invalidTransition("start"); yield status; }
+            case PENDING, READY, SERVED -> { invalidTransition("start"); yield status; }
         };
     }
 
     public void pending() {
         status = switch (status) {
+            case CANCELLED -> OrderStatus.CANCELLED;
             case PENDING -> { alreadyInState("pending"); yield status; }
-            case CONFIRMED, IN_PROGRESS, CANCELLED, READY, SERVED -> { invalidTransition("start"); yield status; }
+            case CONFIRMED, IN_PROGRESS, READY, SERVED -> { invalidTransition("start"); yield status; }
         };
     }
 

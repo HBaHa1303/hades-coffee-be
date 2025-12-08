@@ -33,7 +33,6 @@ public class PublicOrderController {
                 .build();
     }
 
-
     @GetMapping("/{id}")
     public BaseResponse<OrderResponse> getById(@PathVariable Long id, Locale locale) {
         var data = getOrderByIdUseCase.execute(id);
@@ -42,4 +41,6 @@ public class PublicOrderController {
                 .message(messageSource.getMessage("table.get_by_id_success", null, locale))
                 .build();
     }
+
+
 }
