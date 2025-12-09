@@ -3,10 +3,12 @@ package com.hades.hadescoffee.domain.models;
 import com.hades.hadescoffee.domain.enums.OrderStatus;
 import com.hades.hadescoffee.domain.exceptions.DomainException;
 import com.hades.hadescoffee.domain.exceptions.DValidationException;
+import com.hades.hadescoffee.domain.vo.Money;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -18,17 +20,28 @@ public class Order extends BaseDomain {
     OrderStatus status;
     final Long tableId;
     final Long userId;
+    final Money totalAmount;
     final List<OrderItem> orderItems;
 
-    public Order(Long id, OrderStatus status, Long tableId, Long userId,List<OrderItem> orderItems) {
+    public Order(Long id, OrderStatus status, Long tableId, Long userId, Money totalAmount, List<OrderItem> orderItems) {
         if (Objects.isNull(status)) {
             throw new DValidationException("common.invalid_input", "status");
+        }
+        if (Objects.isNull(tableId)) {
+            throw new DValidationException("common.invalid_input", "tableId");
+        }
+        if (Objects.isNull(userId)) {
+            throw new DValidationException("common.invalid_input", "userId");
+        }
+        if  (Objects.isNull(totalAmount)) {
+            throw new DValidationException("common.invalid_input", "totalAmount");
         }
 
         this.id = id;
         this.status = status;
         this.tableId = tableId;
         this.userId = userId;
+        this.totalAmount = totalAmount;
         this.orderItems = Objects.isNull(orderItems) ? new ArrayList<>() : orderItems;
     }
 

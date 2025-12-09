@@ -43,13 +43,13 @@ public class CreateOrderUseCase {
         }
 
         List<OrderItem> orderItems = request.getOrderItems().stream().map(this::createOrderToModel).toList();
-        Order order = mapper.createOrderByOrderItemsAndTableIdRequest(orderItems, request.getTableId(), userId);
+        Money amount = orderItems.stream()
+                .map(orderItem -> orderItem.getPrice().multiply(orderItem.getQuantity()))
+                .reduce(Money.of(BigDecimal.ZERO), Money::add);
+        Order order = mapper.createOrderByOrderItemsAndTableIdRequest(orderItems, request.getTableId(), userId, amount);
 
         Order savedOrder = repository.save(order);
 
-        Money amount = savedOrder.getOrderItems().stream()
-                .map(orderItem -> orderItem.getPrice().multiply(orderItem.getQuantity()))
-                .reduce(Money.of(BigDecimal.ZERO), Money::add);
         Invoice invoice = invoiceMapper.createOrderToModel(request, amount, savedOrder.getId());
         invoicesRepository.save(invoice);
     }

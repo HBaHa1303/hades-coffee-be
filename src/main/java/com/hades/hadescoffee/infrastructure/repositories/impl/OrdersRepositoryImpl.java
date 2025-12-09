@@ -12,7 +12,10 @@ import com.hades.hadescoffee.infrastructure.repositories.jpa.MenuItemsJpaReposit
 import com.hades.hadescoffee.infrastructure.repositories.jpa.OrdersJpaRepository;
 import com.hades.hadescoffee.infrastructure.repositories.jpa.TablesJpaRepository;
 import com.hades.hadescoffee.infrastructure.repositories.jpa.UsersJpaRepository;
+import com.hades.hadescoffee.presentation.dto.responses.OrderResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -64,6 +67,13 @@ public class OrdersRepositoryImpl implements OrdersRepository {
 
     @Override
     public List<Order> findByStatuses(List<OrderStatus> statuses) {
-        return repository.findByStatusIsIn(statuses).stream().map(mapper::entityToModel).toList();
+        Pageable pageable = Pageable.unpaged(Sort.by(Sort.Direction.DESC, "id"));
+        return repository.findByStatusIsIn(statuses, pageable).stream().map(mapper::entityToModel).toList();
+    }
+
+    @Override
+    public List<Order> findAllByUserId(long userId) {
+        Pageable pageable = Pageable.unpaged(Sort.by(Sort.Direction.DESC, "id"));
+        return repository.findAllByUserId(userId, pageable).stream().map(mapper::entityToModel).toList();
     }
 }

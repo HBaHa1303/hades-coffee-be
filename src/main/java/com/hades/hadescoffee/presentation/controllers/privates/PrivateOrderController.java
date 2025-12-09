@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.context.MessageSource;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,8 +39,11 @@ public class PrivateOrderController {
     }
 
     @GetMapping
-    public BaseResponse<List<OrderResponse>> getOrders(@RequestParam @DefaultValue("") List<OrderStatus> statuses, Locale locale) {
-        var data = getOrdersUseCase.execute(statuses);
+    public BaseResponse<List<OrderResponse>> getOrders(
+            @RequestParam @DefaultValue("") List<OrderStatus> statuses,
+            @AuthenticationPrincipal UserDetails user,
+            Locale locale) {
+        var data = getOrdersUseCase.execute(statuses, user);
 
         return BaseResponse.<List<OrderResponse>>builder()
                 .data(data)

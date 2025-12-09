@@ -51,7 +51,10 @@ public class SecurityConfig {
                                 "/swagger-ui.html"
                                 ).permitAll()
                                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                                .requestMatchers("/private/api/v1/users/me/password")
+                                .requestMatchers(
+                                        "/private/api/v1/users/me/password",
+                                        "/private/api/v1/orders/**"
+                                )
                                 .hasAnyAuthority("ADMIN", "CASHER", "KITCHEN", "USER")
                                 .requestMatchers(
                                         "/private/api/v1/categories/**",
@@ -60,10 +63,9 @@ public class SecurityConfig {
                                         "/private/api/v1/users/**",
                                         "/private/api/v1/table-statuses/**",
                                         "/private/api/v1/category-statuses/**",
-                                        "/private/api/v1/menu-item-statuses/**"
+                                        "/private/api/v1/menu-item-statuses/**",
+                                        "/private/api/v1/stats/**"
                                 ).hasAuthority("ADMIN")
-                                .requestMatchers("/private/api/v1/orders/**")
-                                .hasAnyAuthority("CASHER", "KITCHEN", "ADMIN")
                                 .anyRequest().authenticated()
                 )
                 .addFilterBefore(new JwtAuthenticationFilter(jwtService, userDetailsService), UsernamePasswordAuthenticationFilter.class)
