@@ -19,9 +19,7 @@ public class GetRevenueStatsUseCase {
 
         LocalDate today = LocalDate.now(zoneId);
 
-
-        LocalDate startOfDayDate = today.with(DayOfWeek.MONDAY);
-        Instant startOfDay = startOfDayDate.atStartOfDay(zoneId).toInstant();
+        Instant startOfDay = today.atStartOfDay(zoneId).toInstant();
 
         LocalDate startOfWeekDate = today.with(DayOfWeek.MONDAY);
         Instant startOfWeek = startOfWeekDate.atStartOfDay(zoneId).toInstant();

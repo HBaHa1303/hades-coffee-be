@@ -8,11 +8,14 @@ import com.hades.hadescoffee.domain.repositories.TablesRepository;
 import com.hades.hadescoffee.infrastructure.mappers.ITableMapper;
 import com.hades.hadescoffee.infrastructure.repositories.jpa.TablesJpaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -53,5 +56,10 @@ public class TablesRepositoryImpl implements TablesRepository {
                         .totalPages(dbResponse.getTotalPages())
                         .build())
                 .build();
+    }
+
+    @Override
+    public Set<Table> findByIdIn(Set<Long> tableIds) {
+        return repository.findByIdIn(tableIds).stream().map(mapper::entityToModel).collect(Collectors.toSet());
     }
 }

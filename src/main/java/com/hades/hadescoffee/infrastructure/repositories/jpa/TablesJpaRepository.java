@@ -8,6 +8,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Collection;
+import java.util.Set;
+
 
 public interface TablesJpaRepository extends JpaRepository<TableEntity, Long> {
     @Query("""
@@ -16,4 +19,6 @@ public interface TablesJpaRepository extends JpaRepository<TableEntity, Long> {
       AND (:status IS NULL OR t.status = :status)
     """)
     Page<TableEntity> findAllByKeywordAndStatus(String keyword, TableStatus status, Pageable pageable);
+
+    Set<TableEntity> findByIdIn(Set<Long> tableIds);
 }

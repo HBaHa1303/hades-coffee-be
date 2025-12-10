@@ -11,6 +11,7 @@ import com.hades.hadescoffee.infrastructure.mappers.IUserMapper;
 import com.hades.hadescoffee.infrastructure.repositories.jpa.RolesJpaRepository;
 import com.hades.hadescoffee.infrastructure.repositories.jpa.UsersJpaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
@@ -27,6 +28,7 @@ public class UsersRepositoryImpl implements UsersRepository {
     private final RolesJpaRepository rolesJpaRepository;
 
     @Override
+    @Cacheable(value = "users", key = "#id")
     public Optional<User> findById(Long id) {
         return usersRepository.findById(id).map(mapper::entityToModel);
     }
@@ -83,5 +85,10 @@ public class UsersRepositoryImpl implements UsersRepository {
                         .totalPages(dbResponse.getTotalPages())
                         .build())
                 .build();
+    }
+
+    @Override
+    public Set<User> findByIdIn(Set<Long> userIds) {
+        return usersRepository.findByIdIn(userIds).stream().map(mapper::entityToModel).collect(Collectors.toSet());
     }
 }

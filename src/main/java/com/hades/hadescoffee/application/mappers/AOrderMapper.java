@@ -2,6 +2,8 @@ package com.hades.hadescoffee.application.mappers;
 
 import com.hades.hadescoffee.domain.models.Order;
 import com.hades.hadescoffee.domain.models.OrderItem;
+import com.hades.hadescoffee.domain.models.Table;
+import com.hades.hadescoffee.domain.models.User;
 import com.hades.hadescoffee.domain.vo.Money;
 import com.hades.hadescoffee.presentation.dto.requests.order.CreateOrderRequest;
 import com.hades.hadescoffee.presentation.dto.responses.OrderResponse;
@@ -32,7 +34,13 @@ public interface AOrderMapper {
     @Mapping(target = "totalAmount", source = "totalAmount")
     Order createOrderByOrderItemsAndTableIdRequest(List<OrderItem> orderItems, Long tableId, String userId, Money totalAmount);
 
-//    @Mapping(target = "fullName", expression = "java(order.)")
+    @Mapping(target = "id", source = "order.id")
+    @Mapping(target = "createdTime", source = "order.createdTime")
+    @Mapping(target = "fullName", expression = "java(user.getLastName() + \" \" +user.getFirstName())")
+    @Mapping(target = "tableName", source = "table.name")
+    @Mapping(target = "status", source = "order.status")
+    OrderResponse modelToResponse(Order order, User user, Table table);
+
     OrderResponse modelToResponse(Order order);
 
     default LocalDateTime map(Instant value) {

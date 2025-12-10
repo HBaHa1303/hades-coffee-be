@@ -5,7 +5,9 @@ import com.hades.hadescoffee.domain.enums.TableStatus;
 import com.hades.hadescoffee.domain.models.Table;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Collection;
 import java.util.Optional;
+import java.util.Set;
 
 public interface TablesRepository {
     Optional<Table> findById(Long id);
@@ -13,4 +15,5 @@ public interface TablesRepository {
     void delete(Table table);
     Paginated<Table> findAllByKeywordAndStatus(String keyword, TableStatus status, Pageable pageable);
 
+    Set<Table> findByIdIn(Set<Long> tableIds);
 }

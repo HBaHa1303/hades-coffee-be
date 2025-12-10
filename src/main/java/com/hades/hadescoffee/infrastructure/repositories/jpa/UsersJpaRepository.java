@@ -1,5 +1,6 @@
 package com.hades.hadescoffee.infrastructure.repositories.jpa;
 
+import com.hades.hadescoffee.domain.models.User;
 import com.hades.hadescoffee.infrastructure.entities.UserEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -7,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.Optional;
+import java.util.Set;
 
 public interface UsersJpaRepository extends JpaRepository<UserEntity, Long> {
     Optional<UserEntity> findByEmail(String email);
@@ -34,4 +36,6 @@ public interface UsersJpaRepository extends JpaRepository<UserEntity, Long> {
                     OR LOWER(u.lastName) LIKE CONCAT('%', LOWER(:keyword), '%')
     """)
     Page<UserEntity> findAllByKeywordAndRole(String keyword, Pageable pageable);
+
+    Set<UserEntity> findByIdIn(Set<Long> userIds);
 }

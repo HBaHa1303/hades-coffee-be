@@ -16,7 +16,7 @@ import java.util.List;
 public class OrderResponse {
     Long id;
     OrderStatus status;
-    Long tableId;
+    String tableName;
     String fullName;
     BigDecimal totalAmount;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
