@@ -20,16 +20,8 @@ public interface IOrderItemMapper {
         return new Money(value);
     }
 
-    @Mapping(target = "order", source = "order")
-    @Mapping(target = "menuItem", source = "menuItem")
-    @Mapping(target = "createdTime", ignore = true)
-    @Mapping(target = "createdBy", ignore = true)
-    @Mapping(target = "lastModifiedTime", ignore = true)
-    @Mapping(target = "lastModifiedBy", ignore = true)
-    @Mapping(target = "id", ignore = true)
     @Mapping(target = "price", expression = "java(menuItem.getPrice())")
     OrderItemEntity modelToEntity(OrderItem orderItem, MenuItemEntity menuItem, OrderEntity order);
 
-    @Mapping(target = "menuItemId", source = "menuItem.id")
     OrderItem entityToModel(OrderItemEntity orderItem);
 }

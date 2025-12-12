@@ -17,6 +17,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Set;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -44,7 +47,7 @@ public class SignUpUseCase {
 
         UserRole userRole = new UserRole(null,  role.getCode());
         String hashedPassword = passwordEncoder.encode(signUpRequest.getPassword());
-        User user = mapper.signUpRequestToDomain(signUpRequest, hashedPassword, userRole);
+        User user = mapper.signUpRequestToDomain(signUpRequest, hashedPassword, Set.of("USER"));
 
         usersRepository.save(user);
     }

@@ -3,7 +3,7 @@ package com.hades.hadescoffee.application.usecases.user;
 import com.hades.hadescoffee.application.exceptions.ANotFoundException;
 import com.hades.hadescoffee.domain.models.User;
 import com.hades.hadescoffee.domain.repositories.UsersRepository;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

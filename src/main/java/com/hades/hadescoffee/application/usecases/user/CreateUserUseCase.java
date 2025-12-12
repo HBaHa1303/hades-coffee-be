@@ -5,10 +5,10 @@ import com.hades.hadescoffee.application.mappers.AUserMapper;
 import com.hades.hadescoffee.domain.models.UserRole;
 import com.hades.hadescoffee.domain.repositories.UsersRepository;
 import com.hades.hadescoffee.presentation.dto.requests.user.CreateUserRequest;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -26,10 +26,10 @@ public class CreateUserUseCase {
                 .ifPresent(user -> {throw new AConflictException("user.email_exists", request.getEmail());});
 
         String hashedPassword = passwordEncoder.encode(request.getPassword());
-        Set<UserRole> userRoles = request.getRoles().stream()
-                .map(role -> new UserRole(null, role))
-                .collect(Collectors.toSet());
+//        Set<String> userRoles = request.getRoles().stream()
+////                .map(role -> new UserRole(null, role))
+//                .collect(Collectors.toSet());
 
-        usersRepository.save(mapper.createRequestToDomain(request, hashedPassword, userRoles));
+        usersRepository.save(mapper.createRequestToDomain(request, hashedPassword));
     }
 }

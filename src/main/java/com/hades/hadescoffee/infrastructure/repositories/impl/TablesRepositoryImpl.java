@@ -6,7 +6,7 @@ import com.hades.hadescoffee.domain.enums.TableStatus;
 import com.hades.hadescoffee.domain.models.Table;
 import com.hades.hadescoffee.domain.repositories.TablesRepository;
 import com.hades.hadescoffee.infrastructure.mappers.ITableMapper;
-import com.hades.hadescoffee.infrastructure.repositories.jpa.TablesJpaRepository;
+import com.hades.hadescoffee.infrastructure.repositories.mongo.TablesMongoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Repository
 @RequiredArgsConstructor
 public class TablesRepositoryImpl implements TablesRepository {
-    private final TablesJpaRepository repository;
+    private final TablesMongoRepository repository;
     private final ITableMapper mapper;
 
     @Override
@@ -40,7 +40,10 @@ public class TablesRepositoryImpl implements TablesRepository {
 
     @Override
     public Paginated<Table> findAllByKeywordAndStatus(String keyword, TableStatus status, Pageable pageable) {
-                Page<Table> dbResponse = repository.findAllByKeywordAndStatus(keyword == null ? "" : keyword, status, pageable)
+        String safeKeyword = (keyword == null || keyword.isBlank()) ? "" : keyword;
+
+        Page<Table> dbResponse = repository
+                .findAllByKeywordAndStatus(safeKeyword, status, pageable)
                 .map(mapper::entityToModel);
 
         return Paginated.<Table>builder()
@@ -60,6 +63,9 @@ public class TablesRepositoryImpl implements TablesRepository {
 
     @Override
     public Set<Table> findByIdIn(Set<Long> tableIds) {
-        return repository.findByIdIn(tableIds).stream().map(mapper::entityToModel).collect(Collectors.toSet());
+        return repository.findByIdIn(tableIds)
+                .stream()
+                .map(mapper::entityToModel)
+                .collect(Collectors.toSet());
     }
 }

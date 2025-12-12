@@ -12,7 +12,6 @@ import java.util.Optional;
 public interface OrdersRepository {
     Optional<Order> findById(Long id);
     Order save(Order order);
-    List<Order> findAll();
     List<Order> findByStatuses(List<OrderStatus> statuses);
     List<Order> findAllByUserId(long userId);
 }

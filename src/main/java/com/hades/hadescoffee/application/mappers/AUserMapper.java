@@ -30,13 +30,13 @@ public interface AUserMapper {
     }
 
     @Mapping(target = "password", source = "hashedPassword")
-    @Mapping(target = "userRoles", expression = "java(addUserRole(userRole))")
-    User signUpRequestToDomain(SignUpRequest request, String hashedPassword, UserRole userRole);
+    @Mapping(target = "roleCodes", source = "userRoles")
+    User signUpRequestToDomain(SignUpRequest request, String hashedPassword, Set<String> userRoles);
 
     @Mapping(target = "password", source = "hashedPassword")
-    @Mapping(target = "userRoles", expression = "java(addUserRole(userRoles))")
-    User createRequestToDomain(CreateUserRequest request, String hashedPassword, Set<UserRole> userRoles);
+    @Mapping(target = "roleCodes", source = "request.roles")
+    User createRequestToDomain(CreateUserRequest request, String hashedPassword);
 
-    @Mapping(target = "roles", source = "user.userRoles")
+    @Mapping(target = "roles", source = "user.roleCodes")
     UserResponse domainToResponse(User user);
 }

@@ -1,11 +1,11 @@
 package com.hades.hadescoffee.infrastructure.mappers;
 
 import com.hades.hadescoffee.domain.models.User;
+import com.hades.hadescoffee.domain.models.UserRole;
 import com.hades.hadescoffee.domain.vo.Email;
 import com.hades.hadescoffee.domain.vo.Password;
 import com.hades.hadescoffee.infrastructure.entities.RoleEntity;
 import com.hades.hadescoffee.infrastructure.entities.UserEntity;
-import com.hades.hadescoffee.infrastructure.entities.UserRoleEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
@@ -31,24 +31,6 @@ public interface IUserMapper {
 
     User entityToModel(UserEntity entity);
 
-    @Mapping(target = "userRoles", expression = "java(mapUserRoles(userEntity, user, roles))")
+//    @Mapping(target = "userRoles", expression = "java(mapUserRoles(userEntity, user, roles))")
     UserEntity modelToEntity(User user, Set<RoleEntity> roles);
-
-    default Set<UserRoleEntity> mapUserRoles(UserEntity userEntity,
-                                             User user,
-                                             Set<RoleEntity> roles) {
-
-        Map<String, RoleEntity> roleMap = roles.stream()
-                .collect(Collectors.toMap(RoleEntity::getCode, r -> r));
-
-        return user.getUserRoles().stream()
-                .map(ur -> {
-                    UserRoleEntity e = new UserRoleEntity();
-                    e.setId(ur.getId());
-                    e.setUser(userEntity);
-                    e.setRole(roleMap.get(ur.getRoleCode()));
-                    return e;
-                })
-                .collect(Collectors.toSet());
-    }
 }

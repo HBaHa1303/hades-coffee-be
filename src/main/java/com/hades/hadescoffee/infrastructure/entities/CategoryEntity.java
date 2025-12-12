@@ -1,31 +1,28 @@
 package com.hades.hadescoffee.infrastructure.entities;
 
 import com.hades.hadescoffee.domain.enums.CategoryStatus;
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+@Document("categories")
 @Getter
 @Setter
-@Table(name = "categories")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CategoryEntity extends BaseEntity {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(nullable = false, length = 100)
     String name;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     CategoryStatus status;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    List<MenuItemEntity> menuItems = List.of();
+    List<Long> menuItemIds = new ArrayList<>();
 }

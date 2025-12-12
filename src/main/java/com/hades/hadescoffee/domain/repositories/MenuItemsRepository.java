@@ -12,7 +12,6 @@ public interface MenuItemsRepository {
     Optional<MenuItem> findById(Long id);
     void save(MenuItem menuItem);
     void delete(MenuItem menuItem);
-    Paginated<MenuItem> findAll(Pageable pageable);
 
     Paginated<MenuItem> findAllByKeyWordAndStatus(String keyword, MenuItemStatus status, Pageable pageable);
 

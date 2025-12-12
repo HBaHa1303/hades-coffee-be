@@ -1,26 +1,23 @@
 package com.hades.hadescoffee.infrastructure.entities;
 
 import com.hades.hadescoffee.domain.enums.TableStatus;
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
+@Document("tables")
 @Getter
 @Setter
-@Table(name = "tables")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class TableEntity extends BaseEntity {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(nullable = false, length = 50, unique = true)
     String name;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
     TableStatus status;
 }

@@ -12,10 +12,6 @@ public interface CategoriesRepository {
     Optional<Category> findById(Long id);
     void save(Category category);
     void delete(Category category);
-    Paginated<Category> findAll(Pageable pageable);
-    Paginated<Category> findAllByKeyWord(String keyword, Pageable pageable);
-
     Paginated<Category> findAllByKeyWordAndStatus(String keyword, CategoryStatus status, Pageable pageable);
-
     List<Category> findAllActive();
 }

@@ -19,13 +19,12 @@ public interface IMenuItemMapper {
         return money == null ? null : money.getAmount();
     }
 
-    @Mapping(target = "categoryId", source = "category.id")
     MenuItem entityToModel(MenuItemEntity entity);
 
     @Mapping(target = "id", source = "menuItem.id")
     @Mapping(target = "name", source = "menuItem.name")
     @Mapping(target = "status", source = "menuItem.status")
-    @Mapping(target = "category", source = "category")
+    @Mapping(target = "categoryId", source = "category.id")
     @Mapping(target = "createdBy", source = "menuItem.createdBy")
     @Mapping(target = "createdTime", source = "menuItem.createdTime")
     @Mapping(target = "lastModifiedBy", source = "menuItem.lastModifiedBy")

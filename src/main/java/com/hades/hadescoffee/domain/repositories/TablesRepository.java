@@ -14,6 +14,5 @@ public interface TablesRepository {
     void save(Table table);
     void delete(Table table);
     Paginated<Table> findAllByKeywordAndStatus(String keyword, TableStatus status, Pageable pageable);
-
     Set<Table> findByIdIn(Set<Long> tableIds);
 }
