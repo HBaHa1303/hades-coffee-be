@@ -10,7 +10,8 @@ import org.mapstruct.MappingConstants;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface ATableMapper {
+    @Mapping(target = "id", source = "id")
     @Mapping(target = "status", source = "status")
-    Table createRequestToDomain(CreateTableRequest request, TableStatus status);
+    Table createRequestToDomain(CreateTableRequest request, TableStatus status, Long id);
     TableResponse domainToResponse(Table menuItem);
 }

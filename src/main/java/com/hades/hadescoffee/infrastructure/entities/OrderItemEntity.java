@@ -11,7 +11,6 @@ import java.math.BigDecimal;
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class OrderItemEntity {
-
     Long menuItemId;
     BigDecimal price;
     Integer quantity;

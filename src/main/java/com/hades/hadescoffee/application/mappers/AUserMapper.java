@@ -29,13 +29,15 @@ public interface AUserMapper {
         return userRole.getRoleCode();
     }
 
+    @Mapping(source = "id", target = "id")
     @Mapping(target = "password", source = "hashedPassword")
     @Mapping(target = "roleCodes", source = "userRoles")
-    User signUpRequestToDomain(SignUpRequest request, String hashedPassword, Set<String> userRoles);
+    User signUpRequestToDomain(SignUpRequest request, String hashedPassword, Set<String> userRoles, Long id);
 
+    @Mapping(target = "id", source = "id")
     @Mapping(target = "password", source = "hashedPassword")
     @Mapping(target = "roleCodes", source = "request.roles")
-    User createRequestToDomain(CreateUserRequest request, String hashedPassword);
+    User createRequestToDomain(CreateUserRequest request, String hashedPassword, Long id);
 
     @Mapping(target = "roles", source = "user.roleCodes")
     UserResponse domainToResponse(User user);

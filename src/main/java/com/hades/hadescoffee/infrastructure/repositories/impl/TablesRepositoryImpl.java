@@ -8,7 +8,6 @@ import com.hades.hadescoffee.domain.repositories.TablesRepository;
 import com.hades.hadescoffee.infrastructure.mappers.ITableMapper;
 import com.hades.hadescoffee.infrastructure.repositories.mongo.TablesMongoRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
@@ -42,9 +41,16 @@ public class TablesRepositoryImpl implements TablesRepository {
     public Paginated<Table> findAllByKeywordAndStatus(String keyword, TableStatus status, Pageable pageable) {
         String safeKeyword = (keyword == null || keyword.isBlank()) ? "" : keyword;
 
-        Page<Table> dbResponse = repository
-                .findAllByKeywordAndStatus(safeKeyword, status, pageable)
-                .map(mapper::entityToModel);
+        Page<Table> dbResponse;
+        if (status == null) {
+            dbResponse = repository
+                    .findAllByKeyword(safeKeyword, pageable)
+                    .map(mapper::entityToModel);
+        } else {
+            dbResponse = repository
+                    .findAllByKeywordAndStatus(safeKeyword, status, pageable)
+                    .map(mapper::entityToModel);
+        }
 
         return Paginated.<Table>builder()
                 .data(dbResponse.getContent())

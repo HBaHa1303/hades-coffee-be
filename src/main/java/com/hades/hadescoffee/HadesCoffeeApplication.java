@@ -23,10 +23,6 @@ public class HadesCoffeeApplication {
         SpringApplication.run(HadesCoffeeApplication.class, args);
     }
 
-    //TODO: add api change password
-    //TODO: add api cancel order for user
-    //TODO: add api report
-//
 //    @Bean
 //    CommandLineRunner init(RolesRepository rolesRepository,
 //                           UsersRepository usersRepository) {

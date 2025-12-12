@@ -12,20 +12,36 @@ import java.util.Set;
 public interface TablesMongoRepository extends MongoRepository<TableEntity, Long> {
 
     @Query("""
+    {
+      $and: [
         {
-          $and: [
-            { $or: [
-                { name: { $regex: ?0, $options: 'i' } },
-                { ?0: '' }
-            ]},
-            { $or: [
-                { status: ?1 },
-                { ?1: null }
-            ]}
+          $or: [
+            { name: { $regex: ?0, $options: 'i' } },
+            { $expr: { $eq: [ ?0, '' ] } }
+          ]
+        },
+        {
+          $or: [
+            { status: ?1 },
+            { $expr: { $eq: [ ?1, null ] } }
           ]
         }
+      ]
+    }
     """)
     Page<TableEntity> findAllByKeywordAndStatus(String keyword, TableStatus status, Pageable pageable);
+
+
+    @Query("""
+    {
+      $or: [
+        { name: { $regex: ?0, $options: 'i' } },
+        { $expr: { $eq: [ ?0, '' ] } }
+      ]
+    }
+    """)
+    Page<TableEntity> findAllByKeyword(String keyword, Pageable pageable);
+
 
     Set<TableEntity> findByIdIn(Set<Long> tableIds);
 }

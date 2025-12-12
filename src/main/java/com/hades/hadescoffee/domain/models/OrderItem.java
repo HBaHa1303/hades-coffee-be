@@ -12,12 +12,11 @@ import java.util.Objects;
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class OrderItem extends BaseDomain {
-    final Long id;
     final Long menuItemId;
     final Money price;
     final Integer quantity;
 
-    public OrderItem(Long id, Long menuItemId, Money price, Integer quantity) {
+    public OrderItem(Long menuItemId, Money price, Integer quantity) {
         if (Objects.isNull(menuItemId)) {
             throw new DValidationException("common.invalid_input", "menu item");
         }
@@ -29,7 +28,6 @@ public class OrderItem extends BaseDomain {
             throw new DValidationException("common.invalid_input", "quantity");
         }
 
-        this.id = id;
         this.menuItemId = menuItemId;
         this.price = price;
         this.quantity = quantity;
