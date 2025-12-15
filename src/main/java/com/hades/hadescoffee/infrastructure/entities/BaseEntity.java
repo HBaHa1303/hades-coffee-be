@@ -8,6 +8,7 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.domain.Persistable;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
@@ -16,7 +17,7 @@ import java.time.Instant;
 @Setter
 @Document
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public abstract class BaseEntity {
+public abstract class BaseEntity implements Persistable<Long> {
 
     @CreatedDate
     Instant createdTime;
@@ -29,4 +30,9 @@ public abstract class BaseEntity {
 
     @LastModifiedDate
     Instant lastModifiedTime;
+
+    @Override
+    public boolean isNew() {
+        return createdTime == null;
+    }
 }

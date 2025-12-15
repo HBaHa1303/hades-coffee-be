@@ -20,4 +20,9 @@ public class RoleEntity extends BaseEntity {
     String code;
 
     String name;
+
+    @Override
+    public Long getId() {
+        return 0L;
+    }
 }

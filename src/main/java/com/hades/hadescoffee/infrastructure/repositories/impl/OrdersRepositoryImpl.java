@@ -61,6 +61,28 @@ public class OrdersRepositoryImpl implements OrdersRepository {
     }
 
     @Override
+    public Order insert(Order order) {
+        TableEntity tableEntity = tablesMongoRepository.findById(order.getTableId())
+                .orElseThrow(() -> new ANotFoundException("table.not_found", order.getTableId()));
+        UserEntity userEntity = null;
+        if (Objects.nonNull(order.getUserId())) {
+            userEntity = usersMongoRepository.findById(order.getUserId())
+                    .orElseThrow(() -> new ANotFoundException("user.not_found", order.getUserId()));
+        }
+        OrderEntity orderEntity = mapper.modelToEntity(order, tableEntity, userEntity, List.of());
+        List<OrderItemEntity> orderItems = order.getOrderItems().stream().map(orderItem -> {
+            MenuItemEntity menuItemEntity = menuItemMongoRepository.findById(orderItem.getMenuItemId())
+                    .orElseThrow(() -> new ANotFoundException("menu.not_found", orderItem.getMenuItemId()));
+            return orderItemMapper.modelToEntity(orderItem, menuItemEntity, orderEntity);
+        }).toList();
+
+        orderEntity.setOrderItems(orderItems);
+        OrderEntity savedOrder = repository.insert(orderEntity);
+
+        return mapper.entityToModel(savedOrder);
+    }
+
+    @Override
     public List<Order> findByStatuses(List<OrderStatus> statuses) {
         Pageable pageable = Pageable.unpaged(Sort.by(Sort.Direction.DESC, "id"));
         return repository.findByStatusIn(statuses, pageable).stream().map(mapper::entityToModel).toList();

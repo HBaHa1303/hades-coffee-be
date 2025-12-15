@@ -53,7 +53,7 @@ public class CreateOrderUseCase {
         Long id = sequenceGenerator.generateSequence(OrderEntity.SEQUENCE_NAME);
         Order order = mapper.createOrderByOrderItemsAndTableIdRequest(orderItems, request.getTableId(), userId, amount, id);
 
-        Order savedOrder = repository.save(order);
+        Order savedOrder = repository.insert(order);
 
         Long invoiceId = sequenceGenerator.generateSequence(InvoiceEntity.SEQUENCE_NAME);
         Invoice invoice = invoiceMapper.createOrderToModel(request, amount, savedOrder.getId(), invoiceId);
