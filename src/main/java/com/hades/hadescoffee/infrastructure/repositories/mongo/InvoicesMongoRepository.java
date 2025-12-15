@@ -12,7 +12,8 @@ public interface InvoicesMongoRepository extends MongoRepository<InvoiceEntity, 
 
     @Aggregation(pipeline = {
             "{ $match: { createdTime: { $gte: ?0 }, status: { $in: ['PAID', 'UNPAID'] } } }",
-            "{ $group: { _id: null, total: { $sum: '$amount' } } }"
+            "{ $group: { _id: null, total: { $sum: '$amount' } } }",
+            "{ $project: { _id: 0, total: { $toDecimal: '$total' } } }"
     })
     Decimal128 sumRevenueFrom(Instant start);
 }
