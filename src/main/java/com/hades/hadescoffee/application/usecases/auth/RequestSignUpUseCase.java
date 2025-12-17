@@ -5,6 +5,7 @@ import com.hades.hadescoffee.application.exceptions.AValidationException;
 import com.hades.hadescoffee.application.services.EmailService;
 import com.hades.hadescoffee.application.services.OtpService;
 import com.hades.hadescoffee.application.services.SignupCacheService;
+import com.hades.hadescoffee.application.utils.EmailTemplate;
 import com.hades.hadescoffee.domain.repositories.UsersRepository;
 import com.hades.hadescoffee.presentation.dto.requests.auth.SignUpRequest;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +33,12 @@ public class RequestSignUpUseCase {
         String otp = String.format("%06d", ThreadLocalRandom.current().nextInt(0, 1_000_000));
         otpService.saveOtp(request.getEmail(), otp, 60);
         signupCacheService.saveSignupData(request);
-        emailService.sendEmail(request.getEmail(), "Otp", "OTP cua ban la: " + otp);
+        emailService.sendEmail(
+                request.getEmail(),
+                "Xác thực tài khoản – Mã OTP của bạn",
+                EmailTemplate.signupOtp(otp)
+        );
+
     }
 
 

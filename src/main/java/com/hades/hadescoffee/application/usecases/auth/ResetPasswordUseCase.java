@@ -4,6 +4,7 @@ import com.hades.hadescoffee.application.exceptions.ANotFoundException;
 import com.hades.hadescoffee.application.services.EmailService;
 import com.hades.hadescoffee.application.services.OtpService;
 import com.hades.hadescoffee.application.services.SignupCacheService;
+import com.hades.hadescoffee.application.utils.EmailTemplate;
 import com.hades.hadescoffee.domain.repositories.UsersRepository;
 import com.hades.hadescoffee.presentation.dto.requests.auth.ResetPasswordRequest;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,11 @@ public class ResetPasswordUseCase {
                 .orElseThrow(() -> new ANotFoundException("user.not_found", request.getEmail()));
         String otp = String.format("%06d", ThreadLocalRandom.current().nextInt(0, 1_000_000));
         otpService.saveOtp(request.getEmail(), otp, 60);
-        emailService.sendEmail(request.getEmail(), "Otp", "OTP cua ban la: " + otp);
+        emailService.sendEmail(
+                request.getEmail(),
+                "Yêu cầu khôi phục mật khẩu – Mã OTP xác thực",
+                EmailTemplate.resetPasswordOtp(otp)
+        );
+
     }
 }

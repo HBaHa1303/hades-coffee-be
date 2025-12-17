@@ -5,6 +5,7 @@ import com.hades.hadescoffee.application.exceptions.ANotFoundException;
 import com.hades.hadescoffee.application.exceptions.AValidationException;
 import com.hades.hadescoffee.application.services.EmailService;
 import com.hades.hadescoffee.application.services.OtpService;
+import com.hades.hadescoffee.application.utils.EmailTemplate;
 import com.hades.hadescoffee.domain.models.User;
 import com.hades.hadescoffee.domain.repositories.UsersRepository;
 import com.hades.hadescoffee.domain.vo.Password;
@@ -43,7 +44,12 @@ public class ConfirmResetPasswordUseCase {
         user.changePassword(new Password(passwordEncoder.encode(randomPassword)));
         usersRepository.save(user);
 
-        emailService.sendEmail(request.getEmail(), "Reset Password", "Your new password: " + randomPassword);
+        emailService.sendEmail(
+                request.getEmail(),
+                "Khôi phục mật khẩu thành công",
+                EmailTemplate.resetPasswordSuccess(randomPassword)
+        );
+
     }
 }
 
