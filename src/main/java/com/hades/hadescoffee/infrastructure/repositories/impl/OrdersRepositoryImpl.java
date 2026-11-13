@@ -8,10 +8,10 @@ import com.hades.hadescoffee.domain.repositories.OrdersRepository;
 import com.hades.hadescoffee.infrastructure.entities.*;
 import com.hades.hadescoffee.infrastructure.mappers.IOrderItemMapper;
 import com.hades.hadescoffee.infrastructure.mappers.IOrderMapper;
-import com.hades.hadescoffee.infrastructure.repositories.jpa.MenuItemsJpaRepository;
-import com.hades.hadescoffee.infrastructure.repositories.jpa.OrdersJpaRepository;
-import com.hades.hadescoffee.infrastructure.repositories.jpa.TablesJpaRepository;
-import com.hades.hadescoffee.infrastructure.repositories.jpa.UsersJpaRepository;
+import com.hades.hadescoffee.infrastructure.repositories.mongo.MenuItemsMongoRepository;
+import com.hades.hadescoffee.infrastructure.repositories.mongo.OrdersMongoRepository;
+import com.hades.hadescoffee.infrastructure.repositories.mongo.TablesMongoRepository;
+import com.hades.hadescoffee.infrastructure.repositories.mongo.UsersMongoRepository;
 import com.hades.hadescoffee.presentation.dto.responses.OrderResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -26,12 +26,12 @@ import java.util.stream.Collectors;
 @Repository
 @RequiredArgsConstructor
 public class OrdersRepositoryImpl implements OrdersRepository {
-    private final OrdersJpaRepository repository;
+    private final OrdersMongoRepository repository;
     private final IOrderMapper mapper;
-    private final TablesJpaRepository tablesJpaRepository;
+    private final TablesMongoRepository tablesMongoRepository;
     private final IOrderItemMapper orderItemMapper;
-    private final MenuItemsJpaRepository menuItemJpaRepository;
-    private final UsersJpaRepository usersJpaRepository;
+    private final MenuItemsMongoRepository menuItemMongoRepository;
+    private final UsersMongoRepository usersMongoRepository;
 
     @Override
     public Optional<Order> findById(Long id) {
@@ -40,16 +40,16 @@ public class OrdersRepositoryImpl implements OrdersRepository {
 
     @Override
     public Order save(Order order) {
-        TableEntity tableEntity = tablesJpaRepository.findById(order.getTableId())
+        TableEntity tableEntity = tablesMongoRepository.findById(order.getTableId())
                 .orElseThrow(() -> new ANotFoundException("table.not_found", order.getTableId()));
         UserEntity userEntity = null;
         if (Objects.nonNull(order.getUserId())) {
-            userEntity = usersJpaRepository.findById(order.getUserId())
+            userEntity = usersMongoRepository.findById(order.getUserId())
                     .orElseThrow(() -> new ANotFoundException("user.not_found", order.getUserId()));
         }
         OrderEntity orderEntity = mapper.modelToEntity(order, tableEntity, userEntity, List.of());
         List<OrderItemEntity> orderItems = order.getOrderItems().stream().map(orderItem -> {
-            MenuItemEntity menuItemEntity = menuItemJpaRepository.findById(orderItem.getMenuItemId())
+            MenuItemEntity menuItemEntity = menuItemMongoRepository.findById(orderItem.getMenuItemId())
                     .orElseThrow(() -> new ANotFoundException("menu.not_found", orderItem.getMenuItemId()));
             return orderItemMapper.modelToEntity(orderItem, menuItemEntity, orderEntity);
         }).toList();
@@ -61,14 +61,31 @@ public class OrdersRepositoryImpl implements OrdersRepository {
     }
 
     @Override
-    public List<Order> findAll() {
-        return repository.findAll().stream().map(mapper::entityToModel).toList();
+    public Order insert(Order order) {
+        TableEntity tableEntity = tablesMongoRepository.findById(order.getTableId())
+                .orElseThrow(() -> new ANotFoundException("table.not_found", order.getTableId()));
+        UserEntity userEntity = null;
+        if (Objects.nonNull(order.getUserId())) {
+            userEntity = usersMongoRepository.findById(order.getUserId())
+                    .orElseThrow(() -> new ANotFoundException("user.not_found", order.getUserId()));
+        }
+        OrderEntity orderEntity = mapper.modelToEntity(order, tableEntity, userEntity, List.of());
+        List<OrderItemEntity> orderItems = order.getOrderItems().stream().map(orderItem -> {
+            MenuItemEntity menuItemEntity = menuItemMongoRepository.findById(orderItem.getMenuItemId())
+                    .orElseThrow(() -> new ANotFoundException("menu.not_found", orderItem.getMenuItemId()));
+            return orderItemMapper.modelToEntity(orderItem, menuItemEntity, orderEntity);
+        }).toList();
+
+        orderEntity.setOrderItems(orderItems);
+        OrderEntity savedOrder = repository.insert(orderEntity);
+
+        return mapper.entityToModel(savedOrder);
     }
 
     @Override
     public List<Order> findByStatuses(List<OrderStatus> statuses) {
         Pageable pageable = Pageable.unpaged(Sort.by(Sort.Direction.DESC, "id"));
-        return repository.findByStatusIsIn(statuses, pageable).stream().map(mapper::entityToModel).toList();
+        return repository.findByStatusIn(statuses, pageable).stream().map(mapper::entityToModel).toList();
     }
 
     @Override

@@ -4,18 +4,20 @@ import com.hades.hadescoffee.application.exceptions.AConflictException;
 import com.hades.hadescoffee.application.exceptions.ANotFoundException;
 import com.hades.hadescoffee.application.mappers.AUserMapper;
 import com.hades.hadescoffee.application.services.OtpService;
+import com.hades.hadescoffee.application.services.SequenceGeneratorService;
 import com.hades.hadescoffee.application.services.SignupCacheService;
-import com.hades.hadescoffee.domain.models.Role;
 import com.hades.hadescoffee.domain.models.User;
-import com.hades.hadescoffee.domain.models.UserRole;
 import com.hades.hadescoffee.domain.repositories.RolesRepository;
 import com.hades.hadescoffee.domain.repositories.UsersRepository;
+import com.hades.hadescoffee.infrastructure.entities.UserEntity;
 import com.hades.hadescoffee.presentation.dto.requests.auth.ConfirmSignUpRequest;
 import com.hades.hadescoffee.presentation.dto.requests.auth.SignUpRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Set;
 
 @Service
 @Transactional
@@ -27,6 +29,7 @@ public class SignUpUseCase {
     private final RolesRepository rolesRepository;
     private final OtpService otpService;
     private final SignupCacheService signupCacheService;
+    private final SequenceGeneratorService sequenceGenerator;
 
     public void execute (ConfirmSignUpRequest request) {
         String otp = otpService.getOtp(request.getEmail());
@@ -39,12 +42,11 @@ public class SignUpUseCase {
         otpService.deleteOtp(request.getEmail());
 
         SignUpRequest signUpRequest = signupCacheService.getSignupData(request.getEmail());
-        Role role = rolesRepository.findByCode("USER")
+        rolesRepository.findByCode("USER")
                 .orElseThrow(() -> new ANotFoundException("role.not_found", "user"));
-
-        UserRole userRole = new UserRole(null,  role.getCode());
         String hashedPassword = passwordEncoder.encode(signUpRequest.getPassword());
-        User user = mapper.signUpRequestToDomain(signUpRequest, hashedPassword, userRole);
+        Long id = sequenceGenerator.generateSequence(UserEntity.SEQUENCE_NAME);
+        User user = mapper.signUpRequestToDomain(signUpRequest, hashedPassword, Set.of("USER"), id);
 
         usersRepository.save(user);
     }

@@ -23,8 +23,9 @@ public interface AMenuItemMapper {
         return money.getAmount();
     }
 
+    @Mapping(target = "id", source = "id")
     @Mapping(target = "status", source = "status")
-    MenuItem createRequestToDomain(CreateMenuItemRequest createMenuItemRequest, MenuItemStatus status);
+    MenuItem createRequestToDomain(CreateMenuItemRequest createMenuItemRequest, Long id, MenuItemStatus status);
     MenuItemResponse domainToResponse(MenuItem menuItem);
 
     @Mapping(target = "categoryName", source = "cat.name")

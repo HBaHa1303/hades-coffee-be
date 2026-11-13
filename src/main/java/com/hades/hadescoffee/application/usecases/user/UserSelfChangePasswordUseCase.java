@@ -36,6 +36,7 @@ public class UserSelfChangePasswordUseCase {
                 throw new AValidationException("user.current_password_not_match");
             }
             user.changePassword(new Password(passwordEncoder.encode(request.getNewPassword())));
+            usersRepository.save(user);
         } else {
             throw new ApplicationException("security.error.insufficient_authentication");
         }

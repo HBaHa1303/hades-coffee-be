@@ -9,8 +9,9 @@ import org.mapstruct.MappingConstants;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface AInvoiceMapper {
+    @Mapping(target = "id", source = "id")
     @Mapping(target = "status", expression = "java(InvoiceStatus.UNPAID)")
     @Mapping(target = "orderId", source = "orderId")
     @Mapping(target = "amount", source = "amount")
-    Invoice createOrderToModel(CreateOrderRequest request, Money amount, Long orderId);
+    Invoice createOrderToModel(CreateOrderRequest request, Money amount, Long orderId, Long id);
 }

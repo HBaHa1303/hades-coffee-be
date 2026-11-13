@@ -9,23 +9,21 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.data.mongodb.config.EnableMongoAuditing;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
-@EnableJpaAuditing(auditorAwareRef = "auditorProvider")
+//@EnableJpaAuditing(auditorAwareRef = "auditorProvider")
+@EnableMongoRepositories
 @SpringBootApplication
 public class HadesCoffeeApplication {
     public static void main(String[] args) {
         SpringApplication.run(HadesCoffeeApplication.class, args);
     }
 
-    //TODO: add api change password
-    //TODO: add api cancel order for user
-    //TODO: add api report
-//
 //    @Bean
 //    CommandLineRunner init(RolesRepository rolesRepository,
 //                           UsersRepository usersRepository) {

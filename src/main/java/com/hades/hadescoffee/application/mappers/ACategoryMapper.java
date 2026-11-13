@@ -10,7 +10,8 @@ import org.mapstruct.MappingConstants;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface ACategoryMapper {
+    @Mapping(target = "id", source = "id")
     @Mapping(target = "status", source = "status")
-    Category createRequestToDomain(CreateCategoryRequest createCategoryRequest, CategoryStatus status);
+    Category createRequestToDomain(CreateCategoryRequest createCategoryRequest, Long id, CategoryStatus status);
     CategoryResponse domainToResponse(Category category);
 }

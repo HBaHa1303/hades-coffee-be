@@ -20,10 +20,10 @@ public class User extends BaseDomain {
     final String firstName;
     final String lastName;
     final LocalDate dateOfBirth;
-    final Set<UserRole> userRoles;
+    final Set<String> roleCodes;
 
     public User(Long id, String email, String password, String firstName, String lastName,
-                LocalDate dateOfBirth, Set<UserRole> userRoles) {
+                LocalDate dateOfBirth, Set<String> roleCodes) {
         if (StringUtils.isBlank(email)) {
             throw new DValidationException("common.invalid_input", "email");
         }
@@ -46,25 +46,25 @@ public class User extends BaseDomain {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
-        this.userRoles = Objects.isNull(userRoles) ? new HashSet<>() : userRoles;
+        this.roleCodes = Objects.isNull(roleCodes) ? new HashSet<>() : roleCodes;
     }
 
     public void changeRoles(Set<String> newUserRoles) {
-        if (Objects.isNull(userRoles)) {
+        if (Objects.isNull(roleCodes)) {
             throw new DValidationException("common.invalid_input", "user role");
         }
 
         newUserRoles.forEach(nur -> {
-            Optional<UserRole> existing = this.userRoles.stream()
-                    .filter(r -> r.getRoleCode().equals(nur))
+            Optional<String> existing = this.roleCodes.stream()
+                    .filter(r -> r.equals(nur))
                     .findFirst();
 
             if (existing.isEmpty()) {
-                this.userRoles.add(new UserRole(null, nur));
+                this.roleCodes.add(nur);
             }
         });
 
-        userRoles.removeIf(ur -> !newUserRoles.contains(ur.getRoleCode()));
+        roleCodes.removeIf(ur -> !newUserRoles.contains(ur));
     }
 
     public void changePassword(Password newPassword) {

@@ -8,22 +8,24 @@ import com.hades.hadescoffee.domain.models.MenuItem;
 import com.hades.hadescoffee.domain.repositories.MenuItemsRepository;
 import com.hades.hadescoffee.infrastructure.entities.CategoryEntity;
 import com.hades.hadescoffee.infrastructure.mappers.IMenuItemMapper;
-import com.hades.hadescoffee.infrastructure.repositories.jpa.CategoriesJpaRepository;
-import com.hades.hadescoffee.infrastructure.repositories.jpa.MenuItemsJpaRepository;
+import com.hades.hadescoffee.infrastructure.repositories.mongo.CategoriesMongoRepository;
+import com.hades.hadescoffee.infrastructure.repositories.mongo.MenuItemsMongoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
 public class MenuItemsRepositoryImpl implements MenuItemsRepository {
-    private final MenuItemsJpaRepository repository;
+
+    private final MenuItemsMongoRepository repository;
     private final IMenuItemMapper mapper;
-    private final CategoriesJpaRepository categoriesJpaRepository;
+    private final CategoriesMongoRepository categoriesRepository;
 
     @Override
     public Optional<MenuItem> findById(Long id) {
@@ -33,9 +35,13 @@ public class MenuItemsRepositoryImpl implements MenuItemsRepository {
 
     @Override
     public void save(MenuItem menuItem) {
-        CategoryEntity categoryEntity = categoriesJpaRepository.findById(menuItem.getCategoryId())
-                .orElseThrow(() -> new ANotFoundException("category.not_found", menuItem.getCategoryId()));
-        repository.save(mapper.modelToEntity(menuItem, categoryEntity));
+        CategoryEntity categoryEntity = categoriesRepository.findById(menuItem.getCategoryId())
+                .orElseThrow(() ->
+                        new ANotFoundException("category.not_found", menuItem.getCategoryId()));
+
+        repository.save(
+                mapper.modelToEntity(menuItem, categoryEntity)
+        );
     }
 
     @Override
@@ -44,28 +50,21 @@ public class MenuItemsRepositoryImpl implements MenuItemsRepository {
     }
 
     @Override
-    public Paginated<MenuItem> findAll(Pageable pageable) {
-        Page<MenuItem> dbResponse = repository.findAll(pageable)
-                .map(mapper::entityToModel);
-        return Paginated.<MenuItem>builder()
-                .data(dbResponse.getContent())
-                .paging(PagingResult.builder()
-                        .size(dbResponse.getSize())
-                        .page(dbResponse.getNumber())
-                        .hasNext(dbResponse.hasNext())
-                        .hasPrevious(dbResponse.hasPrevious())
-                        .isFirst(dbResponse.isFirst())
-                        .isLast(dbResponse.isLast())
-                        .totalElements(dbResponse.getTotalElements())
-                        .totalPages(dbResponse.getTotalPages())
-                        .build())
-                .build();
-    }
+    public Paginated<MenuItem> findAllByKeyWordAndStatus(
+            String keyword,
+            MenuItemStatus status,
+            Pageable pageable
+    ) {
+        String key = keyword == null ? "" : keyword;
 
-    @Override
-    public Paginated<MenuItem> findAllByKeyWordAndStatus(String keyword, MenuItemStatus status, Pageable pageable) {
-        Page<MenuItem> dbResponse = repository.findAllByKeyWordAndStatus(keyword == null ? "" : keyword, status, pageable)
+        List<String> statusList = status == null
+                ? Arrays.stream(MenuItemStatus.values()).map(Enum::name).toList()
+                : List.of(status.name());
+
+        Page<MenuItem> dbResponse = repository
+                .findAllByKeywordAndStatus(key, statusList, pageable)
                 .map(mapper::entityToModel);
+
         return Paginated.<MenuItem>builder()
                 .data(dbResponse.getContent())
                 .paging(PagingResult.builder()
@@ -83,6 +82,9 @@ public class MenuItemsRepositoryImpl implements MenuItemsRepository {
 
     @Override
     public List<MenuItem> findAllByCategoryId(Long categoryId) {
-        return repository.findAllByCategoryId(categoryId).stream().map(mapper::entityToModel).toList();
+        return repository.findAllByCategoryId(categoryId)
+                .stream()
+                .map(mapper::entityToModel)
+                .toList();
     }
 }

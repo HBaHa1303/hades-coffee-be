@@ -3,6 +3,7 @@ package com.hades.hadescoffee.application.usecases.order;
 import com.hades.hadescoffee.application.exceptions.ANotFoundException;
 import com.hades.hadescoffee.application.mappers.AInvoiceMapper;
 import com.hades.hadescoffee.application.mappers.AOrderMapper;
+import com.hades.hadescoffee.application.services.SequenceGeneratorService;
 import com.hades.hadescoffee.domain.models.Invoice;
 import com.hades.hadescoffee.domain.models.MenuItem;
 import com.hades.hadescoffee.domain.models.Order;
@@ -11,6 +12,8 @@ import com.hades.hadescoffee.domain.repositories.InvoicesRepository;
 import com.hades.hadescoffee.domain.repositories.MenuItemsRepository;
 import com.hades.hadescoffee.domain.repositories.OrdersRepository;
 import com.hades.hadescoffee.domain.vo.Money;
+import com.hades.hadescoffee.infrastructure.entities.InvoiceEntity;
+import com.hades.hadescoffee.infrastructure.entities.OrderEntity;
 import com.hades.hadescoffee.infrastructure.security.UserDetailsImpl;
 import com.hades.hadescoffee.presentation.dto.requests.order.CreateOrderItemRequest;
 import com.hades.hadescoffee.presentation.dto.requests.order.CreateOrderRequest;
@@ -32,6 +35,7 @@ public class CreateOrderUseCase {
     private final InvoicesRepository invoicesRepository;
     private final AInvoiceMapper invoiceMapper;
     private static final String SYSTEM_USER_ID = "1";
+    private final SequenceGeneratorService sequenceGenerator;
 
     public void execute(CreateOrderRequest request) {
         String userId;
@@ -46,11 +50,13 @@ public class CreateOrderUseCase {
         Money amount = orderItems.stream()
                 .map(orderItem -> orderItem.getPrice().multiply(orderItem.getQuantity()))
                 .reduce(Money.of(BigDecimal.ZERO), Money::add);
-        Order order = mapper.createOrderByOrderItemsAndTableIdRequest(orderItems, request.getTableId(), userId, amount);
+        Long id = sequenceGenerator.generateSequence(OrderEntity.SEQUENCE_NAME);
+        Order order = mapper.createOrderByOrderItemsAndTableIdRequest(orderItems, request.getTableId(), userId, amount, id);
 
-        Order savedOrder = repository.save(order);
+        Order savedOrder = repository.insert(order);
 
-        Invoice invoice = invoiceMapper.createOrderToModel(request, amount, savedOrder.getId());
+        Long invoiceId = sequenceGenerator.generateSequence(InvoiceEntity.SEQUENCE_NAME);
+        Invoice invoice = invoiceMapper.createOrderToModel(request, amount, savedOrder.getId(), invoiceId);
         invoicesRepository.save(invoice);
     }
 
@@ -58,6 +64,6 @@ public class CreateOrderUseCase {
         MenuItem menu = menuItemsRepository.findById(req.getMenuItemId())
                 .orElseThrow(() -> new ANotFoundException("menu.not_found", req.getMenuItemId()));
 
-        return new OrderItem(null, menu.getId(), menu.getPrice(), req.getQuantity());
+        return new OrderItem(menu.getId(), menu.getPrice(), req.getQuantity());
     }
 }

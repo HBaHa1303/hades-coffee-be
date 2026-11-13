@@ -11,5 +11,6 @@ import org.mapstruct.MappingConstants;
 public interface AOrderItemMapper {
     @Mapping(target = "price", expression = "java(Money.of(orderItemEntity.getPrice()))")
     @Mapping(target = "quantity", source = "request.quantity")
+    @Mapping(target = "menuItemId", source = "request.menuItemId")
     OrderItem requestToDomain(CreateOrderItemRequest request, OrderItemEntity orderItemEntity);
 }

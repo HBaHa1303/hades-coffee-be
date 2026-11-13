@@ -8,8 +8,8 @@ import com.hades.hadescoffee.domain.repositories.UsersRepository;
 import com.hades.hadescoffee.infrastructure.entities.RoleEntity;
 import com.hades.hadescoffee.infrastructure.entities.UserEntity;
 import com.hades.hadescoffee.infrastructure.mappers.IUserMapper;
-import com.hades.hadescoffee.infrastructure.repositories.jpa.RolesJpaRepository;
-import com.hades.hadescoffee.infrastructure.repositories.jpa.UsersJpaRepository;
+import com.hades.hadescoffee.infrastructure.repositories.mongo.RolesMongoRepository;
+import com.hades.hadescoffee.infrastructure.repositories.mongo.UsersMongoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
@@ -23,25 +23,26 @@ import java.util.stream.Collectors;
 @Repository
 @RequiredArgsConstructor
 public class UsersRepositoryImpl implements UsersRepository {
-    private final UsersJpaRepository usersRepository;
+
+    private final UsersMongoRepository usersRepository;
+    private final RolesMongoRepository rolesRepository;
     private final IUserMapper mapper;
-    private final RolesJpaRepository rolesJpaRepository;
 
     @Override
     @Cacheable(value = "users", key = "#id")
     public Optional<User> findById(Long id) {
-        return usersRepository.findById(id).map(mapper::entityToModel);
+        return usersRepository.findById(id)
+                .map(mapper::entityToModel);
     }
 
     @Override
     public void save(User user) {
-        Set<String> roleCodes = user.getUserRoles()
-                .stream()
-                .map(UserRole::getRoleCode)
-                .collect(Collectors.toSet());
-        Set<RoleEntity> roles = rolesJpaRepository.findByCodeIn(roleCodes);
-        UserEntity userEntity = mapper.modelToEntity(user, roles);
-        usersRepository.save(userEntity);
+        Set<String> roleCodes = user.getRoleCodes();
+
+        Set<RoleEntity> roles = rolesRepository.findByCodeIn(roleCodes);
+
+        UserEntity entity = mapper.modelToEntity(user, roles);
+        usersRepository.save(entity);
     }
 
     @Override
@@ -51,14 +52,8 @@ public class UsersRepositoryImpl implements UsersRepository {
     }
 
     @Override
-    public Optional<User> findByEmailWithRoles(String email) {
-        return usersRepository.findByEmailWithRoles(email)
-                .map(mapper::entityToModel);
-    }
-
-    @Override
     public Optional<User> findByIdWithRoles(Long id) {
-        return usersRepository.findByIdWithRoles(id)
+        return usersRepository.findById(id)
                 .map(mapper::entityToModel);
     }
 
@@ -69,9 +64,12 @@ public class UsersRepositoryImpl implements UsersRepository {
 
     @Override
     public Paginated<User> findAllByKeywordAndRole(String keyword, Pageable pageable) {
-        Page<User> dbResponse = usersRepository.findAllByKeywordAndRole(
-                        keyword == null ? "" : keyword, pageable)
+        String k = (keyword == null) ? "" : keyword;
+
+        Page<User> dbResponse = usersRepository
+                .findAllByKeyword(k, pageable)
                 .map(mapper::entityToModel);
+
         return Paginated.<User>builder()
                 .data(dbResponse.getContent())
                 .paging(PagingResult.builder()
@@ -89,6 +87,9 @@ public class UsersRepositoryImpl implements UsersRepository {
 
     @Override
     public Set<User> findByIdIn(Set<Long> userIds) {
-        return usersRepository.findByIdIn(userIds).stream().map(mapper::entityToModel).collect(Collectors.toSet());
+        return usersRepository.findByIdIn(userIds)
+                .stream()
+                .map(mapper::entityToModel)
+                .collect(Collectors.toSet());
     }
 }
